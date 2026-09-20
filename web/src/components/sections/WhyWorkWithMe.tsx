@@ -5,20 +5,20 @@ import { Button } from "@/components/ui/Button";
 
 const reasons = [
   {
-    title: "Full systems, not fragments",
-    body: "I design, build, and test across the whole stack, so there is no gap between the frontend promise and the backend reality.",
+    title: "Practical Development",
+    body: "I focus on building software that solves real problems.",
   },
   {
-    title: "Verifiable claims",
-    body: "Project statuses reflect what is live today, and case studies show the real constraints and trade-offs behind each decision.",
+    title: "Modern Stack",
+    body: "I use current tools and frameworks to create maintainable applications.",
   },
   {
-    title: "Clear communication",
-    body: "Scope, status, and blockers are made explicit from day one, so you always know where a project actually stands.",
+    title: "Full-Stack Thinking",
+    body: "I understand the relationship between interface, backend, database, and deployment.",
   },
   {
-    title: "Testing over vibes",
-    body: "I test what I ship — unit and E2E coverage, idempotent pipelines, reproducible builds — not just best-effort demos.",
+    title: "Continuous Improvement",
+    body: "I build, test, learn, and refine.",
   },
 ];
 

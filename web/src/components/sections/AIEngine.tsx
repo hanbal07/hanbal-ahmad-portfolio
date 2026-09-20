@@ -32,35 +32,33 @@ const areas = [
   },
 ];
 
-const pipeline = [
-  { label: "Document", sub: "upload & validate" },
-  { label: "OCR", sub: "scanned text + layout" },
-  { label: "Classification", sub: "9 typed schemas" },
-  { label: "Extraction", sub: "per-field, referenced" },
-  { label: "Embeddings", sub: "pgvector" },
-  { label: "Semantic Search", sub: "ownership-filtered" },
-  { label: "RAG", sub: "evidence-first retrieval" },
-  { label: "Answer + Citations", sub: "with references" },
+const flow = [
+  { label: "DATA", sub: "raw input" },
+  { label: "PYTHON", sub: "features & processing" },
+  { label: "MODEL", sub: "learns from data" },
+  { label: "API", sub: "serves predictions" },
+  { label: "APPLICATION", sub: "product integration" },
+  { label: "USER", sub: "real-world usage" },
 ];
 
-function PipelineBand() {
+function FlowBand() {
   return (
     <div className="mt-12 rounded-xl border border-line bg-surface/60 p-5 sm:p-6">
       <p className="mono-label text-[11px] text-ink-3">
-        document intelligence pipeline — as implemented in DIP
+        how AI becomes a usable product
       </p>
       <ul
         className="mt-4 flex items-stretch gap-3 overflow-x-auto pb-2"
-        aria-label="End-to-end document intelligence pipeline: validate document, OCR, classify, extract, embed, search, retrieve, answer with citations"
+        aria-label="The AI product flow: data, processed in Python, trained into a model, exposed through an API, integrated into an application, and used by real users"
       >
-        {pipeline.map((stage, i) => (
+        {flow.map((stage, i) => (
           <li key={stage.label} className="flex shrink-0 items-center gap-3">
             <div className="card-surface rounded-lg px-4 py-3">
               <p className="mono-label text-[9px] text-accent/70">stage 0{i + 1}</p>
               <p className="mt-1 font-mono text-[13px] text-ink">{stage.label}</p>
               <p className="mt-0.5 text-[11px] text-ink-2">{stage.sub}</p>
             </div>
-            {i < pipeline.length - 1 ? (
+            {i < flow.length - 1 ? (
               <ArrowRight
                 className="h-4 w-4 shrink-0 text-ink-3"
                 aria-hidden="true"
@@ -70,7 +68,8 @@ function PipelineBand() {
         ))}
       </ul>
       <p className="mt-3 text-xs text-ink-3">
-        From messy uploads to cited answers — each stage is retry-safe and idempotent.
+        The document version of this flow — OCR → extraction → embeddings →
+        retrieval — is implemented in the DIP case study.
       </p>
     </div>
   );
@@ -87,10 +86,10 @@ export function AIEngine() {
         <SectionHeading
           eyebrow="ai / ml"
           title="Beyond the Interface."
-          description="I don't only build interfaces — I also explore intelligent systems and integrate the ones that make sense into practical products. The focus stays on features that work, not demos that impress."
+          description="Web development is only one part of what I build. I also explore intelligent systems using Python, machine learning, deep learning, computer vision, and AI-powered application architecture."
         />
 
-        <PipelineBand />
+        <FlowBand />
 
         <div className="mt-8 grid gap-5 sm:grid-cols-2">
           {areas.map((area, i) => (

@@ -166,52 +166,52 @@ export function Contact() {
                 stack, and timeline.
               </p>
               <ul className="mt-8 space-y-3">
-                {showEmail ? (
-                  <>
-                    <li>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <a
-                          href={`mailto:${siteConfig.contactEmail}`}
-                          className="group inline-flex items-center gap-3 font-mono text-sm text-ink-2 transition-colors hover:text-accent"
-                        >
-                          <Mail className="h-4 w-4 text-accent" aria-hidden="true" />
-                          {siteConfig.contactEmail}
-                        </a>
-                        <button
-                          type="button"
-                          onClick={copyEmail}
-                          aria-label={`Copy ${siteConfig.contactEmail} to clipboard`}
-                          className="mono-label inline-flex items-center gap-1.5 rounded-md border border-line-strong bg-surface-2/60 px-2.5 py-1.5 text-[10px] text-ink-2 transition-colors hover:border-accent/50 hover:text-accent"
-                        >
-                          {copiedEmail ? (
-                            <>
-                              <Check className="h-3.5 w-3.5 text-ok" aria-hidden="true" />
-                              Email copied
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="h-3.5 w-3.5" aria-hidden="true" />
-                              Copy email
-                            </>
-                          )}
-                        </button>
-                      </div>
-                      <p
-                        role="status"
-                        aria-live="polite"
-                        className="mt-2 max-w-sm text-xs leading-relaxed text-ink-3"
+                <li>
+                  {showEmail ? (
+                    <div className="flex flex-wrap items-center gap-2">
+                      <a
+                        href={`mailto:${siteConfig.contactEmail}`}
+                        className="group inline-flex items-center gap-3 font-mono text-sm text-ink-2 transition-colors hover:text-accent"
                       >
-                        Email works directly from your device — no form, no third
-                        party, no spam filtering.
-                      </p>
-                    </li>
-                    <li aria-hidden="true">
-                      <span className="mono-label block text-[10px] tracking-wider text-ink-3">
-                        — or send a message below —
-                      </span>
-                    </li>
-                  </>
-                ) : null}
+                        <Mail className="h-4 w-4 text-accent" aria-hidden="true" />
+                        {siteConfig.contactEmail}
+                      </a>
+                      <button
+                        type="button"
+                        onClick={copyEmail}
+                        aria-label={`Copy ${siteConfig.contactEmail} to clipboard`}
+                        className="mono-label inline-flex items-center gap-1.5 rounded-md border border-line-strong bg-surface-2/60 px-2.5 py-1.5 text-[10px] text-ink-2 transition-colors hover:border-accent/50 hover:text-accent"
+                      >
+                        {copiedEmail ? (
+                          <>
+                            <Check className="h-3.5 w-3.5 text-ok" aria-hidden="true" />
+                            Email copied
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="h-3.5 w-3.5" aria-hidden="true" />
+                            Copy email
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  ) : (
+                    <p className="inline-flex items-center gap-3 font-mono text-sm text-ink-3">
+                      <Mail className="h-4 w-4 text-accent" aria-hidden="true" />
+                      Email address coming soon
+                    </p>
+                  )}
+                  <p className="mt-2 max-w-sm text-xs leading-relaxed text-ink-3" role="status" aria-live="polite">
+                    {showEmail
+                      ? "Email works directly from your device — no form, no third party, no spam filtering."
+                      : "Set NEXT_PUBLIC_CONTACT_EMAIL to publish my address here."}
+                  </p>
+                </li>
+                <li aria-hidden="true">
+                  <span className="mono-label block text-[10px] tracking-wider text-ink-3">
+                    — or send a message below —
+                  </span>
+                </li>
                 <li>
                   <a
                     href={siteConfig.githubUrl}
@@ -422,7 +422,7 @@ export function Contact() {
                       )}
                     </Button>
                     <p className="text-xs text-ink-3">
-                      Protected by a honeypot and rate limiting.
+                      Honeypot spam trap.
                     </p>
                   </div>
                 </form>

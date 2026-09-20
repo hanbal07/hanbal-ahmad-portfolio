@@ -7,7 +7,7 @@ import { GitHubSection } from "@/components/sections/GitHubSection";
 import { Services } from "@/components/sections/Services";
 import { WhyWorkWithMe } from "@/components/sections/WhyWorkWithMe";
 import { Process } from "@/components/sections/Process";
-import { Education } from "@/components/sections/Education";
+import { Journey } from "@/components/sections/Journey";
 import { Contact } from "@/components/sections/Contact";
 
 export default function Home() {
@@ -22,7 +22,7 @@ export default function Home() {
       <Services />
       <WhyWorkWithMe />
       <Process />
-      <Education />
+      <Journey />
       <Contact />
     </>
   );

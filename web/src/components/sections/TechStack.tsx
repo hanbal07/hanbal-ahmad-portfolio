@@ -5,6 +5,45 @@ import { skillCategories } from "@/data/skills";
 
 const tones = ["text-accent", "text-violet", "text-ok", "text-accent", "text-ink-2"] as const;
 
+const marqueeItems = [
+  "Next.js",
+  "TypeScript",
+  "React",
+  "Python",
+  "FastAPI",
+  "Flask",
+  "PostgreSQL",
+  "Prisma",
+  "AI/ML",
+  "Git",
+  "GitHub",
+];
+
+function TechMarquee() {
+  const row = [...marqueeItems, ...marqueeItems];
+  return (
+    <div className="tech-marquee mt-12 overflow-hidden border-y border-line/70 bg-surface/40 py-4">
+      <p className="sr-only">
+        Technologies I work with: {marqueeItems.join(", ")}.
+      </p>
+      <ul
+        className="tech-marquee-track"
+        aria-hidden="true"
+        role="presentation"
+      >
+        {row.map((item, i) => (
+          <li key={`${item}-${i}`} className="flex items-center gap-3 px-4">
+            <span className="mono-label text-[13px] text-ink-2">{item}</span>
+            <span className="text-accent/60" aria-hidden="true">
+              ✦
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export function TechStack() {
   return (
     <section id="skills" aria-labelledby="skills-heading" className="scroll-mt-24 py-24 sm:py-28">
@@ -14,6 +53,8 @@ export function TechStack() {
           title="The stack I build with."
           description="Technologies I reach for across the full lifecycle of a product — no inflated percentage bars, just what I actually work with."
         />
+
+        <TechMarquee />
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {skillCategories.map((category, i) => (

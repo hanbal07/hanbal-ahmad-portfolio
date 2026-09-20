@@ -8,17 +8,18 @@ export const siteConfig = {
   statusBadge: "Open to Remote",
   /**
    * Public contact email used by the "Email me directly" block
-   * (mailto link + copy button). Supply your own address here;
-   * keep empty to hide email-based contact options.
+   * (mailto link + copy button). Supply your own via
+   * NEXT_PUBLIC_CONTACT_EMAIL (or edit this value); keep empty to
+   * show "Email address coming soon" instead of a fake address.
    */
-  contactEmail: "",
+  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
   /**
    * Path to the profile photo shown in the hero.
-   * Drop a real photograph at web/public/profile/hanbal-ahmad.webp
-   * (webp, ~4:5 portrait). A monogram tile is shown as a graceful
-   * fallback while the file is absent, so the hero never breaks.
+   * Drop a real photograph at web/public/assets/profile/hanbal-ahmad.webp
+   * (webp, ~4:5 portrait, up to ~1024×1280). A monogram tile is shown as
+   * a graceful fallback while the file is absent, so the hero never breaks.
    */
-  profileImage: "/profile/hanbal-ahmad.webp",
+  profileImage: "/assets/profile/hanbal-ahmad.webp",
   githubUsername: "hanbal07",
   githubUrl: "https://github.com/hanbal07",
   linkedinUrl: "https://linkedin.com/in/hanbal-ahmad/",
@@ -27,11 +28,11 @@ export const siteConfig = {
 } as const;
 
 export const navigation = [
+  { label: "Home", href: "#hero" },
   { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
-  { label: "Services", href: "#services" },
-  { label: "GitHub", href: "#github" },
+  { label: "Skills", href: "#skills" },
+  { label: "Journey", href: "#journey" },
   { label: "Contact", href: "#contact" },
 ] as const;
 

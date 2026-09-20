@@ -119,6 +119,16 @@ export function CommandPalette() {
         e.preventDefault();
         setOpen((o) => !o);
       }
+      if (e.key === "/" && !open) {
+        const target = e.target as HTMLElement | null;
+        const typing =
+          target?.closest?.("input, textarea, select") != null ||
+          target?.isContentEditable === true;
+        if (!typing) {
+          e.preventDefault();
+          setOpen(true);
+        }
+      }
       if (e.key === "Escape" && open) {
         setOpen(false);
         setQuery("");

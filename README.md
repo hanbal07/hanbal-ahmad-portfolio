@@ -58,13 +58,15 @@ limiting (default 6/hour), identical-submission dedupe, SQLAlchemy persistence
 ## What must be filled in before going live
 
 1. **Profile photo** — `web/src/components/profile/ProfilePhoto.tsx` reads
-   `siteConfig.profileImage` (default `/profile/hanbal-ahmad.webp`), served from
-   `web/public/profile/`. A designed placeholder webp ships so the hero never
-   breaks; replace `web/public/profile/hanbal-ahmad.webp` with a real portrait
-   (webp, ~4:5, up to ~1024×1280). Missing/corrupt files fall back to a monogram tile.
-2. **Email** — `web/src/data/site.ts` → `contactEmail: ""` is intentionally
-   empty. Set your real address to reveal the "Email me directly" mailto +
-   copy-email block (this path needs no form and no backend).
+   `siteConfig.profileImage` (default `/assets/profile/hanbal-ahmad.webp`), served
+   from `web/public/assets/profile/`. A designed placeholder webp ships so the
+   hero never breaks; replace `web/public/assets/profile/hanbal-ahmad.webp` with
+   a real portrait (webp, ~4:5, up to ~1024×1280). Missing/corrupt files fall
+   back to a monogram tile.
+2. **Email** — `web/src/data/site.ts` → `contactEmail` (or
+   `NEXT_PUBLIC_CONTACT_EMAIL` in `.env.local`) is intentionally empty. Set your
+   real address to reveal the "Email me directly" mailto + copy-email block (no
+   form or backend needed); until then the site shows "Email address coming soon".
 3. **Contact delivery** — GitHub Pages can't run FastAPI, so the form needs a
    reachable endpoint. Either:
    - deploy `backend/` somewhere always-on (Render/Railway/Fly/VPS) and set
