@@ -1,0 +1,385 @@
+"use client";
+
+import { useState, type FormEvent } from "react";
+import { CheckCircle2, Loader2, Mail, Send } from "lucide-react";
+import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand";
+import { Container } from "@/components/ui/Container";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Reveal } from "@/components/ui/Reveal";
+import { Button } from "@/components/ui/Button";
+import { siteConfig } from "@/data/site";
+import { cn } from "@/lib/cn";
+import { contactEndpoint, isContactEnabled } from "@/lib/api";
+
+type Status =
+  | { kind: "idle" }
+  | { kind: "submitting" }
+  | { kind: "success" }
+  | { kind: "error"; message: string };
+
+interface FormState {
+  name: string;
+  email: string;
+  projectType: string;
+  message: string;
+  company: string;
+}
+
+const initialForm: FormState = { name: "", email: "", projectType: "", message: "", company: "" };
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const projectTypes = [
+  "Full-Stack Web Application",
+  "Web Development",
+  "Python / Backend API",
+  "AI-Powered Application",
+  "REST API / Database",
+  "Something Else",
+];
+
+function fieldError(value: string, field: keyof FormState): string | null {
+  if (field === "company") return null;
+  if (!value.trim()) return "This field is required.";
+  if (field === "name" && value.trim().length < 2) return "Please enter your name.";
+  if (field === "email" && !EMAIL_RE.test(value.trim()))
+    return "Please enter a valid email address.";
+  if (field === "message" && value.trim().length < 10)
+    return "A few more words so I can actually help (min 10 characters).";
+  return null;
+}
+
+const inputClasses =
+  "w-full rounded-lg border border-line bg-surface-2/50 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-3 transition-colors focus:border-accent/60 focus:outline-none";
+
+export function Contact() {
+  const [status, setStatus] = useState<Status>({ kind: "idle" });
+  const [form, setForm] = useState<FormState>(initialForm);
+  const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
+
+  const setField = <K extends keyof FormState>(key: K, value: string) => {
+    setForm((prev) => ({ ...prev, [key]: value }));
+    setErrors((prev) => ({ ...prev, [key]: undefined }));
+  };
+
+  const validate = (): boolean => {
+    const next: Partial<Record<keyof FormState, string>> = {};
+    for (const field of ["name", "email", "message"] as const) {
+      const err = fieldError(form[field], field);
+      if (err) next[field] = err;
+    }
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
+
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (status.kind === "submitting") return;
+
+    // Honeypot: silently accept spam bots.
+    if (form.company.trim()) {
+      setStatus({ kind: "success" });
+      return;
+    }
+
+    if (!validate()) return;
+
+    if (!isContactEnabled()) {
+      setStatus({
+        kind: "error",
+        message:
+          "The contact service isn't configured yet. Please email me directly for now.",
+      });
+      return;
+    }
+
+    setStatus({ kind: "submitting" });
+    try {
+      const res = await fetch(contactEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          email: form.email.trim(),
+          message: form.message.trim(),
+          project_type: form.projectType || null,
+        }),
+      });
+
+      if (res.ok) {
+        setForm(initialForm);
+        setStatus({ kind: "success" });
+      } else {
+        let message = "Something went wrong — please try again.";
+        try {
+          const data = (await res.json()) as { detail?: string };
+          if (data.detail) message = data.detail;
+        } catch {
+          /* keep default message */
+        }
+        setStatus({ kind: "error", message });
+      }
+    } catch {
+      setStatus({
+        kind: "error",
+        message: "Couldn't reach the contact service. Please try again in a moment.",
+      });
+    }
+  };
+
+  const showEmail = siteConfig.email.length > 0;
+
+  return (
+    <section
+      id="contact"
+      aria-labelledby="contact-heading"
+      className="scroll-mt-24 py-24 sm:py-28"
+    >
+      <Container>
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+          {/* Left */}
+          <div>
+            <SectionHeading
+              eyebrow="contact"
+              title="Have an idea worth building?"
+              description="Let's turn it into something real."
+            />
+            <Reveal delay={0.15}>
+              <p className="mt-6 max-w-md text-base leading-relaxed text-ink-2">
+                Whether it&apos;s an internship, a freelance project, or a product
+                you want shipped — I&apos;ll give you a straight answer about scope,
+                stack, and timeline.
+              </p>
+              <ul className="mt-8 space-y-3">
+                {showEmail ? (
+                  <li>
+                    <a
+                      href={`mailto:${siteConfig.email}`}
+                      className="group inline-flex items-center gap-3 font-mono text-sm text-ink-2 transition-colors hover:text-accent"
+                    >
+                      <Mail className="h-4 w-4 text-accent" aria-hidden="true" />
+                      {siteConfig.email}
+                    </a>
+                  </li>
+                ) : null}
+                <li>
+                  <a
+                    href={siteConfig.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-3 font-mono text-sm text-ink-2 transition-colors hover:text-accent"
+                  >
+                    <GitHubIcon className="h-4 w-4 text-accent" />
+                    github.com/hanbal07
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={siteConfig.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-3 font-mono text-sm text-ink-2 transition-colors hover:text-accent"
+                  >
+                    <LinkedInIcon className="h-4 w-4 text-accent" />
+                    linkedin.com/in/hanbal-ahmad
+                  </a>
+                </li>
+              </ul>
+              <p className="mono-label mt-8 inline-flex items-center gap-2 rounded-md border border-ok/25 bg-ok/[0.06] px-3 py-1.5 text-[11px] text-ok">
+                <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ok opacity-60" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-ok" />
+                </span>
+                Open to remote opportunities
+              </p>
+            </Reveal>
+          </div>
+
+          {/* Form */}
+          <Reveal delay={0.1}>
+            <div className="card-surface rounded-xl p-6 sm:p-8">
+              {status.kind === "success" ? (
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className="flex flex-col items-center gap-4 py-14 text-center"
+                >
+                  <span
+                    className="flex h-12 w-12 items-center justify-center rounded-full border border-ok/30 bg-ok/10 text-ok"
+                    aria-hidden="true"
+                  >
+                    <CheckCircle2 className="h-6 w-6" />
+                  </span>
+                  <div>
+                    <p className="text-base font-semibold text-ink">Message sent.</p>
+                    <p className="mt-1 text-sm text-ink-2">
+                      Thanks for reaching out — I&apos;ll get back to you soon.
+                    </p>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setStatus({ kind: "idle" })}
+                  >
+                    Send another message
+                  </Button>
+                </div>
+              ) : (
+                <form onSubmit={onSubmit} noValidate>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <div>
+                      <label
+                        htmlFor="contact-name"
+                        className="mono-label mb-1.5 block text-[11px] text-ink-2"
+                      >
+                        Name *
+                      </label>
+                      <input
+                        id="contact-name"
+                        name="name"
+                        type="text"
+                        autoComplete="name"
+                        value={form.name}
+                        onChange={(e) => setField("name", e.target.value)}
+                        aria-invalid={errors.name ? true : undefined}
+                        aria-describedby={errors.name ? "contact-name-error" : undefined}
+                        className={cn(inputClasses, errors.name && "border-err/60")}
+                        placeholder="Your name"
+                      />
+                      {errors.name ? (
+                        <p id="contact-name-error" className="mt-1.5 text-xs text-err">
+                          {errors.name}
+                        </p>
+                      ) : null}
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="contact-email"
+                        className="mono-label mb-1.5 block text-[11px] text-ink-2"
+                      >
+                        Email *
+                      </label>
+                      <input
+                        id="contact-email"
+                        name="email"
+                        type="email"
+                        autoComplete="email"
+                        value={form.email}
+                        onChange={(e) => setField("email", e.target.value)}
+                        aria-invalid={errors.email ? true : undefined}
+                        aria-describedby={errors.email ? "contact-email-error" : undefined}
+                        className={cn(inputClasses, errors.email && "border-err/60")}
+                        placeholder="you@example.com"
+                      />
+                      {errors.email ? (
+                        <p id="contact-email-error" className="mt-1.5 text-xs text-err">
+                          {errors.email}
+                        </p>
+                      ) : null}
+                    </div>
+                  </div>
+
+                  <div className="mt-5">
+                    <label
+                      htmlFor="contact-project-type"
+                      className="mono-label mb-1.5 block text-[11px] text-ink-2"
+                    >
+                      Project type <span className="text-ink-3">(optional)</span>
+                    </label>
+                    <select
+                      id="contact-project-type"
+                      name="project_type"
+                      value={form.projectType}
+                      onChange={(e) => setField("projectType", e.target.value)}
+                      className={cn(inputClasses, "appearance-none bg-surface-2/50")}
+                    >
+                      <option value="">Select a type…</option>
+                      {projectTypes.map((type) => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="mt-5">
+                    <label
+                      htmlFor="contact-message"
+                      className="mono-label mb-1.5 block text-[11px] text-ink-2"
+                    >
+                      Message *
+                    </label>
+                    <textarea
+                      id="contact-message"
+                      name="message"
+                      rows={5}
+                      value={form.message}
+                      onChange={(e) => setField("message", e.target.value)}
+                      aria-invalid={errors.message ? true : undefined}
+                      aria-describedby={errors.message ? "contact-message-error" : undefined}
+                      className={cn(
+                        inputClasses,
+                        "resize-y",
+                        errors.message && "border-err/60",
+                      )}
+                      placeholder="Tell me about your project, role, or idea…"
+                    />
+                    {errors.message ? (
+                      <p id="contact-message-error" className="mt-1.5 text-xs text-err">
+                        {errors.message}
+                      </p>
+                    ) : null}
+                  </div>
+
+                  {/* Honeypot — hidden from humans */}
+                  <div className="sr-only" aria-hidden="true">
+                    <label htmlFor="contact-company">Leave this field empty</label>
+                    <input
+                      id="contact-company"
+                      name="company"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={form.company}
+                      onChange={(e) => setField("company", e.target.value)}
+                    />
+                  </div>
+
+                  {status.kind === "error" ? (
+                    <p
+                      role="alert"
+                      className="mt-5 rounded-lg border border-err/30 bg-err/[0.06] px-3.5 py-2.5 text-xs leading-relaxed text-ink-2"
+                    >
+                      {status.message}
+                    </p>
+                  ) : null}
+
+                  <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <Button
+                      type="submit"
+                      size="lg"
+                      disabled={status.kind === "submitting"}
+                    >
+                      {status.kind === "submitting" ? (
+                        <>
+                          <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                          Sending…
+                        </>
+                      ) : (
+                        <>
+                          Send Message
+                          <Send className="h-4 w-4" aria-hidden="true" />
+                        </>
+                      )}
+                    </Button>
+                    <p className="text-xs text-ink-3">
+                      Protected against spam. No data is shared.
+                    </p>
+                  </div>
+                </form>
+              )}
+            </div>
+          </Reveal>
+        </div>
+      </Container>
+    </section>
+  );
+}
