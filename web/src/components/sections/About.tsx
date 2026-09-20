@@ -11,7 +11,7 @@ export function About() {
         <SectionHeading
           eyebrow="about"
           title="Building software with purpose."
-          description=""
+          description="A project-driven developer — honest about what's live, what's still being built, and how each system actually works."
         />
 
         <div className="mt-12 grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
@@ -21,7 +21,7 @@ export function About() {
                 I&apos;m {siteConfig.name}, a project-driven developer focused on
                 building practical web applications and intelligent software. I work
                 across modern frontend development, Python backends, databases, APIs,
-                and AI/ML — with a focus on turning ideas into usable products.
+                and AI/ML — finishing each project teaches me the next one.
               </p>
               <p>
                 I care about the details that make software feel finished: clear
@@ -31,12 +31,16 @@ export function About() {
               <p>
                 I enjoy solving problems where the answer is a working system rather
                 than just a component — real-time scoring, document pipelines,
-                retrieval and chat, and tools people actually use every day. When a
-                claim doesn&apos;t hold, I&apos;d rather say so than hand-wave it.
+                retrieval and chat, and tools people actually use every day.
               </p>
               <p>
-                Every line in the projects below is public on my GitHub — built,
-                tested, and shipped by hand.
+                You won&apos;t find inflated claims here. A project is tagged{" "}
+                <span className="text-ok">LIVE</span> only when it&apos;s actually
+                deployed and reachable today; everything else is{" "}
+                <span className="text-warn">building</span> while I keep working on
+                it. Source is public where it&apos;s genuinely shareable, and each
+                case study shows real constraints and trade-offs instead of a
+                highlight reel.
               </p>
             </div>
           </Reveal>

@@ -10,49 +10,40 @@ export const services: Service[] = [
     id: "full-stack",
     title: "Full-Stack Web Development",
     description:
-      "Complete applications from frontend to backend — React/Next.js interfaces, Python APIs, and relational databases working as one product.",
-    deliverables: ["Responsive frontend", "Backend APIs", "Database integration"],
+      "Complete applications from interface to data — React/Next.js frontends, Python backends, and a relational database working as one product. This is where most of my shipped work lives.",
+    deliverables: [
+      "Responsive frontend",
+      "Python APIs",
+      "Database integration",
+      "Deployment",
+    ],
   },
   {
-    id: "web",
-    title: "Web Development",
+    id: "python-backend",
+    title: "Python Backend & APIs",
     description:
-      "Professional websites and web applications built to be fast, accessible, and easy to maintain.",
-    deliverables: ["Business & product sites", "Web applications", "Responsive layouts"],
+      "FastAPI or Flask services with validation, authentication, background jobs, and clean endpoint contracts — the kind of backend a frontend can actually depend on.",
+    deliverables: ["FastAPI / Flask", "Auth & validation", "Background jobs", "API docs"],
   },
   {
-    id: "backend",
-    title: "Backend Development",
-    description:
-      "Python APIs, business logic, database design, and third-party integrations that power an application.",
-    deliverables: ["FastAPI / Flask services", "Business logic", "Integrations"],
-  },
-  {
-    id: "python",
-    title: "Python Development",
-    description:
-      "Python-based applications, data processing, automation, and tooling built around the problem at hand.",
-    deliverables: ["Applications & scripts", "Automation", "Data processing"],
-  },
-  {
-    id: "ai",
+    id: "ai-apps",
     title: "AI-Powered Applications",
     description:
-      "Integrating practical AI/ML capabilities — retrieval, extraction, classification, and intelligent features — into software people actually use.",
-    deliverables: ["Intelligent features", "AI/ML pipelines", "ML-powered APIs"],
+      "Practical AI/ML features wired into software people use — document extraction, classification, semantic search, and retrieval-augmented chat with citations instead of guesses.",
+    deliverables: ["Document extraction", "Semantic search", "RAG chat", "ML APIs"],
   },
   {
-    id: "api",
-    title: "REST APIs",
+    id: "business-websites",
+    title: "Business Websites & Web Design",
     description:
-      "Designed and developed APIs with validation, authentication, and clean endpoint contracts.",
-    deliverables: ["API design", "Auth & access control", "Documentation"],
+      "Professional sites built to be fast, accessible, and easy to update — focused on clear messaging and layouts that work on any device.",
+    deliverables: ["Brochure sites", "Landing pages", "Accessible UI", "Performance"],
   },
   {
-    id: "database",
-    title: "Database Development",
+    id: "database-systems",
+    title: "Database & System Integration",
     description:
-      "SQL / PostgreSQL schema design, queries, and ORM integration.",
-    deliverables: ["Schema design", "Query optimization", "Prisma / SQL"],
+      "PostgreSQL schema design, ORM modeling, background processing, and wiring third-party services (auth, payments, notifications) into your system.",
+    deliverables: ["PostgreSQL schemas", "Prisma / SQL", "Integrations", "Data migration"],
   },
 ];

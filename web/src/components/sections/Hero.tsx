@@ -1,15 +1,16 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown, MapPin } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand";
 import { Container } from "@/components/ui/Container";
 import { Terminal } from "@/components/ui/Terminal";
+import { ProfilePhoto } from "@/components/profile/ProfilePhoto";
 import { Button } from "@/components/ui/Button";
 import { staggerContainer, fadeUp } from "@/lib/motion";
 import { siteConfig } from "@/data/site";
 
-const heroTech = ["Python", "TypeScript", "Next.js", "FastAPI", "PostgreSQL", "Flask"];
+const heroTech = ["Next.js", "TypeScript", "Python", "FastAPI", "PostgreSQL"];
 
 export function Hero() {
   const reduce = useReducedMotion();
@@ -30,10 +31,7 @@ export function Hero() {
           >
             <motion.div variants={fadeUp}>
               <p className="inline-flex items-center gap-2 rounded-full border border-ok/25 bg-ok/5 px-3.5 py-1.5">
-                <span
-                  className="relative flex h-1.5 w-1.5"
-                  aria-hidden="true"
-                >
+                <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ok opacity-60" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-ok" />
                 </span>
@@ -62,7 +60,7 @@ export function Hero() {
               variants={fadeUp}
               className="mono-label mt-3 text-sm text-accent"
             >
-              Full-Stack Developer&nbsp;| Python&nbsp;&amp; AI/ML
+              {siteConfig.role}
             </motion.p>
 
             <motion.h2
@@ -78,6 +76,14 @@ export function Hero() {
               className="mt-4 max-w-xl text-base leading-relaxed text-ink-2"
             >
               {siteConfig.subheadline}
+            </motion.p>
+
+            <motion.p
+              variants={fadeUp}
+              className="mt-4 flex items-center gap-2 font-mono text-xs text-ink-2"
+            >
+              <MapPin className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
+              {siteConfig.location}
             </motion.p>
 
             {/* CTAs */}
@@ -114,17 +120,17 @@ export function Hero() {
               </div>
             </motion.div>
 
-            {/* Tech chips */}
+            {/* Tech list */}
             <motion.ul
               variants={fadeUp}
-              className="mt-10 flex flex-wrap items-center gap-x-2 gap-y-2 font-mono text-xs text-ink-3"
+              className="mt-10 flex flex-wrap items-center gap-x-2 gap-y-2 font-mono text-xs text-ink-2"
               aria-label="Technologies I work with"
             >
               {heroTech.map((tech, i) => (
                 <li key={tech} className="flex items-center">
                   {i > 0 && (
-                    <span className="mr-2 text-ink-3/60" aria-hidden="true">
-                      /
+                    <span className="mr-2 text-accent/70" aria-hidden="true">
+                      ·
                     </span>
                   )}
                   {tech}
@@ -133,24 +139,41 @@ export function Hero() {
             </motion.ul>
           </motion.div>
 
-          {/* Visual */}
+          {/* Visual — profile photo + terminal */}
           <motion.div
             initial={reduce ? undefined : { opacity: 0, y: 24 }}
             animate={reduce ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="relative mx-auto w-full max-w-md lg:max-w-none"
+            className="relative mx-auto w-full max-w-[360px] lg:max-w-[400px]"
           >
-            <div
-              aria-hidden="true"
-              className="absolute -inset-6 -z-10 rounded-xl bg-gradient-to-br from-accent/15 via-transparent to-violet/10 blur-2xl"
-            />
-            <Terminal />
-            <p
-              aria-hidden="true"
-              className="mono-label absolute -right-2 -top-3 animate-float rounded-md border border-line-strong bg-surface px-2.5 py-1.5 text-[10px] text-ink-2 shadow-lg sm:-right-4"
-            >
-              {"{ position: \"full-stack\" }"}
-            </p>
+            <div className="relative">
+              <div
+                aria-hidden="true"
+                className="absolute -inset-6 -z-10 rounded-3xl bg-gradient-to-br from-accent/20 via-transparent to-violet/15 blur-2xl"
+              />
+              <div className="card-surface accent-edge overflow-hidden rounded-2xl">
+                <div className="aspect-[4/5] overflow-hidden">
+                  <ProfilePhoto />
+                </div>
+                <div className="flex items-center justify-between border-t border-line bg-surface px-4 py-2.5">
+                  <span className="mono-label text-[10px] text-ink-2">
+                    {siteConfig.statusBadge}
+                  </span>
+                  <span className="mono-label text-[10px] text-accent">
+                    ~/hanbal
+                  </span>
+                </div>
+              </div>
+
+              <p
+                aria-hidden="true"
+                className="mono-label absolute -right-2 -top-3 animate-float rounded-md border border-line-strong bg-surface px-2.5 py-1.5 text-[10px] text-ink-2 shadow-lg sm:-right-4"
+              >
+                {"{ position: \"full-stack\" }"}
+              </p>
+            </div>
+
+            <Terminal className="mt-6" />
           </motion.div>
         </div>
       </Container>

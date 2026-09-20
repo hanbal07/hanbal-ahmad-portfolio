@@ -1,4 +1,3 @@
-import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
@@ -15,7 +14,7 @@ export function Services() {
         <SectionHeading
           eyebrow="services"
           title="What I can build for you."
-          description="Services grounded in the projects above — during internships, on freelance work, or with a remote team. If it's close to this list, ask."
+          description="Five service areas, each grounded in the projects above. If what you need is close to this list, ask — most of my work lives at these intersections."
         />
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -25,12 +24,8 @@ export function Services() {
                 <p className="mono-label text-[11px] text-ink-3" aria-hidden="true">
                   {String(i + 1).padStart(2, "0")}
                 </p>
-                <h3 className="mt-2 flex items-start justify-between gap-2 text-base font-semibold text-ink">
+                <h3 className="mt-2 flex items-center justify-between gap-2 text-base font-semibold text-ink">
                   {service.title}
-                  <ArrowUpRight
-                    className="mt-1 h-4 w-4 shrink-0 text-ink-3"
-                    aria-hidden="true"
-                  />
                 </h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-2">
                   {service.description}

@@ -6,7 +6,7 @@ import { Reveal } from "@/components/ui/Reveal";
 export const metadata = {
   title: "Projects",
   description:
-    "Featured projects by Hanbal Ahmad — full-stack web applications, Python backends, and AI-powered systems, each with a detailed case study.",
+    "Featured projects by Hanbal Ahmad — full-stack web applications, Python backends, and AI-powered systems, with case studies on the most notable ones.",
 };
 
 export default function ProjectsPage() {
@@ -16,7 +16,7 @@ export default function ProjectsPage() {
         <SectionHeading
           eyebrow="projects"
           title="All projects."
-          description="Every project is public on GitHub. Filter by focus area, or open a case study for the full story — problem, solution, architecture, and decisions."
+          description="Filter by focus area, or open a case study for the full story — problem, solution, architecture, and decisions. LIVE = public and reachable right now; BUILDING = actively developed."
         />
         <div className="mt-12">
           <Reveal>

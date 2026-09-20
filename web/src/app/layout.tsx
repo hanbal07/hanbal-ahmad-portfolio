@@ -7,6 +7,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CommandPalette } from "@/components/layout/CommandPalette";
 import { CustomCursor } from "@/components/layout/CustomCursor";
+import { MotionProvider } from "@/components/layout/MotionProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -91,9 +92,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         <Background />
         <Navbar />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
+        <MotionProvider>
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+        </MotionProvider>
         <Footer />
         <CommandPalette />
         <CustomCursor />

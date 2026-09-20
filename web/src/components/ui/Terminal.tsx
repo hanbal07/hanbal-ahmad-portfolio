@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useReducedMotion } from "framer-motion";
+import { cn } from "@/lib/cn";
 
 interface TerminalLine {
   prompt?: string;
@@ -31,7 +32,7 @@ const TYPE_MS = 38;
 const PAUSE_MS = 380;
 const START_MS = 500;
 
-export function Terminal() {
+export function Terminal({ className }: { className?: string }) {
   const reduce = useReducedMotion();
   const [done, setDone] = useState(() => (reduce ? LINES.length : 0));
   const [pos, setPos] = useState(() => (reduce ? -1 : 0));
@@ -81,7 +82,10 @@ export function Terminal() {
 
   return (
     <div
-      className="card-surface overflow-hidden rounded-xl shadow-[0_24px_70px_-30px_var(--glow)]"
+      className={cn(
+        "card-surface overflow-hidden rounded-xl shadow-[0_24px_70px_-30px_var(--glow)]",
+        className,
+      )}
       role="img"
       aria-label="Terminal window showing whoami, tech stack, and remote status"
     >

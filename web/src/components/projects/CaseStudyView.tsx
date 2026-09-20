@@ -14,7 +14,7 @@ import {
 import { GitHubIcon } from "@/components/ui/brand";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
-import { StatusBadge } from "@/components/ui/StatusBadge";
+import { StatusBadge, CaseStudyBadge } from "@/components/ui/StatusBadge";
 import { Button } from "@/components/ui/Button";
 import type { Project } from "@/data/projects";
 
@@ -83,6 +83,7 @@ export function CaseStudyView({ project }: { project: Project }) {
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-3">
               <StatusBadge status={project.status} />
+              {study ? <CaseStudyBadge /> : null}
               <span
                 className="mono-label text-[11px] text-ink-3"
                 aria-label="Project categories"

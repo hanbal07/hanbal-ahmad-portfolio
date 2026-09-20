@@ -1,7 +1,14 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { CheckCircle2, Loader2, Mail, Send } from "lucide-react";
+import {
+  Check,
+  CheckCircle2,
+  Copy,
+  Loader2,
+  Mail,
+  Send,
+} from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -9,7 +16,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/data/site";
 import { cn } from "@/lib/cn";
-import { contactEndpoint, isContactEnabled } from "@/lib/api";
+import { isContactEnabled, submitContact, contactFormat } from "@/lib/api";
 
 type Status =
   | { kind: "idle" }
@@ -55,10 +62,28 @@ export function Contact() {
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const [form, setForm] = useState<FormState>(initialForm);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
+  const [copiedEmail, setCopiedEmail] = useState(false);
 
   const setField = <K extends keyof FormState>(key: K, value: string) => {
     setForm((prev) => ({ ...prev, [key]: value }));
     setErrors((prev) => ({ ...prev, [key]: undefined }));
+  };
+
+  const copyEmail = async () => {
+    const email = siteConfig.contactEmail;
+    if (!email) return;
+    try {
+      await navigator.clipboard.writeText(email);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = email;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+    }
+    setCopiedEmail(true);
+    window.setTimeout(() => setCopiedEmail(false), 2200);
   };
 
   const validate = (): boolean => {
@@ -87,46 +112,37 @@ export function Contact() {
       setStatus({
         kind: "error",
         message:
-          "The contact service isn't configured yet. Please email me directly for now.",
+          "The contact service isn't configured yet — for now, use the email or LinkedIn links on the left.",
       });
       return;
     }
 
     setStatus({ kind: "submitting" });
     try {
-      const res = await fetch(contactEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.name.trim(),
-          email: form.email.trim(),
-          message: form.message.trim(),
-          project_type: form.projectType || null,
-        }),
+      await submitContact({
+        name: form.name.trim(),
+        email: form.email.trim(),
+        message: form.message.trim(),
+        project_type: form.projectType || null,
+        website: form.company.trim(),
       });
-
-      if (res.ok) {
-        setForm(initialForm);
-        setStatus({ kind: "success" });
-      } else {
-        let message = "Something went wrong — please try again.";
-        try {
-          const data = (await res.json()) as { detail?: string };
-          if (data.detail) message = data.detail;
-        } catch {
-          /* keep default message */
-        }
-        setStatus({ kind: "error", message });
+      setForm(initialForm);
+      setStatus({ kind: "success" });
+    } catch (err) {
+      let message =
+        err instanceof Error && err.message === "contact-not-configured"
+          ? "The contact service isn't configured yet — for now, use the email or LinkedIn links on the left."
+          : "Something went wrong — the form wasn't sent. Please try again or use the email link.";
+      if (err instanceof Error && err.message === "contact-rejected") {
+        message =
+          `The service rejected the request (format: ${contactFormat}). ` +
+          "Please try again or reach out by email.";
       }
-    } catch {
-      setStatus({
-        kind: "error",
-        message: "Couldn't reach the contact service. Please try again in a moment.",
-      });
+      setStatus({ kind: "error", message });
     }
   };
 
-  const showEmail = siteConfig.email.length > 0;
+  const showEmail = siteConfig.contactEmail.length > 0;
 
   return (
     <section
@@ -151,15 +167,50 @@ export function Contact() {
               </p>
               <ul className="mt-8 space-y-3">
                 {showEmail ? (
-                  <li>
-                    <a
-                      href={`mailto:${siteConfig.email}`}
-                      className="group inline-flex items-center gap-3 font-mono text-sm text-ink-2 transition-colors hover:text-accent"
-                    >
-                      <Mail className="h-4 w-4 text-accent" aria-hidden="true" />
-                      {siteConfig.email}
-                    </a>
-                  </li>
+                  <>
+                    <li>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <a
+                          href={`mailto:${siteConfig.contactEmail}`}
+                          className="group inline-flex items-center gap-3 font-mono text-sm text-ink-2 transition-colors hover:text-accent"
+                        >
+                          <Mail className="h-4 w-4 text-accent" aria-hidden="true" />
+                          {siteConfig.contactEmail}
+                        </a>
+                        <button
+                          type="button"
+                          onClick={copyEmail}
+                          aria-label={`Copy ${siteConfig.contactEmail} to clipboard`}
+                          className="mono-label inline-flex items-center gap-1.5 rounded-md border border-line-strong bg-surface-2/60 px-2.5 py-1.5 text-[10px] text-ink-2 transition-colors hover:border-accent/50 hover:text-accent"
+                        >
+                          {copiedEmail ? (
+                            <>
+                              <Check className="h-3.5 w-3.5 text-ok" aria-hidden="true" />
+                              Email copied
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="h-3.5 w-3.5" aria-hidden="true" />
+                              Copy email
+                            </>
+                          )}
+                        </button>
+                      </div>
+                      <p
+                        role="status"
+                        aria-live="polite"
+                        className="mt-2 max-w-sm text-xs leading-relaxed text-ink-3"
+                      >
+                        Email works directly from your device — no form, no third
+                        party, no spam filtering.
+                      </p>
+                    </li>
+                    <li aria-hidden="true">
+                      <span className="mono-label block text-[10px] tracking-wider text-ink-3">
+                        — or send a message below —
+                      </span>
+                    </li>
+                  </>
                 ) : null}
                 <li>
                   <a
@@ -371,7 +422,7 @@ export function Contact() {
                       )}
                     </Button>
                     <p className="text-xs text-ink-3">
-                      Protected against spam. No data is shared.
+                      Protected by a honeypot and rate limiting.
                     </p>
                   </div>
                 </form>

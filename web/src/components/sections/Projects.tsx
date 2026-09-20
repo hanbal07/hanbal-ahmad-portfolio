@@ -16,8 +16,8 @@ export function Projects() {
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHeading
             eyebrow="projects"
-            title="Built, tested, and shipped."
-            description="Real applications with real architecture — every one public on GitHub. Select a project for the full case study."
+            title="Selected Work."
+            description="Real applications with real architecture. Status badges are honest: LIVE means something you can open today, BUILDING means actively developed. Select a project to read the full case study."
           />
           <Reveal delay={0.15} className="shrink-0">
             <a

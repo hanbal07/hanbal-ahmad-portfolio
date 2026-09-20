@@ -1,8 +1,11 @@
-export type ProjectStatus =
-  | "Live"
-  | "In Development"
-  | "Archived"
-  | "Coming Soon";
+export type ProjectStatus = "Live" | "Building";
+
+/**
+ * "Live" = publicly deployed and reachable right now.
+ * "Building" = actively developed; no stable public deployment yet.
+ * A project also carries a case study when `caseStudy` is present —
+ * that is surfaced as a separate "case study" tag next to the badge.
+ */
 
 export type ProjectCategory = "Full-Stack" | "Web" | "Python" | "AI/ML";
 
@@ -78,7 +81,7 @@ export const projects: Project[] = [
     ],
     githubUrl: `${GITHUB}personal-os`,
     liveUrl: null,
-    status: "In Development",
+    status: "Building",
     featured: true,
     visual: {
       tone: "cyan",
@@ -156,7 +159,7 @@ export const projects: Project[] = [
     ],
     githubUrl: `${GITHUB}DIP`,
     liveUrl: null,
-    status: "In Development",
+    status: "Building",
     featured: true,
     visual: {
       tone: "indigo",
@@ -233,7 +236,7 @@ export const projects: Project[] = [
     ],
     githubUrl: `${GITHUB}kamalia-quiz-competition`,
     liveUrl: null,
-    status: "In Development",
+    status: "Building",
     featured: true,
     visual: {
       tone: "emerald",
@@ -365,7 +368,7 @@ export const projects: Project[] = [
     features: [],
     githubUrl: null,
     liveUrl: null,
-    status: "In Development",
+    status: "Building",
     featured: false,
     visual: {
       tone: "indigo",

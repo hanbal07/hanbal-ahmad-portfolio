@@ -31,7 +31,7 @@ const toneStyles: Record<ProjectVisual["tone"], { cmd: string; slug: string; ico
 
 function ProjectVisualPanel({ project }: { project: Project }) {
   const tone = toneStyles[project.visual.tone];
-  return (
+  const panel = (
     <div className="border-b border-line bg-surface/60">
       <div className="flex items-center justify-between border-b border-line px-4 py-2">
         <div className="flex items-center gap-2">
@@ -43,6 +43,14 @@ function ProjectVisualPanel({ project }: { project: Project }) {
           ~/hanbal07/{project.id}
         </span>
         <StatusBadge status={project.status} />
+      </div>
+      <div className="flex items-center justify-between border-b border-line/60 px-4 py-1.5">
+        <span className="mono-label text-[9px] tracking-wider text-ink-3">
+          project preview coming soon
+        </span>
+        <span className="mono-label text-[9px] tracking-wider text-accent/70">
+          abstract-visual
+        </span>
       </div>
       <div className="px-4 py-4 font-mono text-xs leading-relaxed">
         <p className="flex items-center gap-2">
@@ -62,6 +70,13 @@ function ProjectVisualPanel({ project }: { project: Project }) {
         </p>
       </div>
     </div>
+  );
+  return project.caseStudy ? (
+    <Link href={`/projects/${project.slug}`} aria-label={`Open the ${project.title} case study`}>
+      {panel}
+    </Link>
+  ) : (
+    panel
   );
 }
 
@@ -125,16 +140,17 @@ export function ProjectCard({ project }: ProjectCardProps) {
               Case Study
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </Button>
-          ) : project.liveUrl ? (
-            <Button href={project.liveUrl} external size="sm">
-              Live Demo
-              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-            </Button>
           ) : null}
           {project.githubUrl ? (
             <Button href={project.githubUrl} external variant="outline" size="sm">
               <GitHubIcon className="h-3.5 w-3.5" />
               GitHub
+            </Button>
+          ) : null}
+          {project.liveUrl ? (
+            <Button href={project.liveUrl} external variant="outline" size="sm">
+              Live Demo
+              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
             </Button>
           ) : null}
           {!project.githubUrl && !hasCaseStudy && !project.liveUrl ? (

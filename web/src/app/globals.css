@@ -14,7 +14,7 @@
   --border-strong: #2b3a5c;
   --ink: #e8edf6;
   --ink-2: #9aa8c0;
-  --ink-3: #5e6d88;
+  --ink-3: #6d7ca0;
   --accent: #38bdf8;
   --accent-strong: #0ea5e9;
   --accent-2: #818cf8;
@@ -98,6 +98,7 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
 }
 
 ::selection {

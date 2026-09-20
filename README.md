@@ -24,13 +24,16 @@ npm run dev                  # http://localhost:3000
 
 Required edits in `web/.env.local`:
 
-| Variable               | Purpose                                                 |
-| ---------------------- | ------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical URL — used for sitemap, robots, OG tags       |
-| `NEXT_PUBLIC_API_URL`  | Backend base URL for the contact form (`/api/contact`)  |
+| Variable                     | Purpose                                                     |
+| ---------------------------- | ----------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`       | Canonical URL — used for sitemap, robots, OG tags           |
+| `NEXT_PUBLIC_API_URL`        | Backend base URL for the contact form (`/api/contact`)      |
+| `NEXT_PUBLIC_CONTACT_ENDPOINT` | *(optional)* third-party form endpoint (takes precedence)   |
+| `NEXT_PUBLIC_CONTACT_FORMAT` | `json` (default) or `form` for third-party endpoints        |
 
-Leaving `NEXT_PUBLIC_API_URL` empty gracefully disables the form until the
-backend is online.
+Leaving both `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_CONTACT_ENDPOINT` empty
+gracefully disables the form — the UI refuses to submit with an honest error
+instead of pretending a message was sent.
 
 ### Backend
 
@@ -54,10 +57,23 @@ limiting (default 6/hour), identical-submission dedupe, SQLAlchemy persistence
 
 ## What must be filled in before going live
 
-1. **Email** — `web/src/data/site.ts` → `email: ""` is intentionally empty.
-   Set your real address so the footer + contact mailto appear.
-2. **Domain** — set `NEXT_PUBLIC_SITE_URL` to your production URL.
-3. **Backend SMTP** — fill `SMTP_*` + `EMAIL_TO` in `backend/.env` to actually
+1. **Profile photo** — `web/src/components/profile/ProfilePhoto.tsx` reads
+   `siteConfig.profileImage` (default `/profile/hanbal-ahmad.webp`), served from
+   `web/public/profile/`. A designed placeholder webp ships so the hero never
+   breaks; replace `web/public/profile/hanbal-ahmad.webp` with a real portrait
+   (webp, ~4:5, up to ~1024×1280). Missing/corrupt files fall back to a monogram tile.
+2. **Email** — `web/src/data/site.ts` → `contactEmail: ""` is intentionally
+   empty. Set your real address to reveal the "Email me directly" mailto +
+   copy-email block (this path needs no form and no backend).
+3. **Contact delivery** — GitHub Pages can't run FastAPI, so the form needs a
+   reachable endpoint. Either:
+   - deploy `backend/` somewhere always-on (Render/Railway/Fly/VPS) and set
+     `NEXT_PUBLIC_API_URL`; or
+   - set `NEXT_PUBLIC_CONTACT_ENDPOINT` to a third-party static-form endpoint
+     (Formspree/Web3Forms) plus `NEXT_PUBLIC_CONTACT_FORMAT`.
+   Until one is set, the form submits nothing and tells the user so.
+4. **Domain** — set `NEXT_PUBLIC_SITE_URL` to your production URL.
+5. **Backend SMTP** — fill `SMTP_*` + `EMAIL_TO` in `backend/.env` to actually
    receive messages; otherwise they're stored in the database and logged.
 
 ## Commands

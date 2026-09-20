@@ -12,6 +12,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
+import { GitHubIcon } from "@/components/ui/brand";
 import { siteConfig } from "@/data/site";
 import { githubFallback } from "@/data/github-fallback";
 import {
@@ -216,7 +217,7 @@ export function GitHubSection() {
                         href={repo.html_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="card-surface card-hover flex h-full flex-col rounded-xl p-5"
+                        className="card-surface card-hover group flex h-full flex-col rounded-xl p-5"
                         aria-label={`${repo.name} on GitHub`}
                       >
                         <span className="flex items-center justify-between gap-2">
@@ -254,6 +255,10 @@ export function GitHubSection() {
                             {formatDate(repo.updated_at)}
                           </span>
                         </span>
+                        <span className="mt-3 inline-flex items-center gap-1.5 border-t border-line pt-2.5 font-mono text-[11px] text-ink-2 transition-colors group-hover:text-accent">
+                          <GitHubIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                          github.com/{siteConfig.githubUsername}/{repo.name}
+                        </span>
                       </a>
                     </li>
                   </Reveal>
@@ -262,6 +267,21 @@ export function GitHubSection() {
             )}
           </div>
         </div>
+
+        <Reveal delay={0.15} className="mt-10 flex justify-center">
+          <a
+            href={siteConfig.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 font-mono text-sm text-ink-2 transition-colors hover:text-accent"
+          >
+            Explore all repositories
+            <ArrowUpRight
+              className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </a>
+        </Reveal>
       </Container>
     </section>
   );

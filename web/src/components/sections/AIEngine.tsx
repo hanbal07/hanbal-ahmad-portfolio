@@ -32,6 +32,50 @@ const areas = [
   },
 ];
 
+const pipeline = [
+  { label: "Document", sub: "upload & validate" },
+  { label: "OCR", sub: "scanned text + layout" },
+  { label: "Classification", sub: "9 typed schemas" },
+  { label: "Extraction", sub: "per-field, referenced" },
+  { label: "Embeddings", sub: "pgvector" },
+  { label: "Semantic Search", sub: "ownership-filtered" },
+  { label: "RAG", sub: "evidence-first retrieval" },
+  { label: "Answer + Citations", sub: "with references" },
+];
+
+function PipelineBand() {
+  return (
+    <div className="mt-12 rounded-xl border border-line bg-surface/60 p-5 sm:p-6">
+      <p className="mono-label text-[11px] text-ink-3">
+        document intelligence pipeline — as implemented in DIP
+      </p>
+      <ul
+        className="mt-4 flex items-stretch gap-3 overflow-x-auto pb-2"
+        aria-label="End-to-end document intelligence pipeline: validate document, OCR, classify, extract, embed, search, retrieve, answer with citations"
+      >
+        {pipeline.map((stage, i) => (
+          <li key={stage.label} className="flex shrink-0 items-center gap-3">
+            <div className="card-surface rounded-lg px-4 py-3">
+              <p className="mono-label text-[9px] text-accent/70">stage 0{i + 1}</p>
+              <p className="mt-1 font-mono text-[13px] text-ink">{stage.label}</p>
+              <p className="mt-0.5 text-[11px] text-ink-2">{stage.sub}</p>
+            </div>
+            {i < pipeline.length - 1 ? (
+              <ArrowRight
+                className="h-4 w-4 shrink-0 text-ink-3"
+                aria-hidden="true"
+              />
+            ) : null}
+          </li>
+        ))}
+      </ul>
+      <p className="mt-3 text-xs text-ink-3">
+        From messy uploads to cited answers — each stage is retry-safe and idempotent.
+      </p>
+    </div>
+  );
+}
+
 export function AIEngine() {
   return (
     <section
@@ -46,7 +90,9 @@ export function AIEngine() {
           description="I don't only build interfaces — I also explore intelligent systems and integrate the ones that make sense into practical products. The focus stays on features that work, not demos that impress."
         />
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2">
+        <PipelineBand />
+
+        <div className="mt-8 grid gap-5 sm:grid-cols-2">
           {areas.map((area, i) => (
             <Reveal key={area.title} delay={(i % 2) * 0.08}>
               <div className="card-surface card-hover h-full rounded-xl p-6">
