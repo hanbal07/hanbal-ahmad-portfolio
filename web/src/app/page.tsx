@@ -1,7 +1,7 @@
 import { Hero } from "@/components/sections/Hero";
 import { CredibilityStrip } from "@/components/sections/CredibilityStrip";
 import { About } from "@/components/sections/About";
-import { WhatIBuild } from "@/components/sections/WhatIBuild";
+import { Expertise } from "@/components/sections/Expertise";
 import { TechStack } from "@/components/sections/TechStack";
 import { Projects } from "@/components/sections/Projects";
 import { Journey } from "@/components/sections/Journey";
@@ -17,7 +17,7 @@ export default function Home() {
       <Hero />
       <CredibilityStrip />
       <About />
-      <WhatIBuild />
+      <Expertise />
       <TechStack />
       <Projects />
       <Journey />

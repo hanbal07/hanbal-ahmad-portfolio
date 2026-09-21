@@ -31,16 +31,10 @@ export function SectionHeading({
       <Reveal>
         <p
           className={cn(
-            "mono-label flex items-center gap-2 text-xs",
+            "text-xs font-semibold uppercase tracking-[0.18em]",
             isNavy ? "text-navy-accent" : "text-accent",
           )}
         >
-          <span
-            aria-hidden="true"
-            className={isNavy ? "text-navy-ink-3" : "text-ink-3"}
-          >
-            {"//"}
-          </span>
           {eyebrow}
         </p>
       </Reveal>
