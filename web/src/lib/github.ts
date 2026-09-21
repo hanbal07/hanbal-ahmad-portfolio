@@ -44,6 +44,15 @@ export function languageColor(language: string | null): string {
 
 export const GITHUB_USER = "hanbal07";
 
+/** Repos shown in the GitHub section — pinned so the list stays curated
+ *  (new/utility repos don't shuffle out the main projects). */
+export const SELECTED_REPOS = [
+  "personal-os",
+  "DIP",
+  "kamalia-quiz-competition",
+  "weather-vision",
+];
+
 const GITHUB_API = "https://api.github.com";
 
 interface RawRepo {
@@ -95,9 +104,8 @@ export async function fetchGithubStats(): Promise<GitHubResponse> {
   const repos = (await reposRes.json()) as RawRepo[];
 
   const owned = repos
-    .filter((repo) => !repo.fork)
+    .filter((repo) => !repo.fork && SELECTED_REPOS.includes(repo.name))
     .sort((a, b) => b.updated_at.localeCompare(a.updated_at))
-    .slice(0, 4)
     .map((repo) => ({
       name: repo.name,
       html_url: repo.html_url,

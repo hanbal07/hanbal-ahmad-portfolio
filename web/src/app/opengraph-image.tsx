@@ -18,7 +18,7 @@ export default function Image() {
           justifyContent: "center",
           padding: "72px",
           background:
-            "linear-gradient(140deg, #05080d 0%, #0a0f18 55%, #0e1522 100%)",
+            "linear-gradient(140deg, #f6f8fb 0%, #ffffff 55%, #eef4fb 100%)",
           fontFamily: "monospace",
         }}
       >
@@ -26,7 +26,7 @@ export default function Image() {
           style={{
             display: "flex",
             alignItems: "center",
-            color: "#7dd3fc",
+            color: "#334155",
             fontSize: 34,
             letterSpacing: 2,
           }}
@@ -36,7 +36,7 @@ export default function Image() {
               width: 14,
               height: 14,
               borderRadius: 999,
-              background: "#34d399",
+              background: "#059669",
               marginRight: 16,
             }}
           />
@@ -47,7 +47,7 @@ export default function Image() {
             display: "flex",
             fontSize: 92,
             fontWeight: 700,
-            color: "#e8edf6",
+            color: "#111827",
             marginTop: 28,
             letterSpacing: -2,
           }}
@@ -57,7 +57,7 @@ export default function Image() {
         <div
           style={{
             display: "flex",
-            color: "#38bdf8",
+            color: "#2563eb",
             fontSize: 40,
             marginTop: 16,
           }}
@@ -67,7 +67,7 @@ export default function Image() {
         <div
           style={{
             display: "flex",
-            color: "#9aa8c0",
+            color: "#334155",
             fontSize: 28,
             marginTop: 36,
           }}

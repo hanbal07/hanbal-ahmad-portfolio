@@ -16,7 +16,7 @@ export function Process() {
     <section
       id="process"
       aria-labelledby="process-heading"
-      className="scroll-mt-24 py-24 sm:py-28"
+      className="scroll-mt-24 bg-soft-mesh py-24 sm:py-28"
     >
       <Container>
         <SectionHeading

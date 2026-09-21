@@ -23,7 +23,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 const title = `${siteConfig.name} — ${siteConfig.role}`;
 const description =
-  "Hanbal Ahmad is a Full-Stack Developer focused on modern web applications, Python backends, and AI-powered solutions. I build practical digital products that solve real problems.";
+  "Hanbal Ahmad is a Full-Stack Developer focused on modern web applications, Python backends, databases, and AI-powered solutions.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
@@ -90,16 +90,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <Background />
-        <Navbar />
         <MotionProvider>
+          <Background />
+          <Navbar />
           <main id="main" className="flex-1">
             {children}
           </main>
+          <Footer />
+          <CommandPalette />
+          <CustomCursor />
         </MotionProvider>
-        <Footer />
-        <CommandPalette />
-        <CustomCursor />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}

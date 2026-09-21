@@ -16,13 +16,13 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/data/site";
 import { cn } from "@/lib/cn";
-import { isContactEnabled, submitContact, contactFormat } from "@/lib/api";
+import { isContactEnabled, submitContact } from "@/lib/api";
 
 type Status =
   | { kind: "idle" }
   | { kind: "submitting" }
   | { kind: "success" }
-  | { kind: "error"; message: string };
+  | { kind: "error" };
 
 interface FormState {
   name: string;
@@ -44,6 +44,9 @@ const projectTypes = [
   "Something Else",
 ];
 
+const GENERIC_ERROR =
+  "Something went wrong while sending your message. Please try again or email me directly.";
+
 function fieldError(value: string, field: keyof FormState): string | null {
   if (field === "company") return null;
   if (!value.trim()) return "This field is required.";
@@ -56,7 +59,7 @@ function fieldError(value: string, field: keyof FormState): string | null {
 }
 
 const inputClasses =
-  "w-full rounded-lg border border-line bg-surface-2/50 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-3 transition-colors focus:border-accent/60 focus:outline-none";
+  "w-full rounded-lg border border-navy-line bg-navy/50 px-3.5 py-2.5 text-sm text-navy-ink placeholder:text-navy-ink-3 transition-colors focus:border-navy-accent/60 focus:outline-none";
 
 export function Contact() {
   const [status, setStatus] = useState<Status>({ kind: "idle" });
@@ -109,11 +112,7 @@ export function Contact() {
     if (!validate()) return;
 
     if (!isContactEnabled()) {
-      setStatus({
-        kind: "error",
-        message:
-          "The contact service isn't configured yet — for now, use the email or LinkedIn links on the left.",
-      });
+      setStatus({ kind: "error" });
       return;
     }
 
@@ -128,17 +127,8 @@ export function Contact() {
       });
       setForm(initialForm);
       setStatus({ kind: "success" });
-    } catch (err) {
-      let message =
-        err instanceof Error && err.message === "contact-not-configured"
-          ? "The contact service isn't configured yet — for now, use the email or LinkedIn links on the left."
-          : "Something went wrong — the form wasn't sent. Please try again or use the email link.";
-      if (err instanceof Error && err.message === "contact-rejected") {
-        message =
-          `The service rejected the request (format: ${contactFormat}). ` +
-          "Please try again or reach out by email.";
-      }
-      setStatus({ kind: "error", message });
+    } catch {
+      setStatus({ kind: "error" });
     }
   };
 
@@ -148,9 +138,19 @@ export function Contact() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="scroll-mt-24 py-24 sm:py-28"
+      className="relative scroll-mt-24 overflow-hidden border-t border-navy-line bg-navy py-24 sm:py-28"
     >
-      <Container>
+      {/* Decorative gradient washes */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-32 top-10 h-[420px] w-[420px] rounded-full bg-blue-500/10 blur-[120px]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-32 bottom-0 h-[420px] w-[420px] rounded-full bg-violet-500/10 blur-[120px]"
+      />
+
+      <Container className="relative">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           {/* Left */}
           <div>
@@ -158,9 +158,10 @@ export function Contact() {
               eyebrow="contact"
               title="Have an idea worth building?"
               description="Let's turn it into something real."
+              tone="navy"
             />
             <Reveal delay={0.15}>
-              <p className="mt-6 max-w-md text-base leading-relaxed text-ink-2">
+              <p className="mt-6 max-w-md text-base leading-relaxed text-navy-ink-2">
                 Whether it&apos;s an internship, a freelance project, or a product
                 you want shipped — I&apos;ll give you a straight answer about scope,
                 stack, and timeline.
@@ -171,20 +172,20 @@ export function Contact() {
                     <div className="flex flex-wrap items-center gap-2">
                       <a
                         href={`mailto:${siteConfig.contactEmail}`}
-                        className="group inline-flex items-center gap-3 font-mono text-sm text-ink-2 transition-colors hover:text-accent"
+                        className="group inline-flex items-center gap-3 font-mono text-sm text-navy-ink-2 transition-colors hover:text-navy-accent"
                       >
-                        <Mail className="h-4 w-4 text-accent" aria-hidden="true" />
+                        <Mail className="h-4 w-4 text-navy-accent" aria-hidden="true" />
                         {siteConfig.contactEmail}
                       </a>
                       <button
                         type="button"
                         onClick={copyEmail}
                         aria-label={`Copy ${siteConfig.contactEmail} to clipboard`}
-                        className="mono-label inline-flex items-center gap-1.5 rounded-md border border-line-strong bg-surface-2/60 px-2.5 py-1.5 text-[10px] text-ink-2 transition-colors hover:border-accent/50 hover:text-accent"
+                        className="mono-label inline-flex items-center gap-1.5 rounded-md border border-navy-line bg-navy-2/60 px-2.5 py-1.5 text-[10px] text-navy-ink-2 transition-colors hover:border-navy-accent/50 hover:text-navy-accent"
                       >
                         {copiedEmail ? (
                           <>
-                            <Check className="h-3.5 w-3.5 text-ok" aria-hidden="true" />
+                            <Check className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" />
                             Email copied
                           </>
                         ) : (
@@ -196,19 +197,19 @@ export function Contact() {
                       </button>
                     </div>
                   ) : (
-                    <p className="inline-flex items-center gap-3 font-mono text-sm text-ink-3">
-                      <Mail className="h-4 w-4 text-accent" aria-hidden="true" />
+                    <p className="inline-flex items-center gap-3 font-mono text-sm text-navy-ink-3">
+                      <Mail className="h-4 w-4 text-navy-accent" aria-hidden="true" />
                       Email address coming soon
                     </p>
                   )}
-                  <p className="mt-2 max-w-sm text-xs leading-relaxed text-ink-3" role="status" aria-live="polite">
+                  <p className="mt-2 max-w-sm text-xs leading-relaxed text-navy-ink-3" role="status" aria-live="polite">
                     {showEmail
                       ? "Email works directly from your device — no form, no third party, no spam filtering."
                       : "Set NEXT_PUBLIC_CONTACT_EMAIL to publish my address here."}
                   </p>
                 </li>
                 <li aria-hidden="true">
-                  <span className="mono-label block text-[10px] tracking-wider text-ink-3">
+                  <span className="mono-label block text-[10px] tracking-wider text-navy-ink-3">
                     — or send a message below —
                   </span>
                 </li>
@@ -217,9 +218,9 @@ export function Contact() {
                     href={siteConfig.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-3 font-mono text-sm text-ink-2 transition-colors hover:text-accent"
+                    className="group inline-flex items-center gap-3 font-mono text-sm text-navy-ink-2 transition-colors hover:text-navy-accent"
                   >
-                    <GitHubIcon className="h-4 w-4 text-accent" />
+                    <GitHubIcon className="h-4 w-4 text-navy-accent" />
                     github.com/hanbal07
                   </a>
                 </li>
@@ -228,17 +229,17 @@ export function Contact() {
                     href={siteConfig.linkedinUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-3 font-mono text-sm text-ink-2 transition-colors hover:text-accent"
+                    className="group inline-flex items-center gap-3 font-mono text-sm text-navy-ink-2 transition-colors hover:text-navy-accent"
                   >
-                    <LinkedInIcon className="h-4 w-4 text-accent" />
+                    <LinkedInIcon className="h-4 w-4 text-navy-accent" />
                     linkedin.com/in/hanbal-ahmad
                   </a>
                 </li>
               </ul>
-              <p className="mono-label mt-8 inline-flex items-center gap-2 rounded-md border border-ok/25 bg-ok/[0.06] px-3 py-1.5 text-[11px] text-ok">
+              <p className="mono-label mt-8 inline-flex items-center gap-2 rounded-md border border-emerald-400/25 bg-emerald-400/10 px-3 py-1.5 text-[11px] text-emerald-300">
                 <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ok opacity-60" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-ok" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-60" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-300" />
                 </span>
                 Open to remote opportunities
               </p>
@@ -247,7 +248,7 @@ export function Contact() {
 
           {/* Form */}
           <Reveal delay={0.1}>
-            <div className="card-surface rounded-xl p-6 sm:p-8">
+            <div className="rounded-xl border border-navy-line bg-navy-2/70 p-6 backdrop-blur-sm sm:p-8">
               {status.kind === "success" ? (
                 <div
                   role="status"
@@ -255,19 +256,20 @@ export function Contact() {
                   className="flex flex-col items-center gap-4 py-14 text-center"
                 >
                   <span
-                    className="flex h-12 w-12 items-center justify-center rounded-full border border-ok/30 bg-ok/10 text-ok"
+                    className="flex h-12 w-12 items-center justify-center rounded-full border border-emerald-400/30 bg-emerald-400/10 text-emerald-300"
                     aria-hidden="true"
                   >
                     <CheckCircle2 className="h-6 w-6" />
                   </span>
                   <div>
-                    <p className="text-base font-semibold text-ink">Message sent.</p>
-                    <p className="mt-1 text-sm text-ink-2">
-                      Thanks for reaching out — I&apos;ll get back to you soon.
+                    <p className="text-base font-semibold text-navy-ink">Message sent.</p>
+                    <p className="mt-1 text-sm text-navy-ink-2">
+                      Thanks — your message has been sent successfully. I&apos;ll
+                      get back to you as soon as possible.
                     </p>
                   </div>
                   <Button
-                    variant="outline"
+                    variant="navy-outline"
                     size="sm"
                     onClick={() => setStatus({ kind: "idle" })}
                   >
@@ -280,7 +282,7 @@ export function Contact() {
                     <div>
                       <label
                         htmlFor="contact-name"
-                        className="mono-label mb-1.5 block text-[11px] text-ink-2"
+                        className="mono-label mb-1.5 block text-[11px] text-navy-ink-2"
                       >
                         Name *
                       </label>
@@ -293,11 +295,11 @@ export function Contact() {
                         onChange={(e) => setField("name", e.target.value)}
                         aria-invalid={errors.name ? true : undefined}
                         aria-describedby={errors.name ? "contact-name-error" : undefined}
-                        className={cn(inputClasses, errors.name && "border-err/60")}
+                        className={cn(inputClasses, errors.name && "border-red-400/70")}
                         placeholder="Your name"
                       />
                       {errors.name ? (
-                        <p id="contact-name-error" className="mt-1.5 text-xs text-err">
+                        <p id="contact-name-error" className="mt-1.5 text-xs text-red-300">
                           {errors.name}
                         </p>
                       ) : null}
@@ -305,7 +307,7 @@ export function Contact() {
                     <div>
                       <label
                         htmlFor="contact-email"
-                        className="mono-label mb-1.5 block text-[11px] text-ink-2"
+                        className="mono-label mb-1.5 block text-[11px] text-navy-ink-2"
                       >
                         Email *
                       </label>
@@ -318,11 +320,11 @@ export function Contact() {
                         onChange={(e) => setField("email", e.target.value)}
                         aria-invalid={errors.email ? true : undefined}
                         aria-describedby={errors.email ? "contact-email-error" : undefined}
-                        className={cn(inputClasses, errors.email && "border-err/60")}
+                        className={cn(inputClasses, errors.email && "border-red-400/70")}
                         placeholder="you@example.com"
                       />
                       {errors.email ? (
-                        <p id="contact-email-error" className="mt-1.5 text-xs text-err">
+                        <p id="contact-email-error" className="mt-1.5 text-xs text-red-300">
                           {errors.email}
                         </p>
                       ) : null}
@@ -332,16 +334,16 @@ export function Contact() {
                   <div className="mt-5">
                     <label
                       htmlFor="contact-project-type"
-                      className="mono-label mb-1.5 block text-[11px] text-ink-2"
+                      className="mono-label mb-1.5 block text-[11px] text-navy-ink-2"
                     >
-                      Project type <span className="text-ink-3">(optional)</span>
+                      Project type <span className="text-navy-ink-3">(optional)</span>
                     </label>
                     <select
                       id="contact-project-type"
                       name="project_type"
                       value={form.projectType}
                       onChange={(e) => setField("projectType", e.target.value)}
-                      className={cn(inputClasses, "appearance-none bg-surface-2/50")}
+                      className={cn(inputClasses, "appearance-none bg-navy/50")}
                     >
                       <option value="">Select a type…</option>
                       {projectTypes.map((type) => (
@@ -355,7 +357,7 @@ export function Contact() {
                   <div className="mt-5">
                     <label
                       htmlFor="contact-message"
-                      className="mono-label mb-1.5 block text-[11px] text-ink-2"
+                      className="mono-label mb-1.5 block text-[11px] text-navy-ink-2"
                     >
                       Message *
                     </label>
@@ -370,12 +372,12 @@ export function Contact() {
                       className={cn(
                         inputClasses,
                         "resize-y",
-                        errors.message && "border-err/60",
+                        errors.message && "border-red-400/70",
                       )}
                       placeholder="Tell me about your project, role, or idea…"
                     />
                     {errors.message ? (
-                      <p id="contact-message-error" className="mt-1.5 text-xs text-err">
+                      <p id="contact-message-error" className="mt-1.5 text-xs text-red-300">
                         {errors.message}
                       </p>
                     ) : null}
@@ -397,9 +399,9 @@ export function Contact() {
                   {status.kind === "error" ? (
                     <p
                       role="alert"
-                      className="mt-5 rounded-lg border border-err/30 bg-err/[0.06] px-3.5 py-2.5 text-xs leading-relaxed text-ink-2"
+                      className="mt-5 rounded-lg border border-red-400/30 bg-red-400/10 px-3.5 py-2.5 text-xs leading-relaxed text-navy-ink-2"
                     >
-                      {status.message}
+                      {GENERIC_ERROR}
                     </p>
                   ) : null}
 
@@ -421,7 +423,7 @@ export function Contact() {
                         </>
                       )}
                     </Button>
-                    <p className="text-xs text-ink-3">
+                    <p className="text-xs text-navy-ink-3">
                       Honeypot spam trap.
                     </p>
                   </div>

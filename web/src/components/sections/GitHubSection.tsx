@@ -64,7 +64,7 @@ export function GitHubSection() {
     <section
       id="github"
       aria-labelledby="github-heading"
-      className="scroll-mt-24 border-y border-line/60 bg-surface/40 py-24 sm:py-28"
+      className="scroll-mt-24 border-y border-line bg-tint py-24 sm:py-28"
     >
       <Container>
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">

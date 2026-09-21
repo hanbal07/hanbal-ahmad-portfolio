@@ -10,11 +10,11 @@ import type { GitHubResponse } from "@/lib/github";
 export const githubFallback: GitHubResponse = {
   user: {
     login: "hanbal07",
-    name: null,
-    bio: "Full-Stack Developer . Python . AI/ML",
+    name: "Hanbal Ahmad",
+    bio: "Full-Stack Developer . Python . AI/ML | Building modern web applications and intelligent software.",
     avatar_url: null,
     html_url: "https://github.com/hanbal07",
-    public_repos: 5,
+    public_repos: 6,
     followers: 0,
   },
   repos: [
@@ -36,7 +36,7 @@ export const githubFallback: GitHubResponse = {
       stargazers_count: 0,
       forks_count: 0,
       html_url: "https://github.com/hanbal07/DIP",
-      updated_at: "2026-09-02",
+      updated_at: "2026-09-10",
       homepage: null,
     },
     {
@@ -58,7 +58,7 @@ export const githubFallback: GitHubResponse = {
       stargazers_count: 0,
       forks_count: 0,
       html_url: "https://github.com/hanbal07/weather-vision",
-      updated_at: "2026-08-16",
+      updated_at: "2026-09-10",
       homepage: "https://hanbal07.github.io/weather-vision/",
     },
   ],

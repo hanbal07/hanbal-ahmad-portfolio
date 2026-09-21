@@ -2,27 +2,41 @@
 
 /* ============================================================
    Design tokens
-   Dark, futuristic, professional — code-inspired.
-   Override the :root variables to re-theme the whole site.
+   Premium light theme — warm-white base, deep-navy ink, and
+   blue / violet / teal accents. Dark navy is reserved for high-
+   contrast sections (AI/ML, Contact, Footer). Override the
+   :root variables to re-theme the whole site.
    ============================================================ */
 :root {
-  --canvas: #05080d;
-  --surface: #0a0f18;
-  --surface-2: #0e1522;
-  --surface-3: #16203a;
-  --border: #1a2438;
-  --border-strong: #2b3a5c;
-  --ink: #e8edf6;
-  --ink-2: #9aa8c0;
-  --ink-3: #6d7ca0;
-  --accent: #38bdf8;
-  --accent-strong: #0ea5e9;
-  --accent-2: #818cf8;
-  --ok: #34d399;
-  --warn: #fbbf24;
-  --err: #f87171;
-  --glow: rgba(56, 189, 248, 0.28);
-  --glow-2: rgba(129, 140, 248, 0.22);
+  --canvas: #f6f8fb;
+  --surface: #ffffff;
+  --surface-2: #eef2f7;
+  --surface-3: #e2e9f2;
+  --border: #e4e9f0;
+  --border-strong: #cbd5e1;
+  --ink: #111827;
+  --ink-2: #334155;
+  --ink-3: #64748b;
+  --accent: #2563eb;
+  --accent-strong: #1d4ed8;
+  --accent-2: #7c3aed;
+  --ok: #047857;
+  --warn: #b45309;
+  --err: #dc2626;
+  --glow: rgba(37, 99, 235, 0.16);
+  --glow-2: rgba(124, 58, 237, 0.13);
+
+  /* Deep-navy sections (AI/ML, Contact, Footer) */
+  --navy: #0b1424;
+  --navy-2: #111b30;
+  --navy-3: #182440;
+  --navy-line: #22314f;
+  --navy-ink: #eef2fb;
+  --navy-ink-2: #a9b6d2;
+  --navy-ink-3: #7e8cab;
+  --navy-accent: #7dd3fc;
+  --navy-violet: #c4b5fd;
+  --navy-teal: #5eead4;
 }
 
 @theme inline {
@@ -38,9 +52,23 @@
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
   --color-violet: var(--accent-2);
+  --color-teal: #0f766e;
+  --color-amber: #d97706;
+  --color-tint: #eef4fb;
   --color-ok: var(--ok);
   --color-warn: var(--warn);
   --color-err: var(--err);
+
+  --color-navy: var(--navy);
+  --color-navy-2: var(--navy-2);
+  --color-navy-3: var(--navy-3);
+  --color-navy-line: var(--navy-line);
+  --color-navy-ink: var(--navy-ink);
+  --color-navy-ink-2: var(--navy-ink-2);
+  --color-navy-ink-3: var(--navy-ink-3);
+  --color-navy-accent: var(--navy-accent);
+  --color-navy-violet: var(--navy-violet);
+  --color-navy-teal: var(--navy-teal);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -102,7 +130,7 @@ body {
 }
 
 ::selection {
-  background: rgba(56, 189, 248, 0.28);
+  background: rgba(37, 99, 235, 0.22);
   color: var(--ink);
 }
 
@@ -112,7 +140,7 @@ body {
   border-radius: 4px;
 }
 
-/* Subtle dark scrollbar */
+/* Subtle light scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -136,8 +164,8 @@ body {
 /* Technical blueprint grid (fixed, behind content) */
 .bg-grid {
   background-image:
-    linear-gradient(to right, rgba(56, 189, 248, 0.055) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(56, 189, 248, 0.055) 1px, transparent 1px);
+    linear-gradient(to right, rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.045) 1px, transparent 1px);
   background-size: 54px 54px;
 }
 
@@ -158,6 +186,19 @@ body {
 .card-hover:hover {
   border-color: var(--border-strong);
   box-shadow: 0 12px 40px -18px var(--glow);
+}
+
+/* Navy card (used inside deep-navy sections) */
+.navy-card {
+  background: linear-gradient(180deg, var(--navy-2) 0%, var(--navy) 100%);
+  border: 1px solid var(--navy-line);
+}
+.navy-card-hover {
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.navy-card-hover:hover {
+  border-color: #2e4268;
+  box-shadow: 0 12px 40px -18px rgba(125, 211, 252, 0.22);
 }
 
 /* Hairline divider with terminal-style label */
@@ -186,6 +227,33 @@ body {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
   opacity: 0.55;
+}
+
+/* ============================================================
+   Floating tech labels (hero)
+   ============================================================ */
+.float-tag {
+  animation: float 8s ease-in-out infinite;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.float-tag:hover {
+  animation-play-state: paused;
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 10px 26px -12px var(--glow);
+  border-color: var(--border-strong);
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-tag {
+    animation: none;
+  }
+}
+
+/* Soft blue->violet section wash (Process) */
+.bg-soft-mesh {
+  background:
+    radial-gradient(ellipse 60% 50% at 15% 20%, rgba(37, 99, 235, 0.07), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 80%, rgba(124, 58, 237, 0.07), transparent 60%),
+    linear-gradient(180deg, #f4f7ff 0%, #eefbfa 100%);
 }
 
 /* ============================================================

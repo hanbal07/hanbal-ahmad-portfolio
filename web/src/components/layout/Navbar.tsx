@@ -48,7 +48,7 @@ export function Navbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled || menuOpen
-          ? "border-b border-line/80 bg-canvas/80 backdrop-blur-xl"
+          ? "border-b border-line bg-white/85 backdrop-blur-xl"
           : "border-b border-transparent",
       )}
     >
@@ -56,7 +56,7 @@ export function Navbar() {
         <Logotype />
 
         {/* Desktop links */}
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-1 lg:flex">
           {navigation.map((item) => {
             const isActive = active === item.href.slice(1);
             return (
@@ -85,7 +85,7 @@ export function Navbar() {
           })}
         </ul>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <a
             href={siteConfig.githubUrl}
             target="_blank"
@@ -116,7 +116,7 @@ export function Navbar() {
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
-          className="rounded-md p-2 text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink md:hidden"
+          className="rounded-md p-2 text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink lg:hidden"
         >
           {menuOpen ? (
             <X className="h-5 w-5" aria-hidden="true" />
@@ -135,7 +135,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.28, ease: "easeOut" }}
-            className="overflow-hidden border-t border-line/60 bg-canvas/95 backdrop-blur-xl md:hidden"
+            className="overflow-hidden border-t border-line bg-white/95 backdrop-blur-xl lg:hidden"
           >
             <ul className="flex flex-col gap-1 px-5 py-5">
               {navigation.map((item, i) => (

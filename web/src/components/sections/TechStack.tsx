@@ -46,7 +46,11 @@ function TechMarquee() {
 
 export function TechStack() {
   return (
-    <section id="skills" aria-labelledby="skills-heading" className="scroll-mt-24 py-24 sm:py-28">
+    <section
+      id="skills"
+      aria-labelledby="skills-heading"
+      className="scroll-mt-24 border-y border-line bg-tint py-24 sm:py-28"
+    >
       <Container>
         <SectionHeading
           eyebrow="skills"
@@ -59,20 +63,30 @@ export function TechStack() {
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {skillCategories.map((category, i) => (
             <Reveal key={category.title} delay={(i % 3) * 0.08}>
-              <div className="card-surface card-hover flex h-full flex-col rounded-xl p-6">
-                <p className={`font-mono text-xs ${tones[i]}`} aria-hidden="true">
-                  {"//"}
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <h3 className="mt-2 text-lg font-semibold text-ink">{category.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-ink-3">
+              <div className="card-surface card-hover group flex h-full flex-col rounded-xl p-6">
+                <div className="flex items-center justify-between">
+                  <p className={`font-mono text-xs ${tones[i]}`} aria-hidden="true">
+                    {"//"}
+                    {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <span
+                    className="mono-label text-[10px] tracking-wider text-accent opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100"
+                    aria-hidden="true"
+                  >
+                    explore →
+                  </span>
+                </div>
+                <h3 className="mt-2 text-lg font-semibold text-ink transition-colors group-hover:text-accent">
+                  {category.title}
+                </h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink-3 transition-colors group-hover:text-ink-2">
                   {category.blurb}
                 </p>
                 <ul className="mt-4 flex flex-wrap gap-2" aria-label={`${category.title} technologies`}>
                   {category.items.map((item) => (
                     <li
                       key={item}
-                      className="mono-label rounded-md border border-line bg-surface-2/60 px-2.5 py-1 text-[11px] text-ink-2"
+                      className="mono-label rounded-md border border-line bg-surface-2/60 px-2.5 py-1 text-[11px] text-ink-2 transition-colors group-hover:border-accent/30"
                     >
                       {item}
                     </li>

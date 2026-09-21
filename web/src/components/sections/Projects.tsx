@@ -17,7 +17,7 @@ export function Projects() {
           <SectionHeading
             eyebrow="projects"
             title="Selected Work."
-            description="Real applications with real architecture. Status badges are honest: LIVE means something you can open today, BUILDING means actively developed. Select a project to read the full case study."
+            description="Real projects built to solve practical problems. Status badges are honest: LIVE means something you can open today, BUILDING means actively developed. Select a card to read the full case study."
           />
           <Reveal delay={0.15} className="shrink-0">
             <a

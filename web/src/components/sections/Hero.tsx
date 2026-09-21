@@ -10,7 +10,16 @@ import { Button } from "@/components/ui/Button";
 import { staggerContainer, fadeUp } from "@/lib/motion";
 import { siteConfig } from "@/data/site";
 
-const heroTech = ["Next.js", "TypeScript", "Python", "FastAPI", "PostgreSQL"];
+const heroTech = ["Next.js", "TypeScript", "Python", "FastAPI", "PostgreSQL", "Flask"];
+
+const floatTags = [
+  { label: "Next.js", className: "-left-4 top-10 sm:-left-10", delay: "0s" },
+  { label: "TypeScript", className: "-right-3 -top-4 sm:-right-8", delay: "0.7s" },
+  { label: "Python", className: "-left-3 bottom-[38%] sm:-left-9", delay: "1.2s" },
+  { label: "FastAPI", className: "-right-4 top-[42%] sm:-right-9", delay: "0.4s" },
+  { label: "PostgreSQL", className: "-left-2 bottom-[16%] sm:-left-6", delay: "1.7s" },
+  { label: "AI/ML", className: "-right-3 -bottom-3 sm:-right-7", delay: "0.9s" },
+];
 
 export function Hero() {
   const reduce = useReducedMotion();
@@ -45,7 +54,7 @@ export function Hero() {
               variants={fadeUp}
               className="mono-label mt-8 text-[13px] text-ink-3"
             >
-              &gt; Hi, I&apos;m
+              Hi, I&apos;m
             </motion.p>
 
             <motion.h1
@@ -165,12 +174,17 @@ export function Hero() {
                 </div>
               </div>
 
-              <p
-                aria-hidden="true"
-                className="mono-label absolute -right-2 -top-3 animate-float rounded-md border border-line-strong bg-surface px-2.5 py-1.5 text-[10px] text-ink-2 shadow-lg sm:-right-4"
-              >
-                {"{ position: \"full-stack\" }"}
-              </p>
+              {/* Floating tech labels — decorative, desktop only */}
+              {floatTags.map((tag) => (
+                <p
+                  key={tag.label}
+                  aria-hidden="true"
+                  className={`float-tag mono-label absolute hidden rounded-md border border-line bg-white/85 px-2.5 py-1.5 text-[10px] text-ink-2 shadow-md backdrop-blur-sm lg:block ${tag.className}`}
+                  style={{ animationDelay: tag.delay }}
+                >
+                  {tag.label}
+                </p>
+              ))}
             </div>
 
             <Terminal className="mt-6" />

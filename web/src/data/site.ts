@@ -5,7 +5,7 @@ export const siteConfig = {
   subheadline:
     "Full-Stack Developer focused on modern web applications, Python backends, and AI-powered solutions.",
   location: "Pakistan \u00b7 Open to Remote",
-  statusBadge: "Open to Remote",
+  statusBadge: "Open to Remote Opportunities",
   /**
    * Public contact email used by the "Email me directly" block
    * (mailto link + copy button). Supply your own via
@@ -30,9 +30,10 @@ export const siteConfig = {
 export const navigation = [
   { label: "Home", href: "#hero" },
   { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
-  { label: "Journey", href: "#journey" },
+  { label: "Projects", href: "#projects" },
+  { label: "AI/ML", href: "#ai-ml" },
+  { label: "Services", href: "#services" },
   { label: "Contact", href: "#contact" },
 ] as const;
 

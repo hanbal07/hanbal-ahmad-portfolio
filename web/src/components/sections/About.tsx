@@ -1,12 +1,13 @@
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
+import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand";
 import { education } from "@/data/education";
 import { siteConfig } from "@/data/site";
 
 export function About() {
   return (
-    <section id="about" aria-labelledby="about-heading" className="scroll-mt-24 py-24 sm:py-28">
+    <section id="about" aria-labelledby="about-heading" className="scroll-mt-24 bg-white py-24 sm:py-28">
       <Container>
         <SectionHeading
           eyebrow="about"
@@ -94,7 +95,32 @@ export function About() {
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ok opacity-60" />
                       <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-ok" />
                     </span>
-                    open to remote opportunities
+                    {siteConfig.statusBadge}
+                  </dd>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-3">
+                  <dt className="w-24 shrink-0 text-ink-3">links</dt>
+                  <dd className="flex items-center gap-1.5">
+                    <a
+                      href={siteConfig.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="GitHub profile"
+                      className="inline-flex items-center gap-1.5 rounded-md border border-line bg-surface-2/60 px-2.5 py-1 font-mono text-[11px] text-ink-2 transition-colors hover:border-accent/50 hover:text-accent"
+                    >
+                      <GitHubIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                      GitHub
+                    </a>
+                    <a
+                      href={siteConfig.linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="LinkedIn profile"
+                      className="inline-flex items-center gap-1.5 rounded-md border border-line bg-surface-2/60 px-2.5 py-1 font-mono text-[11px] text-ink-2 transition-colors hover:border-accent/50 hover:text-accent"
+                    >
+                      <LinkedInIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                      LinkedIn
+                    </a>
                   </dd>
                 </div>
               </dl>

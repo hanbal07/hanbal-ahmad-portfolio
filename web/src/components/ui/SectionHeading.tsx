@@ -7,6 +7,8 @@ interface SectionHeadingProps {
   description?: string;
   align?: "left" | "center";
   className?: string;
+  /** "light" (default) for light sections, "navy" for deep-navy sections. */
+  tone?: "light" | "navy";
 }
 
 export function SectionHeading({
@@ -15,7 +17,9 @@ export function SectionHeading({
   description,
   align = "left",
   className,
+  tone = "light",
 }: SectionHeadingProps) {
+  const isNavy = tone === "navy";
   return (
     <div
       className={cn(
@@ -25,21 +29,41 @@ export function SectionHeading({
       )}
     >
       <Reveal>
-        <p className="mono-label flex items-center gap-2 text-xs text-accent">
-          <span aria-hidden="true" className="text-ink-3">
+        <p
+          className={cn(
+            "mono-label flex items-center gap-2 text-xs",
+            isNavy ? "text-navy-accent" : "text-accent",
+          )}
+        >
+          <span
+            aria-hidden="true"
+            className={isNavy ? "text-navy-ink-3" : "text-ink-3"}
+          >
             {"//"}
           </span>
           {eyebrow}
         </p>
       </Reveal>
       <Reveal delay={0.06}>
-        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+        <h2
+          className={cn(
+            "mt-3 text-3xl font-semibold tracking-tight sm:text-4xl",
+            isNavy ? "text-navy-ink" : "text-ink",
+          )}
+        >
           {title}
         </h2>
       </Reveal>
       {description ? (
         <Reveal delay={0.12}>
-          <p className="mt-4 text-base leading-relaxed text-ink-2">{description}</p>
+          <p
+            className={cn(
+              "mt-4 text-base leading-relaxed",
+              isNavy ? "text-navy-ink-2" : "text-ink-2",
+            )}
+          >
+            {description}
+          </p>
         </Reveal>
       ) : null}
     </div>

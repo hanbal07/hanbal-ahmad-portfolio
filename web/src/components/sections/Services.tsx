@@ -8,7 +8,7 @@ export function Services() {
     <section
       id="services"
       aria-labelledby="services-heading"
-      className="scroll-mt-24 py-24 sm:py-28"
+      className="scroll-mt-24 border-y border-line bg-white py-24 sm:py-28"
     >
       <Container>
         <SectionHeading

@@ -8,24 +8,24 @@ import { cn } from "@/lib/cn";
 
 const toneStyles: Record<ProjectVisual["tone"], { cmd: string; slug: string; icon: string }> = {
   cyan: {
-    cmd: "text-cyan-300 bg-cyan-400/10 border-cyan-400/20",
-    slug: "text-cyan-300 border-cyan-400/25",
-    icon: "text-cyan-300",
+    cmd: "text-cyan-700 bg-cyan-500/10 border-cyan-500/20",
+    slug: "text-cyan-700 border-cyan-500/30",
+    icon: "text-cyan-600",
   },
   indigo: {
-    cmd: "text-indigo-300 bg-indigo-400/10 border-indigo-400/20",
-    slug: "text-indigo-300 border-indigo-400/25",
-    icon: "text-indigo-300",
+    cmd: "text-indigo-700 bg-indigo-500/10 border-indigo-500/20",
+    slug: "text-indigo-700 border-indigo-500/30",
+    icon: "text-indigo-600",
   },
   emerald: {
-    cmd: "text-emerald-300 bg-emerald-400/10 border-emerald-400/20",
-    slug: "text-emerald-300 border-emerald-400/25",
-    icon: "text-emerald-300",
+    cmd: "text-emerald-700 bg-emerald-500/10 border-emerald-500/20",
+    slug: "text-emerald-700 border-emerald-500/30",
+    icon: "text-emerald-600",
   },
   amber: {
-    cmd: "text-amber-300 bg-amber-400/10 border-amber-400/20",
-    slug: "text-amber-300 border-amber-400/25",
-    icon: "text-amber-300",
+    cmd: "text-amber-700 bg-amber-500/10 border-amber-500/20",
+    slug: "text-amber-700 border-amber-500/30",
+    icon: "text-amber-600",
   },
 };
 
