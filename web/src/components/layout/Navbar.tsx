@@ -15,11 +15,18 @@ function Logotype() {
   return (
     <a
       href="#top"
-      className="font-mono text-[15px] font-medium tracking-tight text-ink"
+      className="group flex items-center gap-2.5"
       aria-label={`${siteConfig.name} — back to top`}
     >
-      <span className="text-accent">~/</span>
-      hanbal
+      <span
+        aria-hidden="true"
+        className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-accent to-violet text-xs font-bold tracking-tight text-white shadow-sm transition-transform group-hover:scale-105"
+      >
+        HA
+      </span>
+      <span className="text-[15px] font-semibold tracking-tight text-ink">
+        Hanbal<span className="text-accent">.</span>
+      </span>
     </a>
   );
 }
@@ -48,8 +55,8 @@ export function Navbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled || menuOpen
-          ? "border-b border-line bg-white/85 backdrop-blur-xl"
-          : "border-b border-transparent",
+          ? "border-b border-line/70 bg-white/70 shadow-[0_8px_30px_rgb(15,23,42,0.05)] backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent",
       )}
     >
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
@@ -68,7 +75,7 @@ export function Navbar() {
                     "relative rounded-md px-3 py-2 text-sm transition-colors duration-200",
                     isActive
                       ? "text-ink"
-                      : "text-ink-2 hover:bg-surface-2 hover:text-ink",
+                      : "text-ink-2 hover:bg-surface-2/70 hover:text-ink",
                   )}
                 >
                   {item.label}
@@ -85,13 +92,13 @@ export function Navbar() {
           })}
         </ul>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           <a
             href={siteConfig.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub profile"
-            className="rounded-md p-2 text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink"
+            className="rounded-lg p-2 text-ink-2 transition-colors hover:bg-surface-2/70 hover:text-ink"
           >
             <GitHubIcon className="h-[18px] w-[18px]" />
           </a>
@@ -100,12 +107,17 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn profile"
-            className="rounded-md p-2 text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink"
+            className="rounded-lg p-2 text-ink-2 transition-colors hover:bg-surface-2/70 hover:text-ink"
           >
             <LinkedInIcon className="h-[18px] w-[18px]" />
           </a>
-          <Button href="#contact" size="sm" variant="outline">
-            Let&apos;s Talk
+          <Button
+            href={siteConfig.resumeUrl}
+            external
+            size="sm"
+            className="ml-1"
+          >
+            Resume
           </Button>
         </div>
 
@@ -116,7 +128,7 @@ export function Navbar() {
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
-          className="rounded-md p-2 text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink lg:hidden"
+          className="rounded-md p-2 text-ink-2 transition-colors hover:bg-surface-2/70 hover:text-ink lg:hidden"
         >
           {menuOpen ? (
             <X className="h-5 w-5" aria-hidden="true" />
@@ -135,7 +147,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.28, ease: "easeOut" }}
-            className="overflow-hidden border-t border-line bg-white/95 backdrop-blur-xl lg:hidden"
+            className="overflow-hidden border-t border-line/70 bg-white/90 backdrop-blur-xl lg:hidden"
           >
             <ul className="flex flex-col gap-1 px-5 py-5">
               {navigation.map((item, i) => (
@@ -187,12 +199,13 @@ export function Navbar() {
                   <LinkedInIcon className="h-5 w-5" />
                 </a>
                 <Button
-                  href="#contact"
+                  href={siteConfig.resumeUrl}
+                  external
                   size="md"
                   className="ml-auto"
                   onClick={() => setMenuOpen(false)}
                 >
-                  Let&apos;s Talk
+                  Resume
                 </Button>
               </motion.li>
             </ul>

@@ -23,6 +23,11 @@ export const siteConfig = {
   githubUsername: "hanbal07",
   githubUrl: "https://github.com/hanbal07",
   linkedinUrl: "https://linkedin.com/in/hanbal-ahmad/",
+  /**
+   * URL for the "Resume" button. Set NEXT_PUBLIC_RESUME_URL, or drop a
+   * resume at web/public/assets/resume.pdf to use the default path.
+   */
+  resumeUrl: process.env.NEXT_PUBLIC_RESUME_URL ?? "/assets/resume.pdf",
   /** Canonical site URL. Set NEXT_PUBLIC_SITE_URL in production. */
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
 } as const;
