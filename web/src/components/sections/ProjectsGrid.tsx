@@ -35,7 +35,7 @@ export function ProjectsGrid() {
               onClick={() => setFilter(category)}
               aria-pressed={selected}
               className={cn(
-                "mono-label rounded-lg border px-3.5 py-2 text-xs transition-all duration-200 active:scale-[0.97]",
+                "rounded-lg border px-3.5 py-2 text-sm font-medium transition-all duration-200 active:scale-[0.97]",
                 selected
                   ? "border-accent/50 bg-accent/10 text-accent"
                   : "border-line bg-surface/40 text-ink-2 hover:border-line-strong hover:text-ink",

@@ -12,8 +12,6 @@ export type ProjectCategory = "Full-Stack" | "Web" | "Python" | "AI/ML";
 export interface ProjectVisual {
   /** Accent tone used for the abstract card treatment. */
   tone: "cyan" | "indigo" | "emerald" | "amber";
-  /** Short command line shown in the card's code window. */
-  cli: string;
 }
 
 export interface ProjectCaseStudy {
@@ -87,7 +85,6 @@ export const projects: Project[] = [
     featured: true,
     visual: {
       tone: "cyan",
-      cli: "personal-os$ npm run dev",
     },
     caseStudy: {
       overview:
@@ -167,7 +164,6 @@ export const projects: Project[] = [
     featured: true,
     visual: {
       tone: "indigo",
-      cli: "uvicorn app.main:app --port 8000",
     },
     caseStudy: {
       overview:
@@ -246,7 +242,6 @@ export const projects: Project[] = [
     featured: true,
     visual: {
       tone: "emerald",
-      cli: "kamalia-quiz$ npm run dev",
     },
     caseStudy: {
       overview:
@@ -323,7 +318,6 @@ export const projects: Project[] = [
     featured: true,
     visual: {
       tone: "amber",
-      cli: "python wsgi.py --port 8000",
     },
     caseStudy: {
       overview:
@@ -382,7 +376,6 @@ export const projects: Project[] = [
     featured: false,
     visual: {
       tone: "indigo",
-      cli: "python train.py --model classic",
     },
   },
 ];

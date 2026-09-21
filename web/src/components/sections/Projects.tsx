@@ -15,9 +15,9 @@ export function Projects() {
       <Container>
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHeading
-            eyebrow="projects"
-            title="Selected Work."
-            description="Real projects built to solve practical problems. Status badges are honest: LIVE means something you can open today, BUILDING means actively developed. Select a card to read the full case study."
+            eyebrow="Selected Work"
+            title="Real projects built to solve practical problems."
+            description="Honest status badges: LIVE means something you can open today; In Development means actively built, with source public where shareable. Open a card for the full case study."
           />
           <Reveal delay={0.15} className="shrink-0">
             <a

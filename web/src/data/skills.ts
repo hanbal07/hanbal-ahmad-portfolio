@@ -7,27 +7,22 @@ export interface SkillCategory {
 export const skillCategories: SkillCategory[] = [
   {
     title: "Frontend",
-    blurb: "Responsive, accessible interfaces with modern React.",
-    items: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Tailwind CSS"],
+    blurb: "Interfaces and experiences that work everywhere.",
+    items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "HTML/CSS"],
   },
   {
-    title: "Backend",
-    blurb: "APIs, business logic, and server-side systems.",
-    items: ["Python", "FastAPI", "Flask", "Node.js", "REST APIs"],
+    title: "Backend & Data",
+    blurb: "Server-side systems, APIs, and relational data.",
+    items: ["Python", "FastAPI", "Flask", "PostgreSQL", "Prisma", "Node.js"],
   },
   {
-    title: "Database",
-    blurb: "Relational data modeling and query design.",
-    items: ["SQL", "PostgreSQL", "Prisma"],
-  },
-  {
-    title: "AI / ML",
+    title: "AI & ML",
     blurb: "Applied machine learning and intelligent features.",
-    items: ["Python", "Machine Learning", "AI", "Deep Learning", "Computer Vision"],
+    items: ["Machine Learning", "Computer Vision", "Deep Learning"],
   },
   {
-    title: "Tools",
-    blurb: "The workflow around the code.",
-    items: ["Git", "GitHub", "VS Code", "Deployment Platforms"],
+    title: "Tools & Platform",
+    blurb: "The workflow that ships the work.",
+    items: ["Git", "GitHub", "VS Code"],
   },
 ];
