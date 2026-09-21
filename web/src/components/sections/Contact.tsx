@@ -7,6 +7,7 @@ import {
   Copy,
   Loader2,
   Mail,
+  MapPin,
   Send,
 } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand";
@@ -234,6 +235,12 @@ export function Contact() {
                     <LinkedInIcon className="h-4 w-4 text-navy-accent" />
                     linkedin.com/in/hanbal-ahmad
                   </a>
+                </li>
+                <li>
+                  <span className="inline-flex items-center gap-3 font-mono text-sm text-navy-ink-2">
+                    <MapPin className="h-4 w-4 text-navy-accent" aria-hidden="true" />
+                    {siteConfig.location}
+                  </span>
                 </li>
               </ul>
               <p className="mono-label mt-8 inline-flex items-center gap-2 rounded-md border border-emerald-400/25 bg-emerald-400/10 px-3 py-1.5 text-[11px] text-emerald-300">

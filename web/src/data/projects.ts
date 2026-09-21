@@ -24,6 +24,8 @@ export interface ProjectCaseStudy {
   architecture: string;
   technicalDecisions: string[];
   challenges: string[];
+  /** Verified, current state of the project — never invented outcomes. */
+  outcome: string;
   links?: { label: string; url: string }[];
 }
 
@@ -120,6 +122,8 @@ export const projects: Project[] = [
         "Designing a 30-model relational schema that stays coherent across routine, faith, health, learning, projects, habits, and reviews.",
         "Building a rule engine that produces honest, specific feedback from sparse daily logs without sounding generic.",
       ],
+      outcome:
+        "In active development. The system runs locally with 16 API route groups, 30 Prisma models, and a rule-based analysis engine that surfaces honest, specific patterns from real logged data. Source is public; there is no live deployment yet.",
       links: [{ label: "GitHub", url: `${GITHUB}personal-os` }],
     },
   },
@@ -198,6 +202,8 @@ export const projects: Project[] = [
         "Preserving cross-user isolation through every derived data layer.",
         "Making chat answers clearly state when evidence is insufficient.",
       ],
+      outcome:
+        "The full pipeline — validate, inspect, classify, OCR, typed extraction, chunk, embed, persist — is implemented and tested end-to-end, including deterministic mock AI/OCR providers so the whole flow runs without external keys. No public deployment yet; development continues.",
       links: [{ label: "GitHub", url: `${GITHUB}DIP` }],
     },
   },
@@ -274,6 +280,8 @@ export const projects: Project[] = [
         "Verifying through E2E tests that round progression, idempotent submissions, scoring authority, multi-participant isolation, and admin authorization all hold under real usage.",
         "Keeping a phone-first quiz flow fast and usable mid-competition.",
       ],
+      outcome:
+        "The complete competition flow is implemented and covered by Playwright E2E tests for round progression, idempotent submissions, server-authoritative scoring, and session isolation. It deploys for the competition window it was built for.",
       links: [{ label: "GitHub", url: `${GITHUB}kamalia-quiz-competition` }],
     },
   },
@@ -349,6 +357,8 @@ export const projects: Project[] = [
         "Ephemeral SQLite storage on free hosting tiers — favorites and history reset on redeploy unless a persistent volume is attached.",
         "Open-Meteo provides no historical data, so long-range comparisons are not possible.",
       ],
+      outcome:
+        "Live today at https://hanbal07.github.io/weather-vision/. An explainability panel ships with every score, and a 58-test offline suite covers the scoring and recommendation rules.",
       links: [
         { label: "Live Demo", url: "https://hanbal07.github.io/weather-vision/" },
         { label: "GitHub", url: `${GITHUB}weather-vision` },

@@ -11,7 +11,7 @@ export function About() {
       <Container>
         <SectionHeading
           eyebrow="about"
-          title="Building software with purpose."
+          title="Building Software With Purpose."
           description="A project-driven developer — honest about what's live, what's still being built, and how each system actually works."
         />
 

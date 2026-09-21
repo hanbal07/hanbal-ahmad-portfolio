@@ -21,9 +21,9 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const title = `${siteConfig.name} — ${siteConfig.role}`;
+const title = `${siteConfig.name} | ${siteConfig.role}`;
 const description =
-  "Hanbal Ahmad is a Full-Stack Developer focused on modern web applications, Python backends, databases, and AI-powered solutions.";
+  "Full-Stack Developer building modern web applications, Python backends, APIs, databases, and practical AI-powered software.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),

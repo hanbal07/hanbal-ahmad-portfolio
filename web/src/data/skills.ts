@@ -13,7 +13,7 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "Backend",
     blurb: "APIs, business logic, and server-side systems.",
-    items: ["Python", "FastAPI", "Flask", "Node.js"],
+    items: ["Python", "FastAPI", "Flask", "Node.js", "REST APIs"],
   },
   {
     title: "Database",

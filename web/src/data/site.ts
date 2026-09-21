@@ -3,8 +3,8 @@ export const siteConfig = {
   role: "Full-Stack Developer | Python & AI/ML",
   headline: "I build practical digital products that solve real problems.",
   subheadline:
-    "Full-Stack Developer focused on modern web applications, Python backends, and AI-powered solutions.",
-  location: "Pakistan \u00b7 Open to Remote",
+    "Full-Stack Developer focused on modern web applications, Python backends, APIs, databases, and AI-powered solutions.",
+  location: "Kamalia, Punjab, Pakistan",
   statusBadge: "Open to Remote Opportunities",
   /**
    * Public contact email used by the "Email me directly" block
@@ -32,8 +32,9 @@ export const navigation = [
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
+  { label: "Journey", href: "#journey" },
   { label: "AI/ML", href: "#ai-ml" },
-  { label: "Services", href: "#services" },
+  { label: "GitHub", href: "#github" },
   { label: "Contact", href: "#contact" },
 ] as const;
 

@@ -70,7 +70,7 @@ export function GitHubSection() {
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHeading
             eyebrow="github"
-            title="Code, verified on GitHub."
+            title="Code, Built in Public."
             description="Everything below is public — inspect the commits, the architecture, and the tests yourself."
           />
           <Reveal delay={0.15} className="shrink-0">
@@ -275,7 +275,7 @@ export function GitHubSection() {
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 font-mono text-sm text-ink-2 transition-colors hover:text-accent"
           >
-            Explore all repositories
+            Explore my repositories
             <ArrowUpRight
               className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               aria-hidden="true"

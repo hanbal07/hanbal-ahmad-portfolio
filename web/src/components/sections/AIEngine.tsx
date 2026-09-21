@@ -35,10 +35,10 @@ const areas = [
 const flow = [
   { label: "DATA", sub: "raw input" },
   { label: "PYTHON", sub: "features & processing" },
-  { label: "MODEL", sub: "learns from data" },
-  { label: "API", sub: "serves predictions" },
-  { label: "APPLICATION", sub: "product integration" },
-  { label: "USER", sub: "real-world usage" },
+  { label: "MACHINE LEARNING", sub: "learns from data" },
+  { label: "AI LOGIC", sub: "rules, models & reasoning" },
+  { label: "API", sub: "serves intelligence" },
+  { label: "PRODUCT", sub: "usable by real people" },
 ];
 
 function FlowBand() {
@@ -49,7 +49,7 @@ function FlowBand() {
       </p>
       <ul
         className="mt-4 flex items-stretch gap-3 overflow-x-auto pb-2"
-        aria-label="The AI product flow: data, processed in Python, trained into a model, exposed through an API, integrated into an application, and used by real users"
+        aria-label="The AI product flow: data, processed in Python, trained into a machine learning model, guided by AI logic, exposed through an API, and shipped as a usable product"
       >
         {flow.map((stage, i) => (
           <li key={stage.label} className="flex shrink-0 items-center gap-3">
@@ -87,7 +87,7 @@ export function AIEngine() {
       <Container>
         <SectionHeading
           eyebrow="ai / ml"
-          title="Beyond the Interface."
+          title="Beyond The Interface"
           description="Web development is only one part of what I build. I also explore intelligent systems using Python, machine learning, deep learning, computer vision, and AI-powered application architecture."
           tone="navy"
         />

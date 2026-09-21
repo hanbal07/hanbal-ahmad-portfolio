@@ -5,20 +5,20 @@ import { Button } from "@/components/ui/Button";
 
 const reasons = [
   {
-    title: "Practical Development",
-    body: "I focus on building software that solves real problems.",
-  },
-  {
-    title: "Modern Stack",
-    body: "I use current tools and frameworks to create maintainable applications.",
+    title: "Practical Engineering",
+    body: "I focus on building useful software rather than unnecessary complexity.",
   },
   {
     title: "Full-Stack Thinking",
-    body: "I understand the relationship between interface, backend, database, and deployment.",
+    body: "I understand how frontend, backend, databases and APIs work together.",
+  },
+  {
+    title: "AI Integration",
+    body: "I combine traditional software engineering with practical AI/ML capabilities.",
   },
   {
     title: "Continuous Improvement",
-    body: "I build, test, learn, and refine.",
+    body: "I iterate, test and improve products instead of stopping at the first working version.",
   },
 ];
 

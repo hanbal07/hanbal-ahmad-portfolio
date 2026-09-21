@@ -2,48 +2,49 @@ export interface Service {
   id: string;
   title: string;
   description: string;
-  deliverables: string[];
 }
 
 export const services: Service[] = [
   {
-    id: "full-stack",
+    id: "full-stack-web-development",
     title: "Full-Stack Web Development",
     description:
-      "Complete applications from interface to data — React/Next.js frontends, Python backends, and a relational database working as one product. This is where most of my shipped work lives.",
-    deliverables: [
-      "Responsive frontend",
-      "Python APIs",
-      "Database integration",
-      "Deployment",
-    ],
+      "Complete applications — React/Next.js frontend, Python backend, and a relational database working as one product.",
   },
   {
-    id: "python-backend",
-    title: "Python Backend & APIs",
+    id: "backend-development",
+    title: "Backend Development",
     description:
-      "FastAPI or Flask services with validation, authentication, background jobs, and clean endpoint contracts — the kind of backend a frontend can actually depend on.",
-    deliverables: ["FastAPI / Flask", "Auth & validation", "Background jobs", "API docs"],
+      "Robust server-side systems: business logic, authentication, background jobs, and clean service boundaries.",
   },
   {
-    id: "ai-apps",
+    id: "python-development",
+    title: "Python Development",
+    description:
+      "Maintained Python applications and tooling built on clear architecture and tested behavior.",
+  },
+  {
+    id: "ai-powered-applications",
     title: "AI-Powered Applications",
     description:
-      "Practical AI/ML features wired into software people use — document extraction, classification, semantic search, and retrieval-augmented chat with citations instead of guesses.",
-    deliverables: ["Document extraction", "Semantic search", "RAG chat", "ML APIs"],
+      "Practical AI/ML features wired into real products — document extraction, retrieval, and intelligent workflows.",
   },
   {
-    id: "business-websites",
-    title: "Business Websites & Web Design",
+    id: "rest-api-development",
+    title: "REST API Development",
     description:
-      "Professional sites built to be fast, accessible, and easy to update — focused on clear messaging and layouts that work on any device.",
-    deliverables: ["Brochure sites", "Landing pages", "Accessible UI", "Performance"],
+      "FastAPI and Flask APIs with validation, typed contracts, and documentation a frontend can depend on.",
   },
   {
-    id: "database-systems",
-    title: "Database & System Integration",
+    id: "database-development",
+    title: "Database Development",
     description:
-      "PostgreSQL schema design, ORM modeling, background processing, and wiring third-party services (auth, payments, notifications) into your system.",
-    deliverables: ["PostgreSQL schemas", "Prisma / SQL", "Integrations", "Data migration"],
+      "PostgreSQL schema design, Prisma/SQL modeling, and data integrity that holds up under real usage.",
+  },
+  {
+    id: "web-design",
+    title: "Web Design",
+    description:
+      "Clean, responsive, user-focused interfaces with strong UX that work from a phone to a monitor.",
   },
 ];

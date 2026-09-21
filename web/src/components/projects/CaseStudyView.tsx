@@ -5,6 +5,7 @@ import {
   ArrowRight,
   CheckCircle2,
   ExternalLink,
+  Flag,
   Layers,
   Lightbulb,
   Target,
@@ -177,6 +178,10 @@ export function CaseStudyView({ project }: { project: Project }) {
                 </li>
               ))}
             </ul>
+          </Block>
+
+          <Block icon={<Flag className="h-4 w-4" />} title="Result" id="cs-result">
+            <p>{study.outcome}</p>
           </Block>
 
           <Block icon={<ArrowRight className="h-4 w-4" />} title="Links" id="cs-links">
