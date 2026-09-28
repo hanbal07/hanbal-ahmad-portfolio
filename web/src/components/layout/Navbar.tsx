@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Download, Menu, X } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand";
 import { navigation, siteConfig } from "@/data/site";
 import { useActiveSection } from "@/hooks/useActiveSection";
@@ -14,7 +14,7 @@ const SECTION_IDS = navigation.map((item) => item.href.slice(1));
 function Logotype() {
   return (
     <a
-      href="#top"
+      href="#hero"
       className="group flex items-center gap-2.5"
       aria-label={`${siteConfig.name} — back to top`}
     >
@@ -35,6 +35,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const active = useActiveSection(SECTION_IDS);
+  const hasCv = siteConfig.resumeUrl.length > 0;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -111,13 +112,14 @@ export function Navbar() {
           >
             <LinkedInIcon className="h-[18px] w-[18px]" />
           </a>
-          <Button
-            href={siteConfig.resumeUrl}
-            external
-            size="sm"
-            className="ml-1"
-          >
-            Resume
+          {hasCv ? (
+            <Button href={siteConfig.resumeUrl} external size="sm" variant="outline">
+              <Download className="h-3.5 w-3.5" aria-hidden="true" />
+              Download CV
+            </Button>
+          ) : null}
+          <Button href="#contact" size="sm" className="ml-1">
+            Let&apos;s Work Together
           </Button>
         </div>
 
@@ -147,7 +149,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.28, ease: "easeOut" }}
-            className="overflow-hidden border-t border-line/70 bg-white/90 backdrop-blur-xl lg:hidden"
+            className="overflow-hidden border-t border-line/70 bg-white/95 backdrop-blur-xl lg:hidden"
           >
             <ul className="flex flex-col gap-1 px-5 py-5">
               {navigation.map((item, i) => (
@@ -168,16 +170,13 @@ export function Navbar() {
                     )}
                   >
                     {item.label}
-                    <span className="font-mono text-xs text-ink-3">
-                      0{i + 1}
-                    </span>
                   </a>
                 </motion.li>
               ))}
               <motion.li
                 initial={{ opacity: 0, x: -12 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.35 }}
+                transition={{ delay: 0.32 }}
                 className="mt-4 flex items-center gap-2 px-1"
               >
                 <a
@@ -199,15 +198,33 @@ export function Navbar() {
                   <LinkedInIcon className="h-5 w-5" />
                 </a>
                 <Button
-                  href={siteConfig.resumeUrl}
-                  external
-                  size="md"
+                  href="#contact"
+                  size="sm"
                   className="ml-auto"
                   onClick={() => setMenuOpen(false)}
                 >
-                  Resume
+                  Let&apos;s Work Together
                 </Button>
               </motion.li>
+              {hasCv ? (
+                <motion.li
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.36 }}
+                  className="px-1 pt-2"
+                >
+                  <Button
+                    href={siteConfig.resumeUrl}
+                    external
+                    size="sm"
+                    variant="outline"
+                    className="w-full"
+                  >
+                    <Download className="h-3.5 w-3.5" aria-hidden="true" />
+                    Download CV
+                  </Button>
+                </motion.li>
+              ) : null}
             </ul>
           </motion.div>
         ) : null}

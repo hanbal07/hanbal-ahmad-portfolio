@@ -5,8 +5,6 @@ import { siteConfig } from "@/data/site";
 import { Background } from "@/components/layout/Background";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { CommandPalette } from "@/components/layout/CommandPalette";
-import { CustomCursor } from "@/components/layout/CustomCursor";
 import { MotionProvider } from "@/components/layout/MotionProvider";
 
 const inter = Inter({
@@ -97,8 +95,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             {children}
           </main>
           <Footer />
-          <CommandPalette />
-          <CustomCursor />
         </MotionProvider>
         <script
           type="application/ld+json"

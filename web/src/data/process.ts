@@ -11,7 +11,7 @@ export const processSteps: ProcessStep[] = [
     num: "01",
     title: "Understand",
     step: "Understand",
-    description: "Clarify the problem before writing any code.",
+    description: "Understand the problem, users, and goals.",
     detail:
       "Start with the goal, the users, and the constraints. The right question saves the most time downstream.",
   },
@@ -19,7 +19,7 @@ export const processSteps: ProcessStep[] = [
     num: "02",
     title: "Plan",
     step: "Plan",
-    description: "Decide architecture, stack, and scope.",
+    description: "Define scope, architecture, and priorities.",
     detail:
       "Map the system — frontend, backend, database, and integrations — and define what \u201cdone\u201d looks like for the first version.",
   },
@@ -27,7 +27,7 @@ export const processSteps: ProcessStep[] = [
     num: "03",
     title: "Build",
     step: "Build",
-    description: "Implement in working increments.",
+    description: "Develop the product in clear milestones.",
     detail:
       "Ship small, reviewable pieces that each work end-to-end, keeping the product usable as it grows.",
   },
@@ -35,7 +35,7 @@ export const processSteps: ProcessStep[] = [
     num: "04",
     title: "Test",
     step: "Test",
-    description: "Verify behavior, edge cases, and security.",
+    description: "Validate functionality, responsiveness, and reliability.",
     detail:
       "Cover the important paths, validate inputs, and check that failures fail clearly instead of silently.",
   },
@@ -43,7 +43,7 @@ export const processSteps: ProcessStep[] = [
     num: "05",
     title: "Deploy",
     step: "Deploy",
-    description: "Release with clean configuration.",
+    description: "Prepare the application for real use.",
     detail:
       "Deploy through environments and configuration, with health checks and environment variables — no secrets in code.",
   },
@@ -51,7 +51,7 @@ export const processSteps: ProcessStep[] = [
     num: "06",
     title: "Improve",
     step: "Improve",
-    description: "Iterate based on how it is used.",
+    description: "Iterate based on feedback and actual usage.",
     detail:
       "Observe what matters, fix what breaks, and refine the product in focused cycles.",
   },

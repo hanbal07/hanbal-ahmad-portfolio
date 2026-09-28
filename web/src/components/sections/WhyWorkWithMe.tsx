@@ -5,20 +5,20 @@ import { Button } from "@/components/ui/Button";
 
 const reasons = [
   {
-    title: "Practical Engineering",
-    body: "I focus on building useful software rather than unnecessary complexity.",
+    title: "Product-Minded Development",
+    body: "I focus on building usable products, not just isolated features — every project in this portfolio works end-to-end.",
   },
   {
-    title: "Full-Stack Thinking",
-    body: "I understand how frontend, backend, databases and APIs work together.",
+    title: "Full-Stack Ownership",
+    body: "I can work across frontend, backend, databases, APIs, and deployment — one person who understands the whole system.",
   },
   {
-    title: "AI Integration",
-    body: "I combine traditional software engineering with practical AI/ML capabilities.",
+    title: "AI Where It Makes Sense",
+    body: "I use AI/ML as a practical product capability — explainable scoring, RAG search, document intelligence — rather than adding it unnecessarily.",
   },
   {
-    title: "Continuous Improvement",
-    body: "I iterate, test and improve products instead of stopping at the first working version.",
+    title: "Engineering Discipline",
+    body: "Validation, testing, structured architecture, and maintainable code where appropriate — Zod schemas, Vitest, Playwright, and CI all appear in my real repositories.",
   },
 ];
 
@@ -27,21 +27,24 @@ export function WhyWorkWithMe() {
     <section
       id="why-work-with-me"
       aria-labelledby="why-heading"
-      className="scroll-mt-24 py-24 sm:py-28"
+      className="scroll-mt-24 bg-white py-24 sm:py-28"
     >
       <Container>
         <SectionHeading
-          eyebrow="why me"
-          title="Why work with me."
+          eyebrow="Why work with me"
+          title="Evidence over claims."
           description="Four things that hold true across every project in this portfolio."
         />
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2">
           {reasons.map((reason, i) => (
             <Reveal key={reason.title} delay={(i % 2) * 0.07}>
-              <div className="card-surface card-hover flex h-full flex-col rounded-xl p-6">
-                <p className="mono-label text-[11px] text-accent" aria-hidden="true">
-                  0{i + 1}
+              <div className="flex h-full flex-col rounded-2xl border border-line bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:shadow-[0_24px_60px_-30px_rgb(15,23,42,0.25)]">
+                <p
+                  className="text-sm font-semibold text-accent"
+                  aria-hidden="true"
+                >
+                  {String(i + 1).padStart(2, "0")}
                 </p>
                 <h3 className="mt-3 text-base font-semibold text-ink">
                   {reason.title}
@@ -54,13 +57,10 @@ export function WhyWorkWithMe() {
           ))}
         </div>
 
-        <Reveal delay={0.15} className="mt-10">
-          <div className="card-surface flex flex-col items-start justify-between gap-5 rounded-xl p-6 sm:flex-row sm:items-center sm:p-8">
+        <Reveal delay={0.15}>
+          <div className="mt-10 flex flex-col items-start justify-between gap-5 rounded-2xl border border-line bg-white p-6 sm:flex-row sm:items-center sm:p-8">
             <div>
-              <p className="mono-label text-[11px] text-ink-3">
-                ready when you are
-              </p>
-              <p className="mt-1 text-base font-medium text-ink">
+              <p className="text-base font-medium text-ink">
                 Have a project that matches any of these? Let&apos;s talk.
               </p>
             </div>

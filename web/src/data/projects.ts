@@ -22,6 +22,8 @@ export interface ProjectCaseStudy {
   architecture: string;
   technicalDecisions: string[];
   challenges: string[];
+  /** Verified testing/quality facts only — omitted when none are verified. */
+  testing?: string[];
   /** Verified, current state of the project — never invented outcomes. */
   outcome: string;
   links?: { label: string; url: string }[];
@@ -32,6 +34,8 @@ export interface Project {
   slug: string;
   title: string;
   shortTitle: string;
+  /** One-line value proposition shown in featured layouts. */
+  tagline: string;
   description: string;
   category: string;
   categories: ProjectCategory[];
@@ -53,6 +57,8 @@ export const projects: Project[] = [
     slug: "personal-os",
     title: "PersonalOS",
     shortTitle: "PersonalOS",
+    tagline:
+      "A personal operating system for routines, learning, projects, habits, and health — with an explainable analysis engine.",
     description:
       "A full-stack personal productivity system that unifies routine, learning, projects, habits, and health tracking into one dashboard — with a rule-based analysis engine that surfaces honest, specific patterns and recommendations from your own data.",
     category: "Full-Stack",
@@ -129,6 +135,8 @@ export const projects: Project[] = [
     slug: "document-intelligence-platform",
     title: "DIP — Document Intelligence Platform",
     shortTitle: "DIP",
+    tagline:
+      "AI document processing — from upload and OCR to typed extraction, semantic search, and RAG chat.",
     description:
       "A production-style, end-to-end AI document processing platform. Upload PDFs and images; the system validates, classifies, OCRs, extracts structured data per document type, embeds, and indexes everything — behind an ownership-isolated REST API with a Next.js dashboard for semantic search and RAG chat with citations.",
     category: "Full-Stack",
@@ -198,6 +206,11 @@ export const projects: Project[] = [
         "Preserving cross-user isolation through every derived data layer.",
         "Making chat answers clearly state when evidence is insufficient.",
       ],
+      testing: [
+        "Deterministic mock AI/OCR providers let the full pipeline run and be tested end-to-end without external API keys.",
+        "The repository ships with a CI workflow and health endpoints.",
+        "Pipeline stages are idempotent and re-runnable, making retry behavior safe to verify.",
+      ],
       outcome:
         "The full pipeline — validate, inspect, classify, OCR, typed extraction, chunk, embed, persist — is implemented and tested end-to-end, including deterministic mock AI/OCR providers so the whole flow runs without external keys. No public deployment yet; development continues.",
       links: [{ label: "GitHub", url: `${GITHUB}DIP` }],
@@ -208,6 +221,8 @@ export const projects: Project[] = [
     slug: "kamalia-quiz-competition",
     title: "University of Kamalia Quiz Competition",
     shortTitle: "Kamalia Quiz",
+    tagline:
+      "Mobile-first QR quiz competitions with server-authoritative scoring and a live leaderboard.",
     description:
       "A mobile-first, full-stack QR quiz competition platform for the University of Kamalia — secure, timed quiz competitions with QR-code-based round access, server-authoritative real-time scoring, and an admin dashboard.",
     category: "Full-Stack",
@@ -275,6 +290,10 @@ export const projects: Project[] = [
         "Verifying through E2E tests that round progression, idempotent submissions, scoring authority, multi-participant isolation, and admin authorization all hold under real usage.",
         "Keeping a phone-first quiz flow fast and usable mid-competition.",
       ],
+      testing: [
+        "Unit tests with Vitest cover the scoring and session logic.",
+        "Playwright E2E tests cover round progression, idempotent submissions, server-authoritative scoring, and participant session isolation.",
+      ],
       outcome:
         "The complete competition flow is implemented and covered by Playwright E2E tests for round progression, idempotent submissions, server-authoritative scoring, and session isolation. It deploys for the competition window it was built for.",
       links: [{ label: "GitHub", url: `${GITHUB}kamalia-quiz-competition` }],
@@ -285,6 +304,8 @@ export const projects: Project[] = [
     slug: "weather-vision",
     title: "WeatherVision",
     shortTitle: "WeatherVision",
+    tagline:
+      "Raw weather data turned into an explainable Comfort Score, activity recommendations, and alerts.",
     description:
       "An explainable weather intelligence system that turns raw weather data into a Weather Comfort Score (0–100), activity recommendations, severity-based alerts, and human-readable insights — with a Python/Flask core and a live browser build.",
     category: "Python",
@@ -351,6 +372,10 @@ export const projects: Project[] = [
         "Ephemeral SQLite storage on free hosting tiers — favorites and history reset on redeploy unless a persistent volume is attached.",
         "Open-Meteo provides no historical data, so long-range comparisons are not possible.",
       ],
+      testing: [
+        "A 58-test offline suite covers the scoring, recommendation, and alert rules.",
+        "Every score ships with an explainability panel, so conclusions are verifiable in the UI itself.",
+      ],
       outcome:
         "Live today at https://hanbal07.github.io/weather-vision/. An explainability panel ships with every score, and a 58-test offline suite covers the scoring and recommendation rules.",
       links: [
@@ -364,8 +389,9 @@ export const projects: Project[] = [
     slug: "ai-master-academy",
     title: "AI Master Academy",
     shortTitle: "AI Master Academy",
+    tagline: "An early-stage AI/ML learning project.",
     description:
-      "An AI/ML learning platform/project for working through modern machine learning concepts hands-on.",
+      "A hands-on AI/ML learning project for working through modern machine learning concepts. Not yet ready for public showcase — ask me about it directly.",
     category: "AI/ML",
     categories: ["AI/ML"],
     technologies: ["Python", "Machine Learning", "AI/ML"],

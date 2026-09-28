@@ -1,4 +1,4 @@
-import { BrainCircuit, Database, PanelsTopLeft, Wrench } from "lucide-react";
+import { BrainCircuit, Braces, Database, PanelsTopLeft, Wrench } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
@@ -6,6 +6,7 @@ import { skillCategories } from "@/data/skills";
 
 const categoryIcons = [
   PanelsTopLeft,
+  Braces,
   Database,
   BrainCircuit,
   Wrench,
@@ -16,27 +17,35 @@ export function TechStack() {
     <section
       id="skills"
       aria-labelledby="skills-heading"
-      className="scroll-mt-24 border-y border-line bg-white py-24 sm:py-28"
+      className="scroll-mt-24 border-y border-line bg-canvas py-24 sm:py-28"
     >
       <Container>
         <SectionHeading
           eyebrow="Tech Stack"
           title="Tools & Technologies I use to ship reliable software."
-          description="Deliberate, proven tools rather than a wall of logos. Each one appears in a repo or case study on this site."
+          description="Deliberate, proven tools rather than a wall of logos — each one appears in a project or case study on this site."
         />
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {skillCategories.map((category, i) => {
             const Icon = categoryIcons[i];
             return (
-              <Reveal key={category.title} delay={(i % 4) * 0.07}>
-                <div className="flex h-full flex-col rounded-2xl border border-line bg-canvas/50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:shadow-[0_24px_60px_-30px_rgb(15,23,42,0.25)]">
-                  <span
-                    aria-hidden="true"
-                    className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-white text-accent transition-transform duration-300 group-hover:scale-110"
-                  >
-                    <Icon className="h-5 w-5" />
-                  </span>
+              <Reveal key={category.title} delay={(i % 3) * 0.07}>
+                <div className="flex h-full flex-col rounded-2xl border border-line bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:shadow-[0_24px_60px_-30px_rgb(15,23,42,0.25)]">
+                  <div className="flex items-center justify-between">
+                    <span
+                      aria-hidden="true"
+                      className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-surface-2/60 text-accent"
+                    >
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="text-xs font-semibold text-ink-3/60"
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </div>
                   <h3 className="mt-5 text-base font-semibold tracking-tight text-ink">
                     {category.title}
                   </h3>
@@ -47,7 +56,7 @@ export function TechStack() {
                   >
                     {category.items.map((item) => (
                       <li key={item}>
-                        <span className="inline-block rounded-lg border border-line bg-white px-3 py-1.5 text-[13px] text-ink-2 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent">
+                        <span className="inline-block rounded-lg border border-line bg-surface-2/40 px-3 py-1.5 text-[13px] text-ink-2 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent">
                           {item}
                         </span>
                       </li>

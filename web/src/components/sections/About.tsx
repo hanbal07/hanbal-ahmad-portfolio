@@ -1,8 +1,9 @@
-import { MapPin } from "lucide-react";
+import { GraduationCap, MapPin } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand";
+import { education } from "@/data/education";
 import { siteConfig } from "@/data/site";
 
 export function About() {
@@ -10,24 +11,34 @@ export function About() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="scroll-mt-24 bg-white py-24 sm:py-28"
+      className="scroll-mt-24 bg-canvas py-24 sm:py-28"
     >
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Text */}
           <div>
             <SectionHeading
-              eyebrow="About Me"
-              title="Building Software With Purpose."
-              description="I'm Hanbal Ahmad, a project-driven developer currently pursuing a BS in Artificial Intelligence at the University of Kamalia. My focus is on building practical web applications and intelligent software that solve real problems."
+              eyebrow="About"
+              title="Turning real problems into useful software."
             />
             <Reveal delay={0.1}>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-2">
-                I work across modern frontend development, Python backends,
-                databases, APIs, and AI/ML. I care about the details that make
-                software feel finished: clear architecture, honest scope, readable
-                code, and interfaces that work flawlessly from a phone to a
-                monitor.
+                I&apos;m Hanbal Ahmad, a Full-Stack Developer focused on
+                building modern web applications, Python backends, and
+                practical AI-powered products.
+              </p>
+              <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-2">
+                I enjoy turning real problems into useful software — from
+                productivity systems and university platforms to document
+                intelligence and data-driven applications.
+              </p>
+              <p className="mt-4 flex items-start gap-2.5 text-sm leading-relaxed text-ink-2">
+                <GraduationCap
+                  className="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                  aria-hidden="true"
+                />
+                Currently pursuing a {education.degree} at the{" "}
+                {education.institution}.
               </p>
             </Reveal>
             <Reveal delay={0.15}>
@@ -36,7 +47,7 @@ export function About() {
                   href={siteConfig.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg border border-line bg-surface-2/60 px-4 py-2 text-sm text-ink-2 transition-colors hover:border-accent/50 hover:text-accent"
+                  className="inline-flex items-center gap-2 rounded-lg border border-line bg-white px-4 py-2 text-sm text-ink-2 transition-colors hover:border-accent/50 hover:text-accent"
                 >
                   <GitHubIcon className="h-4 w-4" aria-hidden="true" />
                   GitHub
@@ -45,7 +56,7 @@ export function About() {
                   href={siteConfig.linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg border border-line bg-surface-2/60 px-4 py-2 text-sm text-ink-2 transition-colors hover:border-accent/50 hover:text-accent"
+                  className="inline-flex items-center gap-2 rounded-lg border border-line bg-white px-4 py-2 text-sm text-ink-2 transition-colors hover:border-accent/50 hover:text-accent"
                 >
                   <LinkedInIcon className="h-4 w-4" aria-hidden="true" />
                   LinkedIn
@@ -80,7 +91,7 @@ export function About() {
                   </h3>
                   <p className="mt-1.5 text-sm text-ink-2">
                     Full-Stack Developer <span className="text-ink-3">&middot;</span>{" "}
-                    Python &amp; AI/ML
+                    Python & AI/ML
                   </p>
 
                   <div className="mt-8 space-y-3 border-t border-line/80 pt-6">
@@ -88,7 +99,7 @@ export function About() {
                       <MapPin className="h-4 w-4 text-accent" aria-hidden="true" />
                       {siteConfig.location}
                     </p>
-                    <p className="mono-label inline-flex items-center gap-2 rounded-full border border-ok/30 bg-ok/[0.08] px-3 py-1.5 text-[11px] text-ok">
+                    <p className="inline-flex items-center gap-2 rounded-full border border-ok/30 bg-ok/[0.08] px-3 py-1.5 text-[11px] font-medium text-ok">
                       <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
                         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ok opacity-60" />
                         <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-ok" />

@@ -1,48 +1,42 @@
 export const siteConfig = {
   name: "Hanbal Ahmad",
-  role: "Full-Stack Developer | Python & AI/ML",
-  headline: "I build practical digital products that solve real problems.",
+  role: "Full-Stack Developer · Python · AI/ML",
+  headline: "I build modern web applications and AI-powered products.",
   subheadline:
-    "Full-Stack Developer focused on modern web applications, Python backends, APIs, databases, and AI-powered solutions.",
+    "Building modern web applications and AI-powered products with Next.js, TypeScript, Python, PostgreSQL, and practical AI/ML.",
   location: "Kamalia, Punjab, Pakistan",
   statusBadge: "Open to Remote Opportunities",
   /**
-   * Public contact email used by the "Email me directly" block
-   * (mailto link + copy button). Supply your own via
-   * NEXT_PUBLIC_CONTACT_EMAIL (or edit this value); keep empty to
-   * show "Email address coming soon" instead of a fake address.
+   * Public contact email used by the contact section and footer.
+   * Supply your own via NEXT_PUBLIC_CONTACT_EMAIL (or edit this value);
+   * keep empty to omit the email row entirely — no placeholder text.
    */
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
   /**
    * Path to the profile photo shown in the hero.
-   * Drop a real photograph at web/public/assets/profile/hanbal-ahmad.webp
-   * (webp, ~4:5 portrait, up to ~1024×1280). A monogram tile is shown as
-   * a graceful fallback while the file is absent, so the hero never breaks.
+   * A monogram tile is shown as a graceful fallback while the file
+   * is absent, so the hero never breaks.
    */
   profileImage: "/assets/profile/hanbal-ahmad.webp",
   githubUsername: "hanbal07",
   githubUrl: "https://github.com/hanbal07",
   linkedinUrl: "https://linkedin.com/in/hanbal-ahmad/",
   /**
-   * URL for the "Resume" button. Set NEXT_PUBLIC_RESUME_URL, or drop a
-   * resume at web/public/assets/resume.pdf to use the default path.
+   * URL for the "Download CV" button. Set NEXT_PUBLIC_RESUME_URL, or drop
+   * the file at web/public/assets/resume.pdf and set this to
+   * "/assets/resume.pdf". While empty, the button is hidden — it never
+   * links to a nonexistent file.
    */
-  resumeUrl: process.env.NEXT_PUBLIC_RESUME_URL ?? "/assets/resume.pdf",
+  resumeUrl: process.env.NEXT_PUBLIC_RESUME_URL ?? "",
   /** Canonical site URL. Set NEXT_PUBLIC_SITE_URL in production. */
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
 } as const;
 
 export const navigation = [
   { label: "Home", href: "#hero" },
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
-  { label: "Journey", href: "#journey" },
-  { label: "AI/ML", href: "#ai-ml" },
-  { label: "GitHub", href: "#github" },
+  { label: "Skills", href: "#skills" },
+  { label: "Services", href: "#services" },
+  { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ] as const;
-
-export const profileStatements = {
-  whoami: ["Full-Stack Developer", "Python Developer", "AI/ML Builder"],
-} as const;

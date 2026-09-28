@@ -1,35 +1,10 @@
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, ExternalLink } from "lucide-react";
 import { GitHubIcon } from "@/components/ui/brand";
-import type { Project, ProjectVisual } from "@/data/projects";
+import type { Project } from "@/data/projects";
 import { StatusBadge } from "@/components/ui/StatusBadge";
+import { toneStyles } from "@/lib/projectVisuals";
 import { cn } from "@/lib/cn";
-
-const toneStyles: Record<
-  ProjectVisual["tone"],
-  { bg: string; ring: string; text: string }
-> = {
-  cyan: {
-    bg: "bg-gradient-to-br from-cyan-500/70 via-sky-400/40 to-blue-500/30",
-    ring: "group-hover:ring-cyan-400/40",
-    text: "text-cyan-600",
-  },
-  indigo: {
-    bg: "bg-gradient-to-br from-indigo-500/70 via-violet-400/40 to-purple-500/30",
-    ring: "group-hover:ring-indigo-400/40",
-    text: "text-indigo-600",
-  },
-  emerald: {
-    bg: "bg-gradient-to-br from-emerald-500/70 via-teal-400/40 to-cyan-500/30",
-    ring: "group-hover:ring-emerald-400/40",
-    text: "text-emerald-600",
-  },
-  amber: {
-    bg: "bg-gradient-to-br from-amber-500/70 via-orange-400/40 to-rose-400/30",
-    ring: "group-hover:ring-amber-400/40",
-    text: "text-amber-600",
-  },
-};
 
 function ProjectVisualPanel({ project }: { project: Project }) {
   const tone = toneStyles[project.visual.tone];
@@ -164,7 +139,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </a>
           ) : null}
           {!hasCaseStudy && !project.githubUrl && !project.liveUrl ? (
-            <span className="text-sm text-ink-3">More details coming soon</span>
+            <span className="text-sm text-ink-3">Early-stage project</span>
           ) : null}
         </div>
       </div>

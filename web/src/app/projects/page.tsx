@@ -14,9 +14,9 @@ export default function ProjectsPage() {
     <div className="pt-28 pb-24">
       <Container>
         <SectionHeading
-          eyebrow="projects"
+          eyebrow="Projects"
           title="All projects."
-          description="Filter by focus area, or open a case study for the full story — problem, solution, architecture, and decisions. LIVE = public and reachable right now; BUILDING = actively developed."
+          description="Filter by focus area, or open a case study for the full story — problem, solution, architecture, and decisions. LIVE means public and reachable right now; In Development means actively built."
         />
         <div className="mt-12">
           <Reveal>

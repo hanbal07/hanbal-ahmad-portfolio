@@ -17,11 +17,11 @@ export function ProfilePhoto() {
     return (
       <div className="flex h-full min-h-[320px] w-full items-center justify-center bg-gradient-to-br from-surface-2 to-canvas">
         <div className="text-center">
-          <span className="text-gradient font-mono text-[72px] font-semibold leading-none">
+          <span className="text-gradient text-[72px] font-semibold leading-none">
             {siteConfig.name.charAt(0)}
           </span>
-          <p className="mono-label mt-4 text-[10px] tracking-wider text-ink-3">
-            portrait pending
+          <p className="mt-4 text-[10px] font-medium uppercase tracking-[0.18em] text-ink-3">
+            {siteConfig.name}
           </p>
         </div>
       </div>

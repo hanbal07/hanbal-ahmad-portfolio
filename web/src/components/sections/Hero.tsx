@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand";
 import { Container } from "@/components/ui/Container";
 import { ProfilePhoto } from "@/components/profile/ProfilePhoto";
@@ -47,7 +47,7 @@ function TechMarquee() {
       >
         {row.map((item, i) => (
           <li key={`${item}-${i}`} className="flex items-center gap-4 px-5">
-            <span className="mono-label text-sm tracking-wide text-ink-2">
+            <span className="text-sm font-medium tracking-wide text-ink-2">
               {item}
             </span>
             <span className="h-1 w-1 rounded-full bg-accent/70" aria-hidden="true" />
@@ -60,6 +60,7 @@ function TechMarquee() {
 
 export function Hero() {
   const reduce = useReducedMotion();
+  const hasCv = siteConfig.resumeUrl.length > 0;
 
   return (
     <section
@@ -75,47 +76,28 @@ export function Hero() {
             initial={reduce ? undefined : "hidden"}
             animate={reduce ? undefined : "show"}
           >
-            <motion.p variants={fadeUp}>
-              <span className="inline-flex items-center gap-2 rounded-full border border-ok/25 bg-ok/5 px-3.5 py-1.5">
-                <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ok opacity-60" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-ok" />
-                </span>
-                <span className="mono-label text-[11px] text-ok">
-                  {siteConfig.statusBadge}
-                </span>
-              </span>
-            </motion.p>
-
             <motion.p
               variants={fadeUp}
-              className="mono-label mt-8 text-[13px] tracking-[0.2em] text-ink-3"
+              className="text-[13px] font-semibold uppercase tracking-[0.18em] text-accent"
             >
-              HANBAL AHMAD
+              Hanbal Ahmad
             </motion.p>
 
             <motion.h1
               variants={fadeUp}
               id="hero-heading"
-              className="mt-3 text-[2.6rem] font-semibold leading-[1.05] tracking-tight text-ink sm:text-6xl lg:text-[4.25rem]"
+              className="mt-4 text-[2.6rem] font-semibold leading-[1.05] tracking-tight text-ink sm:text-6xl lg:text-[4.25rem]"
             >
               Full-Stack Developer
-              <span className="block text-gradient">&amp; AI Systems</span>
+              <span className="block text-gradient">Python & AI/ML</span>
             </motion.h1>
 
             <motion.p
               variants={fadeUp}
-              className="mt-6 max-w-xl text-base leading-relaxed text-ink-2 sm:text-lg"
+              className="mt-6 max-w-xl text-lg font-medium leading-relaxed text-ink"
             >
-              {siteConfig.subheadline}
-            </motion.p>
-
-            <motion.p
-              variants={fadeUp}
-              className="mt-4 flex items-center gap-2 text-sm text-ink-2"
-            >
-              <MapPin className="h-4 w-4 text-accent" aria-hidden="true" />
-              {siteConfig.location}
+              Building modern web applications and AI-powered products with
+              Next.js, TypeScript, Python, PostgreSQL, and practical AI/ML.
             </motion.p>
 
             {/* CTAs */}
@@ -130,6 +112,12 @@ export function Hero() {
               <Button href="#contact" size="lg" variant="outline">
                 Let&apos;s Work Together
               </Button>
+              {hasCv ? (
+                <Button href={siteConfig.resumeUrl} external size="lg" variant="ghost">
+                  <Download className="h-4 w-4" aria-hidden="true" />
+                  Download CV
+                </Button>
+              ) : null}
               <div className="flex items-center gap-1 pl-1">
                 <a
                   href={siteConfig.githubUrl}
@@ -138,7 +126,7 @@ export function Hero() {
                   aria-label="GitHub profile"
                   className="rounded-lg p-2.5 text-ink-2 transition-colors hover:bg-surface-2/70 hover:text-ink"
                 >
-                  <GitHubIcon className="h-5 w-5 text-accent" />
+                  <GitHubIcon className="h-5 w-5" />
                 </a>
                 <a
                   href={siteConfig.linkedinUrl}
@@ -147,7 +135,7 @@ export function Hero() {
                   aria-label="LinkedIn profile"
                   className="rounded-lg p-2.5 text-ink-2 transition-colors hover:bg-surface-2/70 hover:text-ink"
                 >
-                  <LinkedInIcon className="h-5 w-5 text-accent" />
+                  <LinkedInIcon className="h-5 w-5" />
                 </a>
               </div>
             </motion.div>
@@ -173,12 +161,11 @@ export function Hero() {
 
               {/* Glass info card */}
               <div className="absolute -bottom-6 left-6 right-6 flex items-center justify-between gap-3 rounded-2xl border border-white/80 bg-white/85 px-4 py-3 shadow-lg backdrop-blur-xl">
-                <span className="truncate font-mono text-xs text-ink-2">
-                  {siteConfig.location}
+                <span className="truncate text-sm font-medium text-ink-2">
+                  Full-Stack Developer
                 </span>
-                <span className="mono-label flex shrink-0 items-center gap-1.5 text-[10px] text-ok">
-                  <span className="h-1.5 w-1.5 rounded-full bg-ok" aria-hidden="true" />
-                  Open to work
+                <span className="shrink-0 text-xs font-medium text-accent">
+                  Python · AI/ML
                 </span>
               </div>
 
@@ -187,7 +174,7 @@ export function Hero() {
                 <span
                   key={pill.label}
                   aria-hidden="true"
-                  className={`float-tag mono-label absolute hidden rounded-xl border border-white/80 bg-white/85 px-3 py-1.5 text-[11px] text-ink-2 shadow-md backdrop-blur-xl lg:block ${pill.className}`}
+                  className={`float-tag absolute hidden rounded-xl border border-white/80 bg-white/85 px-3 py-1.5 text-[11px] font-medium text-ink-2 shadow-md backdrop-blur-xl lg:block ${pill.className}`}
                   style={{ animationDelay: pill.delay }}
                 >
                   {pill.label}

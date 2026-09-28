@@ -20,8 +20,8 @@ export function Process() {
     >
       <Container>
         <SectionHeading
-          eyebrow="process"
-          title="How I work."
+          eyebrow="How I Work"
+          title="A clear process, start to finish."
           description="A simple, repeatable loop that keeps scope honest and the product usable at every step."
         />
 
@@ -42,7 +42,7 @@ export function Process() {
                     )}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="mono-label text-2xl text-gradient" aria-hidden="true">
+                      <span className="text-xl font-semibold text-accent" aria-hidden="true">
                         {step.num}
                       </span>
                       <span

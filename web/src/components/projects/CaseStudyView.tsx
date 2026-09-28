@@ -3,11 +3,13 @@ import type { ReactNode } from "react";
 import {
   ArrowLeft,
   ArrowRight,
+  Camera,
   CheckCircle2,
   ExternalLink,
   Flag,
   Layers,
   Lightbulb,
+  ShieldCheck,
   Target,
   Wrench,
   AlertTriangle,
@@ -18,6 +20,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { StatusBadge, CaseStudyBadge } from "@/components/ui/StatusBadge";
 import { Button } from "@/components/ui/Button";
 import type { Project } from "@/data/projects";
+import { toneStyles } from "@/lib/projectVisuals";
+import { cn } from "@/lib/cn";
 
 function Block({
   icon,
@@ -35,7 +39,7 @@ function Block({
       <section aria-labelledby={id} className="grid gap-4 sm:grid-cols-[220px_1fr]">
         <h2 id={id} className="flex items-center gap-2.5 text-base font-semibold text-ink">
           <span
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent"
             aria-hidden="true"
           >
             {icon}
@@ -48,12 +52,22 @@ function Block({
   );
 }
 
-const listItem =
-  "flex items-start gap-2.5 text-sm leading-relaxed text-ink-2";
+const listItem = "flex items-start gap-2.5 text-sm leading-relaxed text-ink-2";
+
+/** Honest placeholder — replaced by real screenshots when available. */
+function ScreenPlaceholder({ label }: { label: string }) {
+  return (
+    <div className="flex aspect-[16/10] flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-line-strong bg-surface-2/30 text-center">
+      <Camera className="h-5 w-5 text-ink-3" aria-hidden="true" />
+      <p className="px-4 text-xs font-medium text-ink-3">{label}</p>
+    </div>
+  );
+}
 
 export function CaseStudyView({ project }: { project: Project }) {
   const study = project.caseStudy;
   if (!study) return null;
+  const tone = toneStyles[project.visual.tone];
 
   return (
     <div className="pt-28 pb-24">
@@ -62,61 +76,90 @@ export function CaseStudyView({ project }: { project: Project }) {
         <Reveal>
           <Link
             href="/#projects"
-            className="group inline-flex items-center gap-2 font-mono text-xs text-ink-3 transition-colors hover:text-accent"
+            className="group inline-flex items-center gap-2 text-xs font-medium text-ink-3 transition-colors hover:text-accent"
           >
             <ArrowLeft
               className="h-4 w-4 transition-transform group-hover:-translate-x-0.5"
               aria-hidden="true"
             />
-            all case studies
+            All case studies
           </Link>
         </Reveal>
 
         {/* Header */}
         <Reveal delay={0.05}>
-          <div className="card-surface mt-6 rounded-xl p-6 sm:p-8">
-            <p className="mono-label text-xs text-accent">case study</p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              {project.title}
-            </h1>
-            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-ink-2 sm:text-base">
-              {project.description}
-            </p>
-            <div className="mt-5 flex flex-wrap items-center gap-3">
-              <StatusBadge status={project.status} />
-              {study ? <CaseStudyBadge /> : null}
+          <div className="card-surface mt-6 overflow-hidden rounded-2xl">
+            <div
+              className={cn(
+                "relative flex aspect-[21/9] items-center justify-center",
+                tone.bg,
+              )}
+            >
               <span
-                className="mono-label text-[11px] text-ink-3"
-                aria-label="Project categories"
+                aria-hidden="true"
+                className="absolute -right-10 -top-14 h-48 w-48 rounded-full border-[24px] border-white/15"
+              />
+              <span
+                aria-hidden="true"
+                className="relative text-4xl font-bold tracking-tight text-white/25 sm:text-6xl"
               >
-                {project.categories.join(" · ")}
+                {project.shortTitle}
+              </span>
+              <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-black/25 px-2.5 py-1 text-[10px] font-medium text-white/90 backdrop-blur-sm">
+                <Camera className="h-3 w-3" aria-hidden="true" />
+                Product screenshot placeholder
               </span>
             </div>
-            <div className="mt-6 flex flex-wrap gap-2.5 border-t border-line pt-6">
-              {project.githubUrl ? (
-                <Button href={project.githubUrl} external size="sm" variant="outline">
-                  <GitHubIcon className="h-3.5 w-3.5" />
-                  Source on GitHub
-                </Button>
-              ) : null}
-              {project.liveUrl ? (
-                <Button href={project.liveUrl} external size="sm">
-                  Live Demo
-                  <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-                </Button>
-              ) : null}
-              {study.links?.map((link) => (
-                <Button
-                  key={link.label}
-                  href={link.url}
-                  external
-                  size="sm"
-                  variant="outline"
+
+            <div className="p-6 sm:p-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                Case Study
+              </p>
+              <h1 className="mt-2 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+                {project.title}
+              </h1>
+              <p className={cn("mt-3 max-w-3xl text-base font-medium", tone.text)}>
+                {project.tagline}
+              </p>
+              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-ink-2 sm:text-base">
+                {project.description}
+              </p>
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                <StatusBadge status={project.status} />
+                <CaseStudyBadge />
+                <span
+                  className="text-[11px] font-medium text-ink-3"
+                  aria-label="Project categories"
                 >
-                  {link.label}
-                  <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-                </Button>
-              ))}
+                  {project.categories.join(" · ")}
+                </span>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-2.5 border-t border-line pt-6">
+                {project.githubUrl ? (
+                  <Button href={project.githubUrl} external size="sm" variant="outline">
+                    <GitHubIcon className="h-3.5 w-3.5" />
+                    View GitHub
+                  </Button>
+                ) : null}
+                {project.liveUrl ? (
+                  <Button href={project.liveUrl} external size="sm">
+                    Live Demo
+                    <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                  </Button>
+                ) : null}
+                {study.links?.map((link) => (
+                  <Button
+                    key={link.label}
+                    href={link.url}
+                    external
+                    size="sm"
+                    variant="outline"
+                  >
+                    {link.label}
+                    <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                  </Button>
+                ))}
+              </div>
             </div>
           </div>
         </Reveal>
@@ -148,10 +191,21 @@ export function CaseStudyView({ project }: { project: Project }) {
             </ul>
           </Block>
 
-          <Block icon={<Layers className="h-4 w-4" />} title="Architecture" id="cs-architecture">
-            <div className="rounded-lg border border-line bg-surface-2/40 p-4 font-mono text-[12.5px] leading-relaxed text-ink-2">
-              {study.architecture}
+          <Block icon={<Camera className="h-4 w-4" />} title="Product Screens" id="cs-screens">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <ScreenPlaceholder label="Main product screen — screenshot goes here" />
+              <ScreenPlaceholder label="Secondary product screen — screenshot goes here" />
             </div>
+            <p className="mt-3 text-xs text-ink-3">
+              Real screenshots will replace these placeholders — no mockups are
+              presented as the actual product.
+            </p>
+          </Block>
+
+          <Block icon={<Layers className="h-4 w-4" />} title="Architecture" id="cs-architecture">
+            <p className="rounded-lg border border-line bg-surface-2/40 p-4">
+              {study.architecture}
+            </p>
           </Block>
 
           <Block icon={<Wrench className="h-4 w-4" />} title="Technical Decisions" id="cs-decisions">
@@ -180,7 +234,22 @@ export function CaseStudyView({ project }: { project: Project }) {
             </ul>
           </Block>
 
-          <Block icon={<Flag className="h-4 w-4" />} title="Result" id="cs-result">
+          {study.testing ? (
+            <Block icon={<ShieldCheck className="h-4 w-4" />} title="Testing & Quality" id="cs-testing">
+              <ul className="space-y-2.5">
+                {study.testing.map((item) => (
+                  <li key={item} className={listItem}>
+                    <span className="mt-0.5 text-accent" aria-hidden="true">
+                      ✓
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </Block>
+          ) : null}
+
+          <Block icon={<Flag className="h-4 w-4" />} title="Result / Current State" id="cs-result">
             <p>{study.outcome}</p>
           </Block>
 
@@ -188,7 +257,7 @@ export function CaseStudyView({ project }: { project: Project }) {
             <div className="flex flex-wrap gap-2.5">
               {project.githubUrl ? (
                 <Button href={project.githubUrl} external size="sm">
-                  GitHub
+                  View GitHub
                   <GitHubIcon className="h-3.5 w-3.5" />
                 </Button>
               ) : null}
