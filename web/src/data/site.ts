@@ -1,3 +1,13 @@
+/**
+ * Base path under which the site is served. The GitHub Pages deploy sets
+ * NEXT_PUBLIC_REPO_NAME in CI (matching next.config.ts), so public asset
+ * URLs must carry the same prefix — next/image with unoptimized static
+ * export does NOT add it automatically.
+ */
+export const basePath = process.env.NEXT_PUBLIC_REPO_NAME
+  ? `/${process.env.NEXT_PUBLIC_REPO_NAME}`
+  : "";
+
 export const siteConfig = {
   name: "Hanbal Ahmad",
   role: "Full-Stack Developer · Python · AI/ML",
@@ -17,7 +27,7 @@ export const siteConfig = {
    * A monogram tile is shown as a graceful fallback while the file
    * is absent, so the hero never breaks.
    */
-  profileImage: "/assets/profile/hanbal-ahmad.webp",
+  profileImage: `${basePath}/assets/profile/hanbal-ahmad.webp`,
   githubUsername: "hanbal07",
   githubUrl: "https://github.com/hanbal07",
   linkedinUrl: "https://linkedin.com/in/hanbal-ahmad/",

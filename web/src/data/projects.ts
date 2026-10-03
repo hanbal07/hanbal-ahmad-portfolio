@@ -1,3 +1,5 @@
+import { basePath } from "@/data/site";
+
 export type ProjectStatus = "Live" | "Building";
 
 /**
@@ -354,7 +356,7 @@ export const projects: Project[] = [
       tone: "amber",
     },
     screenshot: {
-      src: "/assets/screenshots/weather-vision-home.png",
+      src: `${basePath}/assets/screenshots/weather-vision-home.png`,
       alt: "WeatherVision live app — landing view with search, current conditions, and explainable comfort score",
       caption: "Live app — captured from the deployed site",
     },
