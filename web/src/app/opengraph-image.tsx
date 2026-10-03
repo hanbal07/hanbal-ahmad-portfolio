@@ -17,8 +17,7 @@ export default function Image() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "72px",
-          background:
-            "linear-gradient(140deg, #f6f8fb 0%, #ffffff 55%, #eef4fb 100%)",
+          background: "linear-gradient(140deg, #f7f7f5 0%, #ffffff 55%, #f1f1ef 100%)",
           fontFamily: "monospace",
         }}
       >
@@ -26,7 +25,7 @@ export default function Image() {
           style={{
             display: "flex",
             alignItems: "center",
-            color: "#334155",
+            color: "#3d4450",
             fontSize: 34,
             letterSpacing: 2,
           }}
@@ -36,7 +35,7 @@ export default function Image() {
               width: 14,
               height: 14,
               borderRadius: 999,
-              background: "#059669",
+              background: "#047857",
               marginRight: 16,
             }}
           />
@@ -47,7 +46,7 @@ export default function Image() {
             display: "flex",
             fontSize: 92,
             fontWeight: 700,
-            color: "#111827",
+            color: "#111318",
             marginTop: 28,
             letterSpacing: -2,
           }}
@@ -57,7 +56,7 @@ export default function Image() {
         <div
           style={{
             display: "flex",
-            color: "#2563eb",
+            color: "#5b4acb",
             fontSize: 40,
             marginTop: 16,
           }}
@@ -67,12 +66,12 @@ export default function Image() {
         <div
           style={{
             display: "flex",
-            color: "#334155",
+            color: "#3d4450",
             fontSize: 28,
             marginTop: 36,
           }}
         >
-          Building practical digital products with Next.js · Python · FastAPI · AI/ML
+          Full-stack web apps · Python backends & APIs · AI-powered software
         </div>
       </div>
     ),

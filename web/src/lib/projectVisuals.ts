@@ -6,19 +6,19 @@ export const toneStyles: Record<
   { bg: string; text: string }
 > = {
   cyan: {
-    bg: "bg-gradient-to-br from-cyan-500/70 via-sky-400/40 to-blue-500/30",
-    text: "text-cyan-600",
+    bg: "bg-gradient-to-br from-sky-700/80 via-sky-500/45 to-teal-500/30",
+    text: "text-sky-700",
   },
   indigo: {
-    bg: "bg-gradient-to-br from-indigo-500/70 via-violet-400/40 to-purple-500/30",
-    text: "text-indigo-600",
+    bg: "bg-gradient-to-br from-indigo-700/80 via-violet-500/45 to-purple-500/30",
+    text: "text-indigo-700",
   },
   emerald: {
-    bg: "bg-gradient-to-br from-emerald-500/70 via-teal-400/40 to-cyan-500/30",
-    text: "text-emerald-600",
+    bg: "bg-gradient-to-br from-emerald-700/80 via-teal-600/45 to-cyan-600/30",
+    text: "text-emerald-700",
   },
   amber: {
-    bg: "bg-gradient-to-br from-amber-500/70 via-orange-400/40 to-rose-400/30",
-    text: "text-amber-600",
+    bg: "bg-gradient-to-br from-amber-600/80 via-orange-500/45 to-rose-400/25",
+    text: "text-amber-700",
   },
 };

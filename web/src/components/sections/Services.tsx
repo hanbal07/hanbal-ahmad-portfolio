@@ -24,7 +24,7 @@ export function Services() {
     <section
       id="services"
       aria-labelledby="services-heading"
-      className="scroll-mt-24 bg-white py-24 sm:py-28"
+      className="scroll-mt-24 bg-surface py-24 sm:py-28"
     >
       <Container>
         <SectionHeading
@@ -38,10 +38,10 @@ export function Services() {
             const Icon = serviceIcons[i];
             return (
               <Reveal key={service.title} delay={(i % 3) * 0.07}>
-                <div className="group flex h-full flex-col rounded-2xl border border-line bg-canvas/50 p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_24px_60px_-28px_rgb(37,99,235,0.3)]">
+                <div className="group flex h-full flex-col rounded-2xl border border-line bg-canvas/50 p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_24px_60px_-28px_rgba(108,92,231,0.28)]">
                   <span
                     aria-hidden="true"
-                    className="grid h-12 w-12 place-items-center rounded-xl border border-line bg-white text-accent transition-transform duration-300 group-hover:scale-110"
+                    className="grid h-12 w-12 place-items-center rounded-xl border border-line bg-surface text-accent transition-transform duration-300 group-hover:scale-110"
                   >
                     <Icon className="h-5 w-5" />
                   </span>

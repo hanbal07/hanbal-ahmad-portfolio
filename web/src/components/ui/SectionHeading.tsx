@@ -7,8 +7,8 @@ interface SectionHeadingProps {
   description?: string;
   align?: "left" | "center";
   className?: string;
-  /** "light" (default) for light sections, "navy" for deep-navy sections. */
-  tone?: "light" | "navy";
+  /** "light" (default) for light sections, "dark" for deep-dark sections. */
+  tone?: "light" | "dark";
 }
 
 export function SectionHeading({
@@ -19,7 +19,7 @@ export function SectionHeading({
   className,
   tone = "light",
 }: SectionHeadingProps) {
-  const isNavy = tone === "navy";
+  const isdark = tone === "dark";
   return (
     <div
       className={cn(
@@ -32,7 +32,7 @@ export function SectionHeading({
         <p
           className={cn(
             "text-xs font-semibold uppercase tracking-[0.18em]",
-            isNavy ? "text-navy-accent" : "text-accent",
+            isdark ? "text-dark-accent" : "text-accent",
           )}
         >
           {eyebrow}
@@ -42,7 +42,7 @@ export function SectionHeading({
         <h2
           className={cn(
             "mt-3 text-3xl font-semibold tracking-tight sm:text-4xl",
-            isNavy ? "text-navy-ink" : "text-ink",
+            isdark ? "text-dark-ink" : "text-ink",
           )}
         >
           {title}
@@ -53,7 +53,7 @@ export function SectionHeading({
           <p
             className={cn(
               "mt-4 text-base leading-relaxed",
-              isNavy ? "text-navy-ink-2" : "text-ink-2",
+              isdark ? "text-dark-ink-2" : "text-ink-2",
             )}
           >
             {description}

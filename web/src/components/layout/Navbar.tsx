@@ -20,7 +20,7 @@ function Logotype() {
     >
       <span
         aria-hidden="true"
-        className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-accent to-violet text-xs font-bold tracking-tight text-white shadow-sm transition-transform group-hover:scale-105"
+        className="grid h-9 w-9 place-items-center rounded-xl bg-ink text-xs font-bold tracking-tight text-white shadow-sm transition-transform group-hover:scale-105"
       >
         HA
       </span>
@@ -56,7 +56,7 @@ export function Navbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled || menuOpen
-          ? "border-b border-line/70 bg-white/70 shadow-[0_8px_30px_rgb(15,23,42,0.05)] backdrop-blur-xl"
+          ? "border-b border-line/70 bg-surface/80 shadow-[0_8px_30px_rgba(17,19,24,0.05)] backdrop-blur-xl"
           : "border-b border-transparent bg-transparent",
       )}
     >
@@ -149,7 +149,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.28, ease: "easeOut" }}
-            className="overflow-hidden border-t border-line/70 bg-white/95 backdrop-blur-xl lg:hidden"
+            className="overflow-hidden border-t border-line/70 bg-surface/95 backdrop-blur-xl lg:hidden"
           >
             <ul className="flex flex-col gap-1 px-5 py-5">
               {navigation.map((item, i) => (

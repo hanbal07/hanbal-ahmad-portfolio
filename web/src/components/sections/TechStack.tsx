@@ -31,11 +31,11 @@ export function TechStack() {
             const Icon = categoryIcons[i];
             return (
               <Reveal key={category.title} delay={(i % 3) * 0.07}>
-                <div className="flex h-full flex-col rounded-2xl border border-line bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:shadow-[0_24px_60px_-30px_rgb(15,23,42,0.25)]">
+                <div className="flex h-full flex-col rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:shadow-[0_24px_60px_-30px_rgba(17,19,24,0.22)]">
                   <div className="flex items-center justify-between">
                     <span
                       aria-hidden="true"
-                      className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-surface-2/60 text-accent"
+                      className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-canvas text-accent-ink"
                     >
                       <Icon className="h-5 w-5" />
                     </span>
@@ -56,7 +56,7 @@ export function TechStack() {
                   >
                     {category.items.map((item) => (
                       <li key={item}>
-                        <span className="inline-block rounded-lg border border-line bg-surface-2/40 px-3 py-1.5 text-[13px] text-ink-2 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent">
+                        <span className="inline-block rounded-lg border border-line bg-canvas/80 px-3 py-1.5 text-[13px] text-ink-2 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent-ink">
                           {item}
                         </span>
                       </li>

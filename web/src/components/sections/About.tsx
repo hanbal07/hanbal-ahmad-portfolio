@@ -34,7 +34,7 @@ export function About() {
               </p>
               <p className="mt-4 flex items-start gap-2.5 text-sm leading-relaxed text-ink-2">
                 <GraduationCap
-                  className="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                  className="mt-0.5 h-4 w-4 shrink-0 text-accent-ink"
                   aria-hidden="true"
                 />
                 Currently pursuing a {education.degree} at the{" "}
@@ -47,7 +47,7 @@ export function About() {
                   href={siteConfig.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg border border-line bg-white px-4 py-2 text-sm text-ink-2 transition-colors hover:border-accent/50 hover:text-accent"
+                  className="inline-flex items-center gap-2 rounded-lg border border-line bg-surface px-4 py-2 text-sm text-ink-2 transition-colors hover:border-accent/50 hover:text-accent-ink"
                 >
                   <GitHubIcon className="h-4 w-4" aria-hidden="true" />
                   GitHub
@@ -56,7 +56,7 @@ export function About() {
                   href={siteConfig.linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg border border-line bg-white px-4 py-2 text-sm text-ink-2 transition-colors hover:border-accent/50 hover:text-accent"
+                  className="inline-flex items-center gap-2 rounded-lg border border-line bg-surface px-4 py-2 text-sm text-ink-2 transition-colors hover:border-accent/50 hover:text-accent-ink"
                 >
                   <LinkedInIcon className="h-4 w-4" aria-hidden="true" />
                   LinkedIn
@@ -65,48 +65,40 @@ export function About() {
             </Reveal>
           </div>
 
-          {/* Visual — premium glass card */}
+          {/* Visual — clean identity card */}
           <Reveal delay={0.15}>
             <div className="relative mx-auto w-full max-w-md">
               <div
                 aria-hidden="true"
-                className="absolute -inset-6 -z-10 rounded-[3rem] bg-gradient-to-br from-accent/15 via-violet/10 to-teal/10 blur-3xl"
+                className="absolute -inset-4 -z-10 rounded-[2rem] bg-[linear-gradient(135deg,rgba(108,92,231,0.07),transparent_60%,rgba(0,166,166,0.06))] blur-xl"
               />
-              <div className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white/50 p-8 shadow-[0_28px_70px_-30px_rgb(15,23,42,0.3)] backdrop-blur-xl sm:p-10">
-                <div
+              <div className="rounded-2xl border border-line bg-surface p-8 shadow-[0_24px_60px_-32px_rgba(17,19,24,0.28)] sm:p-10">
+                <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-accent/10 blur-3xl"
-                />
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute -bottom-20 -left-16 h-56 w-56 rounded-full bg-violet/10 blur-3xl"
-                />
+                  className="grid h-14 w-14 place-items-center rounded-xl bg-ink text-base font-bold tracking-tight text-white"
+                >
+                  HA
+                </span>
+                <h3 className="mt-6 text-2xl font-semibold tracking-tight text-ink">
+                  Hanbal Ahmad
+                </h3>
+                <p className="mt-1.5 text-sm text-ink-2">
+                  Full-Stack Developer <span className="text-ink-3">&middot;</span>{" "}
+                  Python & AI/ML
+                </p>
 
-                <div className="relative">
-                  <span className="grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-accent to-violet text-lg font-bold tracking-tight text-white shadow-lg shadow-accent/20">
-                    HA
-                  </span>
-                  <h3 className="mt-6 text-2xl font-semibold tracking-tight text-ink">
-                    Hanbal Ahmad
-                  </h3>
-                  <p className="mt-1.5 text-sm text-ink-2">
-                    Full-Stack Developer <span className="text-ink-3">&middot;</span>{" "}
-                    Python & AI/ML
+                <div className="mt-8 space-y-3 border-t border-line pt-6">
+                  <p className="flex items-center gap-2.5 text-sm text-ink-2">
+                    <MapPin className="h-4 w-4 text-accent-ink" aria-hidden="true" />
+                    {siteConfig.location}
                   </p>
-
-                  <div className="mt-8 space-y-3 border-t border-line/80 pt-6">
-                    <p className="flex items-center gap-2.5 text-sm text-ink-2">
-                      <MapPin className="h-4 w-4 text-accent" aria-hidden="true" />
-                      {siteConfig.location}
-                    </p>
-                    <p className="inline-flex items-center gap-2 rounded-full border border-ok/30 bg-ok/[0.08] px-3 py-1.5 text-[11px] font-medium text-ok">
-                      <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ok opacity-60" />
-                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-ok" />
-                      </span>
-                      Open to Remote Opportunities
-                    </p>
-                  </div>
+                  <p className="inline-flex items-center gap-2 rounded-full border border-ok/30 bg-ok/[0.08] px-3 py-1.5 text-[11px] font-medium text-ok">
+                    <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ok opacity-60" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-ok" />
+                    </span>
+                    Open to Remote Opportunities
+                  </p>
                 </div>
               </div>
             </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import {
   Check,
   CheckCircle2,
@@ -11,12 +11,11 @@ import {
 } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand";
 import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/data/site";
 import { cn } from "@/lib/cn";
-import { isContactEnabled, submitContact } from "@/lib/api";
+import { submitContact } from "@/lib/api";
 
 type Status =
   | { kind: "idle" }
@@ -45,7 +44,10 @@ const projectTypes = [
 ];
 
 const GENERIC_ERROR =
-  "Something went wrong while sending your message. Please try again or reach me directly on LinkedIn.";
+  "Your message couldn't be sent right now. Please try again in a moment, or reach me directly at hanbalahmad07@gmail.com.";
+
+/** Light client-side cooldown so the form can't be spammed rapid-fire. */
+const COOLDOWN_MS = 20_000;
 
 function fieldError(value: string, field: keyof FormState): string | null {
   if (field === "company") return null;
@@ -59,12 +61,13 @@ function fieldError(value: string, field: keyof FormState): string | null {
 }
 
 const inputClasses =
-  "w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-3 transition-colors focus:border-accent/60 focus:outline-none";
+  "w-full rounded-lg border border-dark-line bg-dark-2 px-3.5 py-2.5 text-sm text-dark-ink placeholder:text-dark-ink-3 transition-colors focus:border-dark-accent/70 focus:outline-none";
 
 function ContactForm() {
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const [form, setForm] = useState<FormState>(initialForm);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
+  const lastSubmitRef = useRef(0);
 
   const setField = <K extends keyof FormState>(key: K, value: string) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -93,6 +96,14 @@ function ContactForm() {
 
     if (!validate()) return;
 
+    // Cooldown: reject rapid repeat submissions.
+    const now = Date.now();
+    if (now - lastSubmitRef.current < COOLDOWN_MS) {
+      setStatus({ kind: "error" });
+      return;
+    }
+    lastSubmitRef.current = now;
+
     setStatus({ kind: "submitting" });
     try {
       await submitContact({
@@ -110,7 +121,7 @@ function ContactForm() {
   };
 
   return (
-    <div className="rounded-2xl border border-line bg-white p-6 shadow-sm sm:p-8">
+    <div className="rounded-2xl border border-dark-line bg-dark-2 p-6 sm:p-8">
       {status.kind === "success" ? (
         <div
           role="status"
@@ -118,20 +129,20 @@ function ContactForm() {
           className="flex flex-col items-center gap-4 py-14 text-center"
         >
           <span
-            className="flex h-12 w-12 items-center justify-center rounded-full border border-ok/30 bg-ok/10 text-ok"
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-dark-teal/40 bg-dark-teal/10 text-dark-teal"
             aria-hidden="true"
           >
             <CheckCircle2 className="h-6 w-6" />
           </span>
           <div>
-            <p className="text-base font-semibold text-ink">Message sent.</p>
-            <p className="mt-1 text-sm text-ink-2">
-              Thanks — your message has been sent successfully. I&apos;ll get back
-              to you as soon as possible.
+            <p className="text-base font-semibold text-dark-ink">Message sent.</p>
+            <p className="mt-1 text-sm text-dark-ink-2">
+              Thanks — your message is on its way. I&apos;ll get back to you as
+              soon as possible.
             </p>
           </div>
           <Button
-            variant="outline"
+            variant="dark-outline"
             size="sm"
             onClick={() => setStatus({ kind: "idle" })}
           >
@@ -144,7 +155,7 @@ function ContactForm() {
             <div>
               <label
                 htmlFor="contact-name"
-                className="mb-1.5 block text-[13px] font-medium text-ink-2"
+                className="mb-1.5 block text-[13px] font-medium text-dark-ink-2"
               >
                 Name *
               </label>
@@ -169,7 +180,7 @@ function ContactForm() {
             <div>
               <label
                 htmlFor="contact-email"
-                className="mb-1.5 block text-[13px] font-medium text-ink-2"
+                className="mb-1.5 block text-[13px] font-medium text-dark-ink-2"
               >
                 Email *
               </label>
@@ -196,16 +207,16 @@ function ContactForm() {
           <div className="mt-5">
             <label
               htmlFor="contact-project-type"
-              className="mb-1.5 block text-[13px] font-medium text-ink-2"
+              className="mb-1.5 block text-[13px] font-medium text-dark-ink-2"
             >
-              Project type <span className="text-ink-3">(optional)</span>
+              Project type <span className="text-dark-ink-3">(optional)</span>
             </label>
             <select
               id="contact-project-type"
               name="project_type"
               value={form.projectType}
               onChange={(e) => setField("projectType", e.target.value)}
-              className={cn(inputClasses, "appearance-none bg-white")}
+              className={cn(inputClasses, "appearance-none")}
             >
               <option value="">Select a type…</option>
               {projectTypes.map((type) => (
@@ -219,7 +230,7 @@ function ContactForm() {
           <div className="mt-5">
             <label
               htmlFor="contact-message"
-              className="mb-1.5 block text-[13px] font-medium text-ink-2"
+              className="mb-1.5 block text-[13px] font-medium text-dark-ink-2"
             >
               Message *
             </label>
@@ -261,7 +272,7 @@ function ContactForm() {
           {status.kind === "error" ? (
             <p
               role="alert"
-              className="mt-5 rounded-lg border border-err/30 bg-err/5 px-3.5 py-2.5 text-xs leading-relaxed text-ink-2"
+              className="mt-5 rounded-lg border border-err/40 bg-err/10 px-3.5 py-2.5 text-xs leading-relaxed text-dark-ink-2"
             >
               {GENERIC_ERROR}
             </p>
@@ -270,6 +281,7 @@ function ContactForm() {
           <div className="mt-6">
             <Button
               type="submit"
+              variant="dark-accent"
               size="lg"
               disabled={status.kind === "submitting"}
             >
@@ -292,37 +304,7 @@ function ContactForm() {
   );
 }
 
-function DirectContactFallback() {
-  return (
-    <div className="flex h-full flex-col justify-center rounded-2xl border border-line bg-white p-8 shadow-sm sm:p-10">
-      <h3 className="text-lg font-semibold tracking-tight text-ink">
-        The fastest way to reach me
-      </h3>
-      <p className="mt-2 text-sm leading-relaxed text-ink-2">
-        Send a short message on LinkedIn or open a discussion on GitHub —
-        I check both daily and reply to every serious inquiry.
-      </p>
-      <div className="mt-6 flex flex-wrap gap-3">
-        <Button href={siteConfig.linkedinUrl} external size="md">
-          <LinkedInIcon className="h-4 w-4" aria-hidden="true" />
-          Message me on LinkedIn
-        </Button>
-        <Button
-          href={siteConfig.githubUrl}
-          external
-          size="md"
-          variant="outline"
-        >
-          <GitHubIcon className="h-4 w-4" aria-hidden="true" />
-          GitHub
-        </Button>
-      </div>
-    </div>
-  );
-}
-
 export function Contact() {
-  const formReady = isContactEnabled();
   const email = siteConfig.contactEmail;
   const [copiedEmail, setCopiedEmail] = useState(false);
 
@@ -346,38 +328,54 @@ export function Contact() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="scroll-mt-24 border-t border-line bg-canvas py-24 sm:py-28"
+      className="scroll-mt-24 bg-dark py-24 text-dark-ink sm:py-28"
     >
       <Container>
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           {/* Left */}
           <div>
-            <SectionHeading
-              eyebrow="Contact"
-              title="Have a project in mind? Let's build it."
-              description="Whether it's a full-stack product, a Python backend, or an AI-powered feature — tell me the goal and I'll give you a straight answer on scope, stack, and timeline."
-            />
-            <Reveal delay={0.15}>
+            <Reveal>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-dark-accent">
+                Contact
+              </p>
+            </Reveal>
+            <Reveal delay={0.06}>
+              <h2
+                id="contact-heading"
+                className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl"
+              >
+                Have a project in mind?
+              </h2>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <p className="mt-4 text-base leading-relaxed text-dark-ink-2">
+                Let&apos;s turn the idea into a working product. Tell me the
+                goal — a full-stack application, a Python backend, or an
+                AI-powered feature — and I&apos;ll give you a straight answer
+                on scope, stack, and timeline.
+              </p>
+            </Reveal>
+            <Reveal delay={0.18}>
               <ul className="mt-8 space-y-4">
                 {email ? (
                   <li>
                     <div className="flex flex-wrap items-center gap-2">
                       <a
                         href={`mailto:${email}`}
-                        className="group inline-flex items-center gap-3 text-sm text-ink-2 transition-colors hover:text-accent"
+                        className="group inline-flex items-center gap-3 text-sm text-dark-ink-2 transition-colors hover:text-dark-accent"
                       >
-                        <Mail className="h-4 w-4 text-accent" aria-hidden="true" />
+                        <Mail className="h-4 w-4 text-dark-accent" aria-hidden="true" />
                         {email}
                       </a>
                       <button
                         type="button"
                         onClick={copyEmail}
                         aria-label={`Copy ${email} to clipboard`}
-                        className="inline-flex items-center gap-1.5 rounded-md border border-line bg-white px-2.5 py-1.5 text-[11px] font-medium text-ink-2 transition-colors hover:border-accent/50 hover:text-accent"
+                        className="inline-flex items-center gap-1.5 rounded-md border border-dark-line bg-dark-2 px-2.5 py-1.5 text-[11px] font-medium text-dark-ink-2 transition-colors hover:border-dark-accent/60 hover:text-dark-accent"
                       >
                         {copiedEmail ? (
                           <>
-                            <Check className="h-3.5 w-3.5 text-ok" aria-hidden="true" />
+                            <Check className="h-3.5 w-3.5 text-dark-teal" aria-hidden="true" />
                             Email copied
                           </>
                         ) : (
@@ -395,9 +393,9 @@ export function Contact() {
                     href={siteConfig.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-3 text-sm text-ink-2 transition-colors hover:text-accent"
+                    className="inline-flex items-center gap-3 text-sm text-dark-ink-2 transition-colors hover:text-dark-accent"
                   >
-                    <GitHubIcon className="h-4 w-4 text-accent" aria-hidden="true" />
+                    <GitHubIcon className="h-4 w-4 text-dark-accent" aria-hidden="true" />
                     github.com/hanbal07
                   </a>
                 </li>
@@ -406,19 +404,23 @@ export function Contact() {
                     href={siteConfig.linkedinUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-3 text-sm text-ink-2 transition-colors hover:text-accent"
+                    className="inline-flex items-center gap-3 text-sm text-dark-ink-2 transition-colors hover:text-dark-accent"
                   >
-                    <LinkedInIcon className="h-4 w-4 text-accent" aria-hidden="true" />
+                    <LinkedInIcon className="h-4 w-4 text-dark-accent" aria-hidden="true" />
                     linkedin.com/in/hanbal-ahmad
                   </a>
                 </li>
               </ul>
+              <p className="mt-8 text-[13px] leading-relaxed text-dark-ink-3">
+                Typically replies within a day. NDA-friendly — your idea stays
+                yours.
+              </p>
             </Reveal>
           </div>
 
-          {/* Right — form when a delivery endpoint is configured, direct channels otherwise */}
+          {/* Right — working contact form */}
           <Reveal delay={0.1}>
-            {formReady ? <ContactForm /> : <DirectContactFallback />}
+            <ContactForm />
           </Reveal>
         </div>
       </Container>

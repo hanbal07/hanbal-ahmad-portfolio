@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { ReactNode } from "react";
 import {
   ArrowLeft,
@@ -39,7 +40,7 @@ function Block({
       <section aria-labelledby={id} className="grid gap-4 sm:grid-cols-[220px_1fr]">
         <h2 id={id} className="flex items-center gap-2.5 text-base font-semibold text-ink">
           <span
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent-ink"
             aria-hidden="true"
           >
             {icon}
@@ -57,9 +58,56 @@ const listItem = "flex items-start gap-2.5 text-sm leading-relaxed text-ink-2";
 /** Honest placeholder — replaced by real screenshots when available. */
 function ScreenPlaceholder({ label }: { label: string }) {
   return (
-    <div className="flex aspect-[16/10] flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-line-strong bg-surface-2/30 text-center">
+    <div className="flex aspect-[16/10] flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-line-strong bg-canvas/70 text-center">
       <Camera className="h-5 w-5 text-ink-3" aria-hidden="true" />
       <p className="px-4 text-xs font-medium text-ink-3">{label}</p>
+    </div>
+  );
+}
+
+/** Real product screenshot when one exists, abstract panel otherwise. */
+function CoverVisual({ project }: { project: Project }) {
+  const tone = toneStyles[project.visual.tone];
+  const shot = project.screenshot;
+
+  if (shot) {
+    return (
+      <div className="relative aspect-[21/9] overflow-hidden">
+        <Image
+          src={shot.src}
+          alt={shot.alt}
+          width={1280}
+          height={800}
+          className="h-full w-full object-cover object-top"
+        />
+        <span className="absolute bottom-4 left-4 rounded-full border border-white/40 bg-black/35 px-2.5 py-1 text-[10px] font-medium text-white backdrop-blur-sm">
+          {shot.caption ?? "Captured from the live product"}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={cn(
+        "relative flex aspect-[21/9] items-center justify-center",
+        tone.bg,
+      )}
+    >
+      <span
+        aria-hidden="true"
+        className="absolute -right-10 -top-14 h-48 w-48 rounded-full border-[24px] border-white/15"
+      />
+      <span
+        aria-hidden="true"
+        className="relative text-4xl font-bold tracking-tight text-white/25 sm:text-6xl"
+      >
+        {project.shortTitle}
+      </span>
+      <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-black/25 px-2.5 py-1 text-[10px] font-medium text-white/90 backdrop-blur-sm">
+        <Camera className="h-3 w-3" aria-hidden="true" />
+        Product screenshot placeholder
+      </span>
     </div>
   );
 }
@@ -68,6 +116,7 @@ export function CaseStudyView({ project }: { project: Project }) {
   const study = project.caseStudy;
   if (!study) return null;
   const tone = toneStyles[project.visual.tone];
+  const shot = project.screenshot;
 
   return (
     <div className="pt-28 pb-24">
@@ -76,7 +125,7 @@ export function CaseStudyView({ project }: { project: Project }) {
         <Reveal>
           <Link
             href="/#projects"
-            className="group inline-flex items-center gap-2 text-xs font-medium text-ink-3 transition-colors hover:text-accent"
+            className="group inline-flex items-center gap-2 text-xs font-medium text-ink-3 transition-colors hover:text-accent-ink"
           >
             <ArrowLeft
               className="h-4 w-4 transition-transform group-hover:-translate-x-0.5"
@@ -89,27 +138,7 @@ export function CaseStudyView({ project }: { project: Project }) {
         {/* Header */}
         <Reveal delay={0.05}>
           <div className="card-surface mt-6 overflow-hidden rounded-2xl">
-            <div
-              className={cn(
-                "relative flex aspect-[21/9] items-center justify-center",
-                tone.bg,
-              )}
-            >
-              <span
-                aria-hidden="true"
-                className="absolute -right-10 -top-14 h-48 w-48 rounded-full border-[24px] border-white/15"
-              />
-              <span
-                aria-hidden="true"
-                className="relative text-4xl font-bold tracking-tight text-white/25 sm:text-6xl"
-              >
-                {project.shortTitle}
-              </span>
-              <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-black/25 px-2.5 py-1 text-[10px] font-medium text-white/90 backdrop-blur-sm">
-                <Camera className="h-3 w-3" aria-hidden="true" />
-                Product screenshot placeholder
-              </span>
-            </div>
+            <CoverVisual project={project} />
 
             <div className="p-6 sm:p-8">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
@@ -192,14 +221,39 @@ export function CaseStudyView({ project }: { project: Project }) {
           </Block>
 
           <Block icon={<Camera className="h-4 w-4" />} title="Product Screens" id="cs-screens">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <ScreenPlaceholder label="Main product screen — screenshot goes here" />
-              <ScreenPlaceholder label="Secondary product screen — screenshot goes here" />
-            </div>
-            <p className="mt-3 text-xs text-ink-3">
-              Real screenshots will replace these placeholders — no mockups are
-              presented as the actual product.
-            </p>
+            {shot ? (
+              <div className="space-y-4">
+                <figure className="overflow-hidden rounded-xl border border-line">
+                  <Image
+                    src={shot.src}
+                    alt={shot.alt}
+                    width={1280}
+                    height={800}
+                    className="w-full object-cover object-top"
+                  />
+                  {shot.caption ? (
+                    <figcaption className="border-t border-line bg-canvas/60 px-4 py-2 text-xs font-medium text-ink-3">
+                      {shot.caption}
+                    </figcaption>
+                  ) : null}
+                </figure>
+                <p className="text-xs text-ink-3">
+                  Captured from the live product — open the Live Demo above to
+                  explore it directly.
+                </p>
+              </div>
+            ) : (
+              <>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <ScreenPlaceholder label="Main product screen — screenshot goes here" />
+                  <ScreenPlaceholder label="Secondary product screen — screenshot goes here" />
+                </div>
+                <p className="mt-3 text-xs text-ink-3">
+                  Real screenshots will replace these placeholders — no mockups
+                  are presented as the actual product.
+                </p>
+              </>
+            )}
           </Block>
 
           <Block icon={<Layers className="h-4 w-4" />} title="Architecture" id="cs-architecture">

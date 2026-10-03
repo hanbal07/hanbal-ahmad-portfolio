@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, ExternalLink } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, ArrowUpRight, Camera, ExternalLink } from "lucide-react";
 import { GitHubIcon } from "@/components/ui/brand";
 import type { Project } from "@/data/projects";
 import { StatusBadge } from "@/components/ui/StatusBadge";
@@ -8,7 +9,19 @@ import { cn } from "@/lib/cn";
 
 function ProjectVisualPanel({ project }: { project: Project }) {
   const tone = toneStyles[project.visual.tone];
-  const panel = (
+  const shot = project.screenshot;
+
+  const inner = shot ? (
+    <div className="relative aspect-[16/10] overflow-hidden border-b border-line bg-surface">
+      <Image
+        src={shot.src}
+        alt={shot.alt}
+        width={1280}
+        height={800}
+        className="h-full w-full object-cover object-top"
+      />
+    </div>
+  ) : (
     <div
       className={cn(
         "relative flex aspect-[16/10] items-center justify-center overflow-hidden",
@@ -33,17 +46,20 @@ function ProjectVisualPanel({ project }: { project: Project }) {
       >
         {project.shortTitle}
       </span>
-      <span className="absolute right-4 top-4">
-        <StatusBadge status={project.status} />
+      <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-black/25 px-2.5 py-1 text-[10px] font-medium text-white/90 backdrop-blur-sm">
+        <Camera className="h-3 w-3" aria-hidden="true" />
+        Product screenshot placeholder
       </span>
     </div>
   );
-  return project.caseStudy ? (
-    <Link href={`/projects/${project.slug}`} aria-label={`Open the ${project.title} case study`}>
-      {panel}
-    </Link>
-  ) : (
-    panel
+
+  return (
+    <div className="relative overflow-hidden">
+      {inner}
+      <span className="absolute right-4 top-4">
+        <StatusBadge status={project.status} className="bg-surface/90" />
+      </span>
+    </div>
   );
 }
 
@@ -56,8 +72,17 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const tone = toneStyles[project.visual.tone];
 
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/25 hover:shadow-[0_28px_70px_-32px_rgb(15,23,42,0.35)]">
-      <ProjectVisualPanel project={project} />
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_28px_70px_-32px_rgba(17,19,24,0.3)]">
+      {hasCaseStudy ? (
+        <Link
+          href={`/projects/${project.slug}`}
+          aria-label={`Open the ${project.title} case study`}
+        >
+          <ProjectVisualPanel project={project} />
+        </Link>
+      ) : (
+        <ProjectVisualPanel project={project} />
+      )}
 
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-start justify-between gap-3">
@@ -65,7 +90,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             {hasCaseStudy ? (
               <Link
                 href={`/projects/${project.slug}`}
-                className={cn("transition-colors hover:text-accent")}
+                className="transition-colors hover:text-accent-ink"
               >
                 {project.title}
               </Link>
@@ -86,7 +111,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {project.technologies.slice(0, 5).map((tech) => (
             <li
               key={tech}
-              className="rounded-md border border-line bg-surface-2/40 px-2 py-0.5 text-[11px] text-ink-2"
+              className="rounded-md border border-line bg-surface-2/60 px-2 py-0.5 text-[11px] text-ink-2"
             >
               {tech}
             </li>
@@ -98,7 +123,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <Link
               href={`/projects/${project.slug}`}
               className={cn(
-                "group/link inline-flex items-center gap-1.5 text-sm font-medium text-ink-2 transition-colors hover:text-accent",
+                "group/link inline-flex items-center gap-1.5 text-sm font-medium text-ink-2 transition-colors hover:text-accent-ink",
                 tone.text,
               )}
             >
@@ -114,7 +139,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-ink-2 transition-colors hover:text-accent"
+              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-ink-2 transition-colors hover:text-accent-ink"
             >
               <GitHubIcon className="h-4 w-4" aria-hidden="true" />
               View on GitHub
@@ -129,7 +154,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-ink-2 transition-colors hover:text-accent"
+              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-ink-2 transition-colors hover:text-accent-ink"
             >
               Live Demo
               <ExternalLink

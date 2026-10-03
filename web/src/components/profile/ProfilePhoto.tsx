@@ -17,7 +17,7 @@ export function ProfilePhoto() {
     return (
       <div className="flex h-full min-h-[320px] w-full items-center justify-center bg-gradient-to-br from-surface-2 to-canvas">
         <div className="text-center">
-          <span className="text-gradient text-[72px] font-semibold leading-none">
+          <span className="text-[72px] font-semibold leading-none text-accent">
             {siteConfig.name.charAt(0)}
           </span>
           <p className="mt-4 text-[10px] font-medium uppercase tracking-[0.18em] text-ink-3">

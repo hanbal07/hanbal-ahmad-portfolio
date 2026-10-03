@@ -2,41 +2,41 @@
 
 /* ============================================================
    Design tokens
-   Premium light theme — warm-white base, deep-navy ink, and
-   blue / violet / teal accents. Dark navy is reserved for high-
-   contrast sections (AI/ML, Contact, Footer). Override the
-   :root variables to re-theme the whole site.
+   Warm light-first theme — off-white canvas, deep-neutral ink,
+   one restrained purple accent + teal secondary. Deep-neutral
+   dark (#111318 family) is reserved for high-contrast sections
+   (Featured Case Study, Contact). Override the :root variables
+   to re-theme the whole site.
    ============================================================ */
 :root {
-  --canvas: #f6f8fb;
+  --canvas: #f7f7f5;
   --surface: #ffffff;
-  --surface-2: #eef2f7;
-  --surface-3: #e2e9f2;
-  --border: #e4e9f0;
-  --border-strong: #cbd5e1;
-  --ink: #111827;
-  --ink-2: #334155;
-  --ink-3: #64748b;
-  --accent: #2563eb;
-  --accent-strong: #1d4ed8;
-  --accent-2: #7c3aed;
+  --surface-2: #f1f1ef;
+  --surface-3: #e9e9e6;
+  --border: #e5e7eb;
+  --border-strong: #d1d5da;
+  --ink: #111318;
+  --ink-2: #3d4450;
+  --ink-3: #667085;
+  --accent: #6c5ce7;
+  --accent-strong: #5a4bd6;
+  --accent-ink: #5b4acb;
+  --accent-2: #00a6a6;
   --ok: #047857;
   --warn: #b45309;
   --err: #dc2626;
-  --glow: rgba(37, 99, 235, 0.16);
-  --glow-2: rgba(124, 58, 237, 0.13);
+  --glow: rgba(108, 92, 231, 0.15);
 
-  /* Deep-navy sections (AI/ML, Contact, Footer) */
-  --navy: #0b1424;
-  --navy-2: #111b30;
-  --navy-3: #182440;
-  --navy-line: #22314f;
-  --navy-ink: #eef2fb;
-  --navy-ink-2: #a9b6d2;
-  --navy-ink-3: #7e8cab;
-  --navy-accent: #7dd3fc;
-  --navy-violet: #c4b5fd;
-  --navy-teal: #5eead4;
+  /* Deep-neutral dark sections (Featured Case Study, Contact) */
+  --dark: #111318;
+  --dark-2: #171a21;
+  --dark-3: #1f232d;
+  --dark-line: #2a2f3a;
+  --dark-ink: #f2f3f5;
+  --dark-ink-2: #b4b9c4;
+  --dark-ink-3: #8b91a0;
+  --dark-accent: #a596f7;
+  --dark-teal: #3fd0c9;
 }
 
 @theme inline {
@@ -51,52 +51,26 @@
   --color-ink-3: var(--ink-3);
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
-  --color-violet: var(--accent-2);
-  --color-teal: #0f766e;
-  --color-amber: #d97706;
-  --color-tint: #eef4fb;
+  --color-accent-ink: var(--accent-ink);
+  --color-teal: var(--accent-2);
+  --color-teal-ink: #0e8a8a;
+  --color-tint: #f1f0ee;
   --color-ok: var(--ok);
   --color-warn: var(--warn);
   --color-err: var(--err);
 
-  --color-navy: var(--navy);
-  --color-navy-2: var(--navy-2);
-  --color-navy-3: var(--navy-3);
-  --color-navy-line: var(--navy-line);
-  --color-navy-ink: var(--navy-ink);
-  --color-navy-ink-2: var(--navy-ink-2);
-  --color-navy-ink-3: var(--navy-ink-3);
-  --color-navy-accent: var(--navy-accent);
-  --color-navy-violet: var(--navy-violet);
-  --color-navy-teal: var(--navy-teal);
+  --color-dark: var(--dark);
+  --color-dark-2: var(--dark-2);
+  --color-dark-3: var(--dark-3);
+  --color-dark-line: var(--dark-line);
+  --color-dark-ink: var(--dark-ink);
+  --color-dark-ink-2: var(--dark-ink-2);
+  --color-dark-ink-3: var(--dark-ink-3);
+  --color-dark-accent: var(--dark-accent);
+  --color-dark-teal: var(--dark-teal);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
-
-  --animate-blink: blink 1.1s step-end infinite;
-  --animate-float: float 9s ease-in-out infinite;
-  --animate-pulse-soft: pulse-soft 3.2s ease-in-out infinite;
-  --animate-scan: scan 7s linear infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes pulse-soft {
-  0%, 100% { opacity: 0.45; }
-  50% { opacity: 1; }
-}
-
-@keyframes scan {
-  0% { top: -1%; }
-  100% { top: 101%; }
 }
 
 /* ============================================================
@@ -130,7 +104,7 @@ body {
 }
 
 ::selection {
-  background: rgba(37, 99, 235, 0.22);
+  background: rgba(108, 92, 231, 0.18);
   color: var(--ink);
 }
 
@@ -164,9 +138,9 @@ body {
 /* Technical blueprint grid (fixed, behind content) */
 .bg-grid {
   background-image:
-    linear-gradient(to right, rgba(15, 23, 42, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.045) 1px, transparent 1px);
-  background-size: 54px 54px;
+    linear-gradient(to right, rgba(17, 19, 24, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17, 19, 24, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
 }
 
 .bg-grid-fade {
@@ -176,7 +150,7 @@ body {
 
 /* Card surface */
 .card-surface {
-  background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
+  background: var(--surface);
   border: 1px solid var(--border);
 }
 
@@ -188,101 +162,23 @@ body {
   box-shadow: 0 12px 40px -18px var(--glow);
 }
 
-/* Navy card (used inside deep-navy sections) */
-.navy-card {
-  background: linear-gradient(180deg, var(--navy-2) 0%, var(--navy) 100%);
-  border: 1px solid var(--navy-line);
-}
-.navy-card-hover {
-  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
-}
-.navy-card-hover:hover {
-  border-color: #2e4268;
-  box-shadow: 0 12px 40px -18px rgba(125, 211, 252, 0.22);
+/* Elevated card on deep-neutral dark sections */
+.dark-card {
+  background: linear-gradient(180deg, var(--dark-2) 0%, var(--dark) 100%);
+  border: 1px solid var(--dark-line);
 }
 
-/* Hairline divider with terminal-style label */
+/* Small technical label */
 .mono-label {
   font-family: var(--font-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-/* Subtle accent gradient text */
-.text-gradient {
-  background: linear-gradient(100deg, var(--accent) 10%, var(--accent-2) 90%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Top accent strip on cards */
-.accent-edge {
-  position: relative;
-}
-.accent-edge::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  opacity: 0.55;
-}
-
-/* ============================================================
-   Floating tech labels (hero)
-   ============================================================ */
-.float-tag {
-  animation: float 8s ease-in-out infinite;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-}
-.float-tag:hover {
-  animation-play-state: paused;
-  transform: translateY(-4px) scale(1.04);
-  box-shadow: 0 10px 26px -12px var(--glow);
-  border-color: var(--border-strong);
-}
-@media (prefers-reduced-motion: reduce) {
-  .float-tag {
-    animation: none;
-  }
-}
-
-/* Soft blue->violet section wash (Process) */
-.bg-soft-mesh {
+/* Warm off-white wash with a single faint accent tint */
+.bg-soft-wash {
   background:
-    radial-gradient(ellipse 60% 50% at 15% 20%, rgba(37, 99, 235, 0.07), transparent 60%),
-    radial-gradient(ellipse 60% 50% at 85% 80%, rgba(124, 58, 237, 0.07), transparent 60%),
-    linear-gradient(180deg, #f4f7ff 0%, #eefbfa 100%);
-}
-
-/* ============================================================
-   Tech marquee
-   ============================================================ */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-.tech-marquee {
-  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
-}
-
-.tech-marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 38s linear infinite;
-  will-change: transform;
-}
-
-.tech-marquee:hover .tech-marquee-track,
-.tech-marquee:focus-within .tech-marquee-track {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .tech-marquee-track {
-    animation: none;
-  }
+    radial-gradient(ellipse 55% 45% at 12% 15%, rgba(108, 92, 231, 0.05), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 88% 85%, rgba(0, 166, 166, 0.05), transparent 60%),
+    linear-gradient(180deg, #f8f8f6 0%, #f4f5f3 100%);
 }

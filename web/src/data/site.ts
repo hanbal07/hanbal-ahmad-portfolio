@@ -1,17 +1,17 @@
 export const siteConfig = {
   name: "Hanbal Ahmad",
   role: "Full-Stack Developer · Python · AI/ML",
-  headline: "I build modern web applications and AI-powered products.",
+  headline: "I build modern full-stack web applications and AI-powered software.",
   subheadline:
-    "Building modern web applications and AI-powered products with Next.js, TypeScript, Python, PostgreSQL, and practical AI/ML.",
+    "Full-stack web applications, Python backends and APIs, and practical AI-powered software — from database and API to interface.",
   location: "Kamalia, Punjab, Pakistan",
   statusBadge: "Open to Remote Opportunities",
   /**
-   * Public contact email used by the contact section and footer.
-   * Supply your own via NEXT_PUBLIC_CONTACT_EMAIL (or edit this value);
-   * keep empty to omit the email row entirely — no placeholder text.
+   * Public contact email shown in the contact section and footer, and used
+   * as the default delivery target for the contact form (FormSubmit).
+   * Override via NEXT_PUBLIC_CONTACT_EMAIL if it ever changes.
    */
-  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
+  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hanbalahmad07@gmail.com",
   /**
    * Path to the profile photo shown in the hero.
    * A monogram tile is shown as a graceful fallback while the file

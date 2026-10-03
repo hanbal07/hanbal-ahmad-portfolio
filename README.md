@@ -1,15 +1,24 @@
 # Hanbal Ahmad — Portfolio
 
-Dark, code-inspired personal portfolio positioning **Hanbal Ahmad** as
-`Full-Stack Developer | Python & AI/ML`. Built with Next.js 16 + Tailwind v4
-frontend and a FastAPI contact backend.
+Professional light-first portfolio positioning **Hanbal Ahmad** as
+`Full-Stack Developer | Python & AI/ML`. Built with Next.js 16 + Tailwind v4,
+deployed to GitHub Pages as a static export.
 
 ## Structure
 
 ```
 ├── web/        Next.js 16 (App Router, TypeScript, Tailwind v4) — the site
-└── backend/    FastAPI — contact form API (validation, rate limit, persistence, SMTP)
+└── backend/    FastAPI — optional self-hosted contact form API
 ```
+
+## Design system
+
+- Warm off-white canvas (`#F7F7F5`) with white surfaces and `#E5E7EB` borders
+- One restrained purple accent (`#6C5CE7`) plus a teal secondary (`#00A6A6`)
+- Deep-neutral dark (`#111318`) reserved for the Featured Case Study band,
+  the Contact section
+- Subtle fade-up reveals, hover transitions, `prefers-reduced-motion` respected
+- All tokens live in `web/src/app/globals.css` under `:root`
 
 ## Quick start
 
@@ -18,31 +27,40 @@ frontend and a FastAPI contact backend.
 ```bash
 cd web
 npm install
-cp .env.example .env.local   # then edit values
 npm run dev                  # http://localhost:3000
+npm run lint                 # eslint
+npm run build                # static export → web/out/
 ```
 
-Required edits in `web/.env.local`:
+No `.env.local` is required for local development — the site ships with
+sane defaults. See `web/.env.example` for the optional overrides.
 
-| Variable                     | Purpose                                                     |
-| ---------------------------- | ----------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`       | Canonical URL — used for sitemap, robots, OG tags           |
-| `NEXT_PUBLIC_API_URL`        | Backend base URL for the contact form (`/api/contact`)      |
-| `NEXT_PUBLIC_CONTACT_ENDPOINT` | *(optional)* third-party form endpoint (takes precedence)   |
-| `NEXT_PUBLIC_CONTACT_FORMAT` | `json` (default) or `form` for third-party endpoints        |
+### Contact form
 
-Leaving both `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_CONTACT_ENDPOINT` empty
-gracefully disables the form — the UI refuses to submit with an honest error
-instead of pretending a message was sent.
+The form works out of the box on GitHub Pages: it posts to
+[FormSubmit](https://formsubmit.co)'s AJAX endpoint for the public contact
+address (`hanbalahmad07@gmail.com`). No account, key, or secret is needed.
 
-### Backend
+**One-time activation:** the first submission triggers an activation email
+to the contact address. Click the "Activate Form" link once — after that,
+every submission is delivered directly to the inbox.
+
+Spam protection: hidden honeypot field + a light client-side submission
+cooldown. No secrets are exposed in the frontend.
+
+Self-hosted alternative: deploy `backend/` (FastAPI: validation, honeypot,
+rate limiting, persistence, SMTP) and set `NEXT_PUBLIC_API_URL` in the
+frontend env. Any other endpoint (Formspree/Web3Forms) can be wired via
+`NEXT_PUBLIC_CONTACT_ENDPOINT`.
+
+### Backend (optional)
 
 ```bash
 cd backend
 python -m venv .venv
-.venv\Scripts\activate          # Windows (activate on macOS/Linux)
+.venv\Scripts\activate
 pip install -r requirements.txt
-cp .env.example .env            # then edit values
+cp .env.example .env        # then edit values
 uvicorn app.main:app --reload   # http://localhost:8000
 ```
 
@@ -51,44 +69,22 @@ uvicorn app.main:app --reload   # http://localhost:8000
 | `GET /health`     | Liveness check                                 |
 | `POST /api/contact` | Stores + (optionally) emails contact messages |
 
-Features: pydantic validation, honeypot spam trap, per-IP sliding-window rate
-limiting (default 6/hour), identical-submission dedupe, SQLAlchemy persistence
-(SQLite by default, Postgres via `DATABASE_URL`), optional SMTP delivery.
+## Deployment
 
-## What must be filled in before going live
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds the
+static site (with `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_REPO_NAME` set for
+the GitHub Pages sub-path) and publishes `web/out/`.
 
-1. **Profile photo** — `web/src/components/profile/ProfilePhoto.tsx` reads
-   `siteConfig.profileImage` (default `/assets/profile/hanbal-ahmad.webp`), served
-   from `web/public/assets/profile/`. A designed placeholder webp ships so the
-   hero never breaks; replace `web/public/assets/profile/hanbal-ahmad.webp` with
-   a real portrait (webp, ~4:5, up to ~1024×1280). Missing/corrupt files fall
-   back to a monogram tile.
-2. **Email** — `web/src/data/site.ts` → `contactEmail` (or
-   `NEXT_PUBLIC_CONTACT_EMAIL` in `.env.local`) is intentionally empty. Set your
-   real address to reveal the "Email me directly" mailto + copy-email block (no
-   form or backend needed); until then the site shows "Email address coming soon".
-3. **Contact delivery** — GitHub Pages can't run FastAPI, so the form needs a
-   reachable endpoint. Either:
-   - deploy `backend/` somewhere always-on (Render/Railway/Fly/VPS) and set
-     `NEXT_PUBLIC_API_URL`; or
-   - set `NEXT_PUBLIC_CONTACT_ENDPOINT` to a third-party static-form endpoint
-     (Formspree/Web3Forms) plus `NEXT_PUBLIC_CONTACT_FORMAT`.
-   Until one is set, the form submits nothing and tells the user so.
-4. **Domain** — set `NEXT_PUBLIC_SITE_URL` to your production URL.
-5. **Backend SMTP** — fill `SMTP_*` + `EMAIL_TO` in `backend/.env` to actually
-   receive messages; otherwise they're stored in the database and logged.
+## Optional: CV / resume
 
-## Commands
-
-| Task          | Command            |
-| ------------- | ------------------ |
-| Frontend dev  | `cd web && npm run dev` |
-| Frontend lint | `cd web && npm run lint` |
-| Frontend build| `cd web && npm run build` |
-| Backend dev   | `cd backend && uvicorn app.main:app --reload` |
+Drop a PDF at `web/public/assets/resume.pdf` and the "Download CV" button
+appears automatically in the hero and navbar (or set `NEXT_PUBLIC_RESUME_URL`).
+While absent, the button is hidden — it never links to a nonexistent file.
 
 ## Content integrity
 
 All project details, stats, and links come from verified public sources
 (Hanbal's GitHub profile and repository READMEs). No metrics or history are
-fabricated.
+fabricated. The WeatherVision screenshot is captured from the live product;
+projects without a public deployment show honest placeholders instead of
+mockups.

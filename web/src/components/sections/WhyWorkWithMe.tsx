@@ -27,7 +27,7 @@ export function WhyWorkWithMe() {
     <section
       id="why-work-with-me"
       aria-labelledby="why-heading"
-      className="scroll-mt-24 bg-white py-24 sm:py-28"
+      className="scroll-mt-24 bg-surface py-24 sm:py-28"
     >
       <Container>
         <SectionHeading
@@ -39,7 +39,7 @@ export function WhyWorkWithMe() {
         <div className="mt-12 grid gap-5 sm:grid-cols-2">
           {reasons.map((reason, i) => (
             <Reveal key={reason.title} delay={(i % 2) * 0.07}>
-              <div className="flex h-full flex-col rounded-2xl border border-line bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:shadow-[0_24px_60px_-30px_rgb(15,23,42,0.25)]">
+              <div className="flex h-full flex-col rounded-2xl border border-line bg-surface p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:shadow-[0_24px_60px_-30px_rgba(17,19,24,0.22)]">
                 <p
                   className="text-sm font-semibold text-accent"
                   aria-hidden="true"
@@ -58,7 +58,7 @@ export function WhyWorkWithMe() {
         </div>
 
         <Reveal delay={0.15}>
-          <div className="mt-10 flex flex-col items-start justify-between gap-5 rounded-2xl border border-line bg-white p-6 sm:flex-row sm:items-center sm:p-8">
+          <div className="mt-10 flex flex-col items-start justify-between gap-5 rounded-2xl border border-line bg-surface p-6 sm:flex-row sm:items-center sm:p-8">
             <div>
               <p className="text-base font-medium text-ink">
                 Have a project that matches any of these? Let&apos;s talk.

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, Download, MapPin } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand";
 import { Container } from "@/components/ui/Container";
 import { ProfilePhoto } from "@/components/profile/ProfilePhoto";
@@ -9,54 +9,14 @@ import { Button } from "@/components/ui/Button";
 import { staggerContainer, fadeUp } from "@/lib/motion";
 import { siteConfig } from "@/data/site";
 
-const techRow = [
+const coreStack = [
   "Next.js",
   "TypeScript",
-  "React",
   "Python",
   "FastAPI",
-  "Flask",
   "PostgreSQL",
-  "Tailwind CSS",
-  "Node.js",
   "Prisma",
-  "Machine Learning",
-  "REST APIs",
 ];
-
-const floatPills = [
-  { label: "Next.js", className: "-left-4 top-10 sm:-left-10", delay: "0s" },
-  { label: "TypeScript", className: "-right-3 -top-4 sm:-right-8", delay: "0.7s" },
-  { label: "Python", className: "-left-3 bottom-[38%] sm:-left-9", delay: "1.2s" },
-  { label: "FastAPI", className: "-right-4 top-[42%] sm:-right-9", delay: "0.4s" },
-  { label: "PostgreSQL", className: "-left-2 bottom-[16%] sm:-left-6", delay: "1.7s" },
-  { label: "AI/ML", className: "-right-3 -bottom-3 sm:-right-7", delay: "0.9s" },
-];
-
-function TechMarquee() {
-  const row = [...techRow, ...techRow];
-  return (
-    <div className="tech-marquee mt-auto overflow-hidden border-y border-line/70 bg-white/50 py-5">
-      <p className="sr-only">
-        Technologies I work with: {techRow.join(", ")}.
-      </p>
-      <ul
-        className="tech-marquee-track"
-        aria-hidden="true"
-        role="presentation"
-      >
-        {row.map((item, i) => (
-          <li key={`${item}-${i}`} className="flex items-center gap-4 px-5">
-            <span className="text-sm font-medium tracking-wide text-ink-2">
-              {item}
-            </span>
-            <span className="h-1 w-1 rounded-full bg-accent/70" aria-hidden="true" />
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
 
 export function Hero() {
   const reduce = useReducedMotion();
@@ -66,9 +26,9 @@ export function Hero() {
     <section
       id="hero"
       aria-labelledby="hero-heading"
-      className="relative flex min-h-svh flex-col overflow-hidden pt-28"
+      className="relative overflow-hidden pt-32 pb-20 sm:pt-36 sm:pb-24"
     >
-      <Container className="flex-1">
+      <Container>
         <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
           {/* Copy */}
           <motion.div
@@ -78,7 +38,7 @@ export function Hero() {
           >
             <motion.p
               variants={fadeUp}
-              className="text-[13px] font-semibold uppercase tracking-[0.18em] text-accent"
+              className="text-[13px] font-semibold uppercase tracking-[0.18em] text-accent-ink"
             >
               Hanbal Ahmad
             </motion.p>
@@ -89,15 +49,16 @@ export function Hero() {
               className="mt-4 text-[2.6rem] font-semibold leading-[1.05] tracking-tight text-ink sm:text-6xl lg:text-[4.25rem]"
             >
               Full-Stack Developer
-              <span className="block text-gradient">Python & AI/ML</span>
+              <span className="block text-accent">Python & AI/ML</span>
             </motion.h1>
 
             <motion.p
               variants={fadeUp}
-              className="mt-6 max-w-xl text-lg font-medium leading-relaxed text-ink"
+              className="mt-6 max-w-xl text-lg font-medium leading-relaxed text-ink-2"
             >
-              Building modern web applications and AI-powered products with
-              Next.js, TypeScript, Python, PostgreSQL, and practical AI/ML.
+              I build modern full-stack web applications, Python backends
+              and APIs, and AI-powered software — from database and API to
+              interface.
             </motion.p>
 
             {/* CTAs */}
@@ -124,7 +85,7 @@ export function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub profile"
-                  className="rounded-lg p-2.5 text-ink-2 transition-colors hover:bg-surface-2/70 hover:text-ink"
+                  className="rounded-lg p-2.5 text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink"
                 >
                   <GitHubIcon className="h-5 w-5" />
                 </a>
@@ -133,11 +94,25 @@ export function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn profile"
-                  className="rounded-lg p-2.5 text-ink-2 transition-colors hover:bg-surface-2/70 hover:text-ink"
+                  className="rounded-lg p-2.5 text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink"
                 >
                   <LinkedInIcon className="h-5 w-5" />
                 </a>
               </div>
+            </motion.div>
+
+            {/* Core stack — static, honest, no animation */}
+            <motion.div variants={fadeUp} className="mt-9">
+              <ul className="flex flex-wrap gap-2" aria-label="Core technologies">
+                {coreStack.map((tech) => (
+                  <li
+                    key={tech}
+                    className="rounded-md border border-line bg-surface px-3 py-1.5 text-xs font-medium text-ink-2"
+                  >
+                    {tech}
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           </motion.div>
 
@@ -146,46 +121,35 @@ export function Hero() {
             initial={reduce ? undefined : { opacity: 0, y: 24 }}
             animate={reduce ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="relative mx-auto w-full max-w-[380px] lg:max-w-[420px]"
+            className="relative mx-auto w-full max-w-[360px] lg:max-w-[400px]"
           >
-            <div className="relative">
-              <div
-                aria-hidden="true"
-                className="absolute -inset-8 -z-10 rounded-[3rem] bg-gradient-to-br from-accent/15 via-transparent to-violet/15 blur-3xl"
-              />
-              <div className="relative rounded-[2rem] border border-white/70 bg-white/60 p-2.5 shadow-[0_28px_70px_-28px_rgb(15,23,42,0.35)] backdrop-blur-sm">
-                <div className="aspect-[4/5] overflow-hidden rounded-[1.6rem]">
-                  <ProfilePhoto />
-                </div>
+            <div
+              aria-hidden="true"
+              className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-[linear-gradient(135deg,rgba(108,92,231,0.10),transparent_55%,rgba(0,166,166,0.08))] blur-2xl"
+            />
+            <div className="rounded-[1.75rem] border border-line bg-surface p-2.5 shadow-[0_24px_60px_-28px_rgba(17,19,24,0.3)]">
+              <div className="aspect-[4/5] overflow-hidden rounded-[1.3rem]">
+                <ProfilePhoto />
               </div>
-
-              {/* Glass info card */}
-              <div className="absolute -bottom-6 left-6 right-6 flex items-center justify-between gap-3 rounded-2xl border border-white/80 bg-white/85 px-4 py-3 shadow-lg backdrop-blur-xl">
-                <span className="truncate text-sm font-medium text-ink-2">
-                  Full-Stack Developer
-                </span>
-                <span className="shrink-0 text-xs font-medium text-accent">
-                  Python · AI/ML
-                </span>
-              </div>
-
-              {/* Floating tech pills — decorative, desktop only */}
-              {floatPills.map((pill) => (
-                <span
-                  key={pill.label}
-                  aria-hidden="true"
-                  className={`float-tag absolute hidden rounded-xl border border-white/80 bg-white/85 px-3 py-1.5 text-[11px] font-medium text-ink-2 shadow-md backdrop-blur-xl lg:block ${pill.className}`}
-                  style={{ animationDelay: pill.delay }}
-                >
-                  {pill.label}
-                </span>
-              ))}
             </div>
+
+            {/* Info card */}
+            <div className="absolute -bottom-5 left-5 right-5 flex items-center justify-between gap-3 rounded-xl border border-line bg-surface px-4 py-3 shadow-[0_14px_36px_-18px_rgba(17,19,24,0.35)]">
+              <span className="truncate text-sm font-medium text-ink-2">
+                Full-Stack Developer
+              </span>
+              <span className="shrink-0 text-xs font-medium text-accent-ink">
+                Python · AI/ML
+              </span>
+            </div>
+
+            <p className="mt-10 flex items-center justify-center gap-1.5 text-xs text-ink-3">
+              <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
+              Kamalia, Pakistan · Open to remote
+            </p>
           </motion.div>
         </div>
       </Container>
-
-      <TechMarquee />
     </section>
   );
 }

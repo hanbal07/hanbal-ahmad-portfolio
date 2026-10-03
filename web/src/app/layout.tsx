@@ -60,6 +60,7 @@ const personJsonLd = {
   "@type": "Person",
   name: siteConfig.name,
   url: siteConfig.siteUrl,
+  email: siteConfig.contactEmail ? `mailto:${siteConfig.contactEmail}` : undefined,
   jobTitle: "Full-Stack Developer | Python & AI/ML",
   alumniOf: "University of Kamalia",
   knowsAbout: [
@@ -104,3 +105,4 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     </html>
   );
 }
+

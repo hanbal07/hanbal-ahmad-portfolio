@@ -14,6 +14,18 @@ export interface ProjectVisual {
   tone: "cyan" | "indigo" | "emerald" | "amber";
 }
 
+/**
+ * Optional real product screenshot (path under web/public).
+ * Only projects with a live, reachable deployment get one —
+ * screenshots are captured from the actual product, never mocked.
+ */
+export interface ProjectScreenshot {
+  src: string;
+  alt: string;
+  /** Short, honest caption shown with the image. */
+  caption?: string;
+}
+
 export interface ProjectCaseStudy {
   overview: string;
   problem: string;
@@ -46,6 +58,7 @@ export interface Project {
   status: ProjectStatus;
   featured: boolean;
   visual: ProjectVisual;
+  screenshot?: ProjectScreenshot;
   caseStudy?: ProjectCaseStudy;
 }
 
@@ -339,6 +352,11 @@ export const projects: Project[] = [
     featured: true,
     visual: {
       tone: "amber",
+    },
+    screenshot: {
+      src: "/assets/screenshots/weather-vision-home.png",
+      alt: "WeatherVision live app — landing view with search, current conditions, and explainable comfort score",
+      caption: "Live app — captured from the deployed site",
     },
     caseStudy: {
       overview:

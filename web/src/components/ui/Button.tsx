@@ -2,7 +2,13 @@ import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "outline" | "ghost" | "navy-outline";
+type Variant =
+  | "primary"
+  | "accent"
+  | "outline"
+  | "ghost"
+  | "dark-outline"
+  | "dark-accent";
 type Size = "sm" | "md" | "lg";
 
 const base =
@@ -10,12 +16,15 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-accent text-white hover:bg-accent-strong shadow-[0_0_0_1px_rgba(37,99,235,0.18),0_8px_28px_-12px_var(--glow)] hover:shadow-[0_0_0_1px_rgba(37,99,235,0.35),0_12px_36px_-12px_var(--glow)]",
+    "bg-ink text-white hover:bg-[#23262e] shadow-[0_10px_30px_-14px_rgba(17,19,24,0.5)]",
+  accent:
+    "bg-accent text-white hover:bg-accent-strong shadow-[0_10px_28px_-12px_var(--glow)]",
   outline:
-    "border border-line-strong bg-white/60 text-ink hover:border-accent/50 hover:bg-surface-2",
+    "border border-line-strong bg-surface/70 text-ink hover:border-accent/50 hover:bg-surface-2",
   ghost: "text-ink-2 hover:bg-surface-2 hover:text-ink",
-  "navy-outline":
-    "border border-navy-line bg-navy-2/40 text-navy-ink hover:border-navy-accent/60 hover:bg-navy-2",
+  "dark-outline":
+    "border border-dark-line bg-dark-2/60 text-dark-ink hover:border-dark-accent/60 hover:bg-dark-2",
+  "dark-accent": "bg-accent text-white hover:bg-accent-strong",
 };
 
 const sizes: Record<Size, string> = {
