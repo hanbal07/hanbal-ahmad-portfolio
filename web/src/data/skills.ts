@@ -25,7 +25,7 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "Database",
     blurb: "Relational data modeled and queried properly.",
-    items: ["SQL", "PostgreSQL", "Prisma"],
+    items: ["SQL", "PostgreSQL", "Prisma", "pgvector"],
   },
   {
     title: "AI / ML",
@@ -37,7 +37,7 @@ export const skillCategories: SkillCategory[] = [
       "Computer Vision",
       "RAG",
       "Embeddings",
-      "AI integration",
+      "AI-powered applications",
     ],
   },
   {
